@@ -13,7 +13,7 @@ For now, reading and writing of all formats are tested(test scripts not present)
 Implemented Formats
 --------------------
 
-## LOL model formats
+### LOL model formats
 
 Based on http://code.google.com/p/lolmodelviewer/ .
 
@@ -21,7 +21,7 @@ Based on http://code.google.com/p/lolmodelviewer/ .
 * .skn
 * .anm
 
-## Well-known formats
+### Well-known formats
 
 * .md2 ( based on http://tfc.duke.free.fr/old/models/md2.htm )
 
