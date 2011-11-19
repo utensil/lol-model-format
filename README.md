@@ -30,7 +30,7 @@ Copyright Issues
 
 If any violation of anyone's copyright is spotted in this project, please contact utensilcandel at Google Mail.
 
-Some models might be included for Rspec testing, for now I'm using LOL's own model for testing, hopefully I can DIY some myself...
+Some models might be included for Rspec testing, for now I'm using LOL's own model for testing, hopefully I can DIY some later...
 
 Licence
 --------
