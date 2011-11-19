@@ -1,4 +1,4 @@
-require 'base_types.rb'
+require 'lol_model_format/base_types.rb'
 
 module LolModelFormat
     class SklFile < BinData::Record
