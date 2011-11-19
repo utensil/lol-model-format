@@ -6,9 +6,9 @@ Reading, writing and parsing model formats used in the game League of Legends, a
 Development Status
 -------------------
 
-Early stage. Use the code at your own stake.
+Early stage. Use the code at your own risk.
 
-For now, reading and writing of all formats are tested(test scripts not present), specs are planned to be added soon.
+For now, all formats are rspeced at a fundamental level, more specs are planned to be added.
 
 Implemented Formats
 --------------------
