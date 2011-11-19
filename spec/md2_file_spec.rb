@@ -1,13 +1,58 @@
-require 'lol_model_format.rb'
+require 'spec_helper'
 
 describe LolModelFormat::Ext::Md2File do
-	
-	include LolModelFormat::Ext
-	
-	context 'dummy' do
-		
-		it 'should be ok to initilize' do
-			Md2File.new
-		end
-	end
+    
+    include LolModelFormat::Ext
+
+    #It's time-consuming to load a model, so do it only once
+    before :all do
+        lambda {            
+            @md2_file_name = File.expand_path('../fixture/ogro.md2', __FILE__)
+            io = File.open(@md2_file_name, 'rb')			
+            @md2 = Md2File.read(io)
+            io.close
+        }.should_not raise_error
+
+    end
+    
+    it 'should read and parse correctly' do
+        @md2.should_not be_nil
+    end
+    
+    it 'should has correct fixed values' do
+        @md2.header.ident.should == 844121161
+        @md2.header.version.should == 8
+    end
+    
+    it 'should be self consistent' do
+        @md2.header.framesize.value.should == @md2.frames[0].num_bytes
+        @md2.header.num_skins.value.should == @md2.skin_names.size
+        @md2.header.num_vertices.value.should == @md2.frames[0].verts.size
+        @md2.header.num_st.value.should == @md2.skin_coords.size
+        @md2.header.num_tris.value.should == @md2.triangles.size
+        @md2.header.num_glcmds.value.should == @md2.gl_cmds.size
+        @md2.header.num_frames.value.should == @md2.frames.size
+    end
+    
+    it 'should write exactly what it reads' do
+        wio = StringIO.new
+        @md2.write(wio)
+        wio.flush
+        wio.seek(0, IO::SEEK_SET)
+        
+        Digest::MD5.hexdigest(wio.read).should == Digest::MD5.file(@md2_file_name).hexdigest
+    end
+    
+    it 'should write exactly what it reads' do
+        wio = StringIO.new
+        @md2.write(wio)
+        wio.flush
+        wio.seek(0, IO::SEEK_SET)
+        
+        Digest::MD5.hexdigest(wio.read).should == Digest::MD5.file(@md2_file_name).hexdigest
+    end 
+    
+    it 'should be valid for each field' do
+        pending
+    end
 end
