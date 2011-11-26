@@ -42,14 +42,10 @@ module LolModelFormat
         end
         
         array :bone_index, :type => :uint8, 
-                :read_until => lambda { index == BONE_INDEX_SIZE - 1 } 
-        
-        struct :weights do
-          float :x
-          float :y
-          float :z
-          float :w
-        end
+                :read_until => lambda { index == BONE_INDEX_SIZE - 1 }
+                            
+        array :weights, :type => :float,
+                :read_until => lambda { index == BONE_INDEX_SIZE - 1 }
         
         struct :normal do
           float :x

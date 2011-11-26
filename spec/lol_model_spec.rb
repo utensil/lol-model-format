@@ -5,32 +5,41 @@ describe LolModelFormat::LolModel do
     include LolModelFormat
     
     it 'should convert to md2 file' do
-    	["Annie", "bear", "Akali"].each do |model_name|
-    		    		
-		    @skl_file_name = File.expand_path("../fixture/#{model_name}.skl", __FILE__)
-	        io = File.open(@skl_file_name, 'rb')			
-	        @skl = SklFile.read(io)
-	        io.close
-	        
-	        @skn_file_name = File.expand_path("../fixture/#{model_name}.skn", __FILE__)
-	        io = File.open(@skn_file_name, 'rb')			
-	        @skn = SknFile.read(io)
-	        io.close
-	        
-	        @anm_file_name = File.expand_path("../fixture/#{model_name}_Attack1.anm", __FILE__)
-	        io = File.open(@anm_file_name, 'rb')			
-	        @anm = AnmFile.read(io)
-	        io.close
-	    	
-	        m = LolModel.new @skl, @skn, @anm
-	        
-	        md2 = m.to_md2
-	        
-	        @md2_file_name = File.expand_path("../fixture/#{model_name}.md2", __FILE__)
-	        wio = File.open(@md2_file_name, 'wb')	        
-	        md2.write(wio)
-	        wio.close        
+        ["Annie", "bear", "Akali"].each do |model_name|
+                        
+            @skl_file_name = File.expand_path("../fixture/#{model_name}.skl", __FILE__)
+            File.open(@skl_file_name, 'rb') do |io|
+                @skl = SklFile.read(io)
+            end
+            
+            @skn_file_name = File.expand_path("../fixture/#{model_name}.skn", __FILE__)
+            File.open(@skn_file_name, 'rb') do |io|
+                @skn = SknFile.read(io)
+            end			
+            
+            @animations = {}
+            
+            ["Attack1"].each do |animation_name|
+                anm_file_name = File.expand_path("../fixture/#{model_name}_#{animation_name}.anm", __FILE__)
+                
+                anm = nil
+                
+                File.open(anm_file_name, 'rb') do |io|
+                    anm = AnmFile.read(io)
+                end
+                
+                @animations[animation_name] = anm
+            end
+            
+            m = LolModel.new @skl, @skn, @animations
+            
+            md2 = m.to_md2
+            
+            @md2_file_name = File.expand_path("../fixture/#{model_name}.md2", __FILE__)
+            wio = File.open(@md2_file_name, 'wb')	        
+            md2.write(wio)
+            wio.close        
         end
-	end
+    end
     
 end

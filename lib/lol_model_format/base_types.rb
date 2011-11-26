@@ -16,3 +16,9 @@ module LolModelFormat
         float :z
     end
 end
+
+require File.expand_path('../../../vendor/ruby-math-3d/RMath.rb', __FILE__)
+
+include RMath
+
+

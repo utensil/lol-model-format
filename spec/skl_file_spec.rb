@@ -29,8 +29,9 @@ describe LolModelFormat::SklFile do
             puts "bone.name: #{bone.name}"
             puts "bone.parent_id: #{bone.parent_id}"
             puts "bone.scale: #{bone.scale}"
-            puts "bone.orientation: #{bone.orientation.inspect}"
+            puts "bone.transform_matrix4: #{bone.transform_matrix4.inspect}"
             puts "bone.position: #{bone.position.inspect}"
+            puts "bone.orientation: #{bone.orientation.inspect}"
             
             if @skl.version == 2
               puts "num_of_bone_ids: #{@skl.num_of_bone_ids.value}"

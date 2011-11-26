@@ -1,0 +1,65 @@
+2010-09-14  vaiorabbit  <http://twitter.com/vaiorabbit>
+
+	* RVec3.c|h, RVec4.c|h, WrapRMath.c, RMath.rb (RVec3#transformTransposed, etc): Added.
+
+2010-08-15  vaiorabbit  <http://twitter.com/vaiorabbit>
+
+	* RVec3.c, WrapRMath.c, RMath.rb (RVec3#transformByQuaternion): Added.
+
+2010-06-23  vaiorabbit  <http://twitter.com/vaiorabbit>
+
+	* WrapRMath.c (RQuat_getElement/RVec3_getElement/RVec4_getElement):
+	Return values from R*GetElement() are now received by correct type (int -> rmReal).
+
+2010-01-03  vaiorabbit  <http://twitter.com/vaiorabbit>
+
+	* RMtx4.c, WrapRMath.c, RMath.rb (RMtx4#getUpper3x3/RMtx4#setUpper3x3): Added.
+	* WrapRMath.c (RMtx4#e00=~RMtx4#e33=): The number of arguments to C function (4th argument of rb_define_method()) is corrected.
+
+2010-01-02  vaiorabbit  <http://twitter.com/vaiorabbit>
+
+	* RMtx3.c, RMtx4.c, WrapRMath.c, RMath.rb (getRow/getColumn, SetRow/SetColumn): Added.
+
+2009-12-21  vaiorabbit  <http://twitter.com/vaiorabbit>
+
+	* Update: Old contact information is updated to the current one.
+
+2008-08-30  vaiorabbit  <http://twitter.com/vaiorabbit>
+
+	* RMtx3.c, RMtx4.c (RMtx3Inverse,RMtx4Inverse): Modified to reduce
+	the number of scalar multiplication.
+
+2008-08-02  vaiorabbit  <http://twitter.com/vaiorabbit>
+
+	* WrapRMath.c (RMtx3_to_s, RMtx4_to_s, etc.): Functions for "to_s"
+	implementation now buid strings by +sprintf+, not +rb_str_plus+, etc.
+
+2008-07-27  vaiorabbit  <http://twitter.com/vaiorabbit>
+
+	* RType.h (RMATH_SINGLE_PRECISION): Added. Enable this to force
+	RMath using +float+ for its internal calculation.
+
+	* WrapRMath.c (RMATH_ENABLE_ARGUMENT_CHECK): Added. Enable this
+	macro for strict type checking.
+
+	* WrapRMath.c: The codes for overriding "!=" operators are
+	removed. Note that the operation "a != b" is just a syntactic
+	shortcut of "!(a == b)", and the former expression is
+	automatically convertd into the latter one.
+	See: Programming Ruby: The Pragmatic Programmer's Guide
+	http://www.ruby-doc.org/docs/ProgrammingRuby/html/tut_expressions.html#UG
+	  Both == and =~ have negated forms, != and !~. However, these are
+	  converted by Ruby when your program is read. a!=b is equivalent
+	  to !(a==b), and a!~b is the same as !(a=~b). This means that if
+	  you write a class that overrides == or =~ you get a working !=
+	  and !~ for free. But on the flip side, this also means that you
+	  cannot define != and !~ independent of == and =~, respectively.
+
+2008-07-21  vaiorabbit  <http://twitter.com/vaiorabbit>
+
+	* WrapRMath.c (RMtx3,RMtx4): Added new element-wise
+	getters/setters (mtx.e00, mtx.e00=, etc.)
+
+2008-07-20  vaiorabbit  <http://twitter.com/vaiorabbit>
+
+	* Announce: First release.

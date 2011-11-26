@@ -27,14 +27,23 @@ module LolModelFormat
             class AnmFrame < BinData::Record
                 endian :little
                 
-                quaternion :orientation
-                vector3 :position
+                quaternion :orientation_origin
+                vector3 :position_origin
+                
+                def orientation            	
+                    RQuat.new(orientation_origin.x.value, orientation_origin.y.value,
+                        orientation_origin.z.value, orientation_origin.w.value)
+                end
+                
+                def position
+                    RVec3.new(position_origin.x.value, position_origin.y.value, position_origin.z.value)
+                end
             end
-            		
+                    
             array :frames, :type => :anm_frame, 
                   :read_until => lambda { index == number_of_frames - 1 }
         end
-        	
+            
         array :bones, :type => :anm_bone, 
               :read_until => lambda { index == number_of_bones - 1 }
     end
