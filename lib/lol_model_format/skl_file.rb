@@ -1,4 +1,4 @@
-require 'lol_model_format/base_types.rb'
+require 'lol_model_format/base_types'
 
 module LolModelFormat
     class SklFile < BinData::Record
@@ -19,8 +19,16 @@ module LolModelFormat
             string :name, :length => BONE_NAME_SIZE
             uint32 :parent_id
             float :scale                    
-            array :orientation_transform, :type => :float, 
+            array :orientation, :type => :float, 
                   :read_until => lambda { index == TRANSFORM_SIZE - 1 }
+                  
+            def position
+                v = Vector3.new
+                v.x = orientation[3]
+                v.y = orientation[7]
+                v.z = orientation[11]
+                v
+            end
         end
         
         array :bones, :type => :skl_bone, 

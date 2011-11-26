@@ -1,4 +1,5 @@
-require 'lol_model_format/base_types.rb'
+require 'lol_model_format/base_types'
+require 'lol_model_format/ext/md2_anorms'
 
 module LolModelFormat
     module Ext
