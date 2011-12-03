@@ -16,88 +16,7 @@ module LolModelFormat
             @skeleton_file = skl
             @skin_file = skn
             @animation_files = anms
-            
-            refresh
         end
-        
-        def vertex_array
-            @vertex_array ||= get_vertex_array
-        end
-        
-        # DEPRECATE I guess this arrays aren't useful in their own form now
-        # left here in case of need in the future
-        def refresh
-            @skin_file.vertices.each do |v|				
-                #// Position Information
-                @vertex_array = []
-                pos = v.position
-                @vertex_array << pos.x
-                @vertex_array << pos.y
-                @vertex_array << pos.z
-                
-                #// Normal Information
-                @normal_array = []
-                n = v.normal
-                @normal_array << n.x
-                @normal_array << n.y
-                @normal_array << n.z
-                
-                
-                @texture_array = []
-                t = v.tex_coords		
-                @texture_array << t.x
-                @texture_array << t.y
-                #TODO // DDS Texture.
-                #tData.Add(1.0f - skn.vertices[i].texCoords.Y);
-                
-                @bone_index_array = []
-                bis = v.bone_index        		
-                #TODO check bi.size == BONE_INDEX_SIZE
-                bis.each do |bi|
-                    @bone_index_array << bi
-                end
-                
-                @bone_weight_array = []
-                v.weights.each do |w|
-                    @bone_weight_array << w
-                end        		
-            end
-            
-            @bone_orientation_array = []
-            @bone_position_array = []
-            @bone_name_array = []
-            @bone_scale_array = []
-            @bone_parent_array = []
-            @bone_name_array = []
-            @bone_name_array = []
-            @bone_name_toIndex_map = {}
-            @skeleton_file.bones.each_with_index do |bone, i|
-                @bone_orientation_array << bone.orientation
-                @bone_position_array << bone.position
-                @bone_name_array << bone.name
-                @bone_scale_array << bone.scale
-                @bone_parent_array << bone.parent_id
-                @bone_name_array << bone.name
-                @bone_name_toIndex_map[bone.name] ||= i
-            end
-            
-            #// I don't know why things need remapped, but they do.
-            if @skeleton_file.version == 2
-                @bone_index_array = @bone_index_array.map do |bone_index|
-                    if bone_index < @skeleton_file.bone_ids.size
-                        @skeleton_file.bone_ids[bone_index]
-                    else
-                        0
-                    end
-                end
-            end
-            
-            #TODO
-        end	
-        
-        attr_reader :bone_index_array, :bone_weight_array, :bone_orientation_array, 
-        :bone_position_array, :bone_name_array, :bone_scale_array, :bone_parent_array,
-        :bone_name_array, :bone_name_array, :bone_name_toIndex_map
         
         def get_md2_skin_coords(skinwidth, skinheight)
             skin_coords = []
@@ -137,9 +56,9 @@ module LolModelFormat
             
             frame = Md2File::Frame.new
             
-            v_x_max = vertices.max_by { |v| v.position.x.abs}.position.x
-            v_y_max = vertices.max_by { |v| v.position.y.abs}.position.y
-            v_z_max = vertices.max_by { |v| v.position.z.abs}.position.z			
+            v_x_max = vertices.max_by { |v|  v.position.x.abs}.position.x
+            v_y_max = vertices.max_by { |v|  v.position.y.abs}.position.y
+            v_z_max = vertices.max_by { |v|  v.position.z.abs}.position.z			
             
             frame.scale.x = 2 * v_x_max / 256.0
             frame.scale.y = 2 * v_y_max / 256.0
@@ -171,6 +90,201 @@ module LolModelFormat
             
             frame
         end
+        
+        def get_md2_skl_trianles(count)
+            triangles = []
+            
+            0.upto count do |i|
+                
+                #three vertex of a single triangle
+                a = 4 * i
+                b = 4 * i + 1
+                c = 4 * i + 2
+                
+                tri = Md2File::Triangle.new
+                tri.index_xyz = [a, b, c]
+                tri.index_st = [a, b, c]
+                
+                triangles << tri
+                
+                #three vertex of a single triangle
+                a = 4 * i
+                b = 4 * i + 1
+                c = 4 * i + 3
+                
+                tri = Md2File::Triangle.new
+                tri.index_xyz = [a, b, c]
+                tri.index_st = [a, b, c]
+                
+                triangles << tri
+                
+                #three vertex of a single triangle
+                a = 4 * i
+                b = 4 * i + 3
+                c = 4 * i + 2
+                
+                tri = Md2File::Triangle.new
+                tri.index_xyz = [a, b, c]
+                tri.index_st = [a, b, c]
+                
+                triangles << tri
+                
+                #three vertex of a single triangle
+                a = 4 * i + 3
+                b = 4 * i + 1
+                c = 4 * i + 2
+                
+                tri = Md2File::Triangle.new
+                tri.index_xyz = [a, b, c]
+                tri.index_st = [a, b, c]
+                
+                triangles << tri
+            end
+            
+            triangles       	
+        end
+        
+        def get_vertices_from_skl(skl, offset)
+            vertices = []
+            
+            skl.bones.each do |i, b|
+                
+                next unless @skeleton_file.bone_ids.include? i        	 	
+                
+                unless b.root?
+                    
+                    #TODO
+                    #vertex.normal.x = normal.x / total_weight
+                    #vertex.normal.y = normal.y / total_weight
+                    #vertex.normal.z = normal.z / total_weight
+                    
+                    #v.bone_index.each do |bi|
+                    #    vertex.bone_index << bi
+                    #end
+                    
+                    #v.weights.each do |w|
+                    #    vertex.weights << w
+                    #end
+                    
+                    #vertex.tex_coords.x = v.tex_coords.x
+                    #vertex.tex_coords.y = v.tex_coords.y
+                    
+                    #top
+                    vertex = SknFile::SknVertex.new
+                    vertex.position.x = b.position.x
+                    vertex.position.y = b.position.y
+                    vertex.position.z = b.position.z
+                    
+                    #bottom three vertexes
+                                
+                    #parent
+                    bp = b.parent
+                    
+                    vertex_parent = SknFile::SknVertex.new
+                    vertex_parent.position.x = bp.position.x
+                    vertex_parent.position.y = bp.position.y
+                    vertex_parent.position.z = bp.position.z
+                    
+                    #slightly offset
+                    vertex_helper = SknFile::SknVertex.new
+                    vertex_helper.position.x = bp.position.x + offset
+                    vertex_helper.position.y = bp.position.y - offset
+                    vertex_helper.position.z = bp.position.z + offset
+                    
+                    #slightly offset 2
+                    vertex_helper2 = SknFile::SknVertex.new
+                    vertex_helper2.position.x = bp.position.x - offset
+                    vertex_helper2.position.y = bp.position.y + offset
+                    vertex_helper2.position.z = bp.position.z - offset        			
+                    
+                    vertices << vertex
+                    vertices << vertex_parent
+                    vertices << vertex_helper
+                    vertices << vertex_helper2
+                else
+                    vertex = SknFile::SknVertex.new
+                    vertex.position.x = b.position.x
+                    vertex.position.y = b.position.y
+                    vertex.position.z = b.position.z
+                    
+                    vertices << vertex
+                    vertices << vertex
+                    vertices << vertex
+                    vertices << vertex 			
+                end
+            end
+            
+            vertices	        	
+        end
+        
+        def get_skl_from_anm_frame(anm_file, frame_index)
+            skeleton = Skeleton.new
+            
+            anm_file.bones.each_with_index do |bone, i|
+                frame = bone.frames[frame_index]
+                
+                static_bone = static_skeleton.bones[i]
+                
+                b = Bone.new skeleton
+                
+                b.index = i
+                b.name = bone.name
+                b.parent_id = static_bone.parent_id
+                b.scale = static_bone.scale
+            
+                b.orientation = frame.orientation
+                b.position = frame.position	
+                
+                skeleton.bones[i] = b
+            end
+            
+            skeleton.absolutify!
+            skeleton
+        end
+        
+        
+        def to_md2_skl
+            md2 = Md2File.new
+            
+            #TODO make skin size configurable
+            md2.header.skinwidth = 512
+            md2.header.skinheight = 512
+            
+            #Skin files are always external, so skin names aren't always useful
+            md2.skin_names = []
+            #OpenGL Commands aren't always useful too
+            md2.gl_cmds = []	        
+            
+            #skin coord to UV-map the texturre/skin on the model
+            md2.skin_coords = get_md2_skin_coords(md2.header.skinwidth, md2.header.skinheight)
+            
+            offset = 0.3
+            
+            #trianle that determines how all vertexes form faces TODO
+            puts static_skeleton.bones.size
+            
+            static_vertices = get_vertices_from_skl(static_skeleton, offset)
+            md2.triangles = get_md2_skl_trianles(static_vertices.size / 3)
+            
+            #add a frame to describe the static skeleton
+            md2.frames << get_md2_frame("skl_static001", static_vertices)
+
+            @animation_files.each do |name, anm_file|
+                
+                0.upto anm_file.number_of_frames - 1 do |frame_index|
+                #1.upto 2 do |frame_index|
+                    puts frame_index	
+                                    
+                        formated_frame_name = "skl_%s%03d" % [escape_md2_frame_name(name), frame_index + 1] 
+                        
+                        skeleton = get_skl_from_anm_frame(anm_file, frame_index)
+                                        
+                        md2.frames << get_md2_frame(formated_frame_name, get_vertices_from_skl(skeleton, offset))
+                    end
+            end
+
+            md2
+        end
 
         def to_md2
             md2 = Md2File.new
@@ -191,17 +305,14 @@ module LolModelFormat
             md2.triangles = get_md2_trianles
             
             #add a frame to describe the static model
-            md2.frames << get_md2_frame('static', @skin_file.vertices)
-            
-            #add a frame to describe the skeletoned model
-            md2.frames << get_md2_frame('skeleton', get_frame_vertices_for_skl)
-            
-#            @animation_files.each do |name, anm_file|
-#            	get_animated_vertice_frames(anm_file).each_with_index do #|frame_vertices, i|
-#            		formated_frame_name = "%s%03d" % [escape_md2_frame_name(name), #i + 1]
-#            		md2.frames << get_md2_frame(formated_frame_name, #frame_vertices)
-#            	end
-#            end
+            md2.frames << get_md2_frame('static001', @skin_file.vertices)
+
+            @animation_files.each do |name, anm_file|
+                get_animated_vertice_frames(@skin_file.vertices, anm_file).each_with_index do |frame_vertices, i|
+                    formated_frame_name = "%s%03d" % [escape_md2_frame_name(name), i + 1]
+                    md2.frames << get_md2_frame(formated_frame_name, frame_vertices)
+                end
+            end
 
             md2
         end
@@ -221,6 +332,7 @@ module LolModelFormat
             attr_accessor :skeleton
             attr_accessor :index, :name, :parent_id, :scale
             attr_accessor :orientation, :position, :transform
+            attr_reader :reverse_transform
             
             def initialize(skl)        		
                 @absolute = false   
@@ -238,7 +350,8 @@ module LolModelFormat
             end
             
             def absolute?
-                root? || @absolute
+                #root? ||                 
+                @absolute
             end
             
             def parent
@@ -246,36 +359,37 @@ module LolModelFormat
                 @skeleton.bones[parent_id]
             end
             
-            def absolutify!        		
+            def absolutify!
+                return if absolute?
+                
+                local_transform = RMtx4.new.setIdentity.rotationQuaternion(@orientation)
+                local_transform *= RMtx4.new.setIdentity.translation(@position.x, @position.y, @position.z)
+                #local_transform *= RMtx4.new.scaling(scale, scale, scale) 
+                
+                #/ 
+                #local_transform.e30 = position.x# * (1.0 / scale)
+                #local_transform.e31 = position.y# * (1.0 / scale)
+                #local_transform.e32 = position.z# * (1.0 / scale)	
+                                
                 if root?
                     # No parent bone for root bones.
-                    # So, just calculate directly.
-                    world_transform = RMtx4.new.rotationQuaternion(orientation)
-                    world_transform.e30 = position.x * (1.0 / scale)
-                    world_transform.e31 = position.y * (1.0 / scale)
-                    world_transform.e32 = position.z * (1.0 / scale)
-                    
-                    self.transform = world_transform
+                    # So, just calculate directly.                                       
+                    @transform = local_transform
+                    @reverse_transform = @transform.getInverse
+                    @orientation = @orientation
                 else
                     #recursively up
                     parent.absolutify! unless parent.absolute? 
-                    local_transform = RMtx4.new.rotationQuaternion(self.orientation)
-                    local_transform.e30 = position.x * (1.0 / scale)
-                    local_transform.e31 = position.y * (1.0 / scale)
-                    local_transform.e32 = position.z * (1.0 / scale)
                     
                     # Append matrices for position transform A * B
                     # Append quaternions for rotation transform B * A
-                    self.transform = local_transform # * parent.transform
-                    self.orientation = self.orientation#parent.orientation * self.orientation
+                    @transform = local_transform * parent.transform
+                    @reverse_transform = @transform.getInverse
+                    @orientation = parent.orientation * @orientation
                 end
                 
                 #ensure that now it's absolute
                 @absolute = true
-                
-            rescue => e
-                puts self.orientation.inspect
-                raise e
             end
         end
         
@@ -284,7 +398,13 @@ module LolModelFormat
             attr_accessor :bones
             
             def initialize        		
-                @bones = []
+                @bones = {}
+            end
+            
+            def absolutify!
+                bones.each do |i, b|
+                    b.absolutify!
+                end
             end
         end
         
@@ -303,130 +423,89 @@ module LolModelFormat
                 b.name = bone.name
                 b.parent_id = bone.parent_id
                 b.scale = bone.scale
-                
-                b.transform = bone.transform
+
                 b.orientation = bone.orientation
                 b.position = bone.position	
-                
-                skeleton.bones << b
+
+                skeleton.bones[i] = b
             end
             
-            skeleton.bones.each do |b|
-                b.absolutify!
-            end
-            
+            skeleton.absolutify!
+                        
             skeleton
         end
 
-        def get_frame_vertices_for_skl
-            vertices = []
+        
+        def remap_bone_index(i)
+            #return i
             
-            skeleton = static_skeleton		
+            bone_index = 0
             
-            @skin_file.vertices.each do |v|
-                vertex = SknFile::SknVertex.new
-                
-                #// Transform the vertex information based on bones.
-                position = RVec3.new
-                normal = RVec3.new
-                
-                0.upto 3 do |i|
-                    bone_transformer = skeleton.bones[v.bone_index[i]].transform
-                    
-                    v_postion_4 = RVec4.new(v.position.x.value, v.position.y.value, v.position.z.value, 1.0).transform(bone_transformer)
-                    
-                    position += v.weights[i] * v_postion_4.xyz
-                    
-                    v_normal_4 = RVec4.new(v.normal.x.value, v.normal.y.value, v.normal.z.value, 1.0).transform(bone_transformer)
-                    
-                    normal += v.weights[i] * v_normal_4.xyz
-                end
-                
-                vertex.position.x = position.x
-                vertex.position.y = position.y
-                vertex.position.z = position.z
-                
-                vertex.normal.x = normal.x
-                vertex.normal.y = normal.y
-                vertex.normal.z = normal.z
-                
-                v.bone_index.each do |bi|
-                    vertex.bone_index << bi
-                end
-                
-                v.weights.each do |w|
-                    vertex.weights << w
-                end
-                
-                vertex.tex_coords.x = v.tex_coords.x
-                vertex.tex_coords.y = v.tex_coords.y
-                
-                vertices << vertex
+            if @skeleton_file.version == 2
+                if i < @skeleton_file.bone_ids.size     
+                    bone_index = @skeleton_file.bone_ids[i]
+                else
+                    puts "ALERT: #{i} => 0"
+                    bone_index = 0
+                end	 
+            else
+                bone_index = i
             end
             
-            vertices
+            bone_index
         end
 
-        def get_animated_vertice_frames(anm_file)
+        def get_animated_vertice_frames(vertices, anm_file)
             vertice_frames = []
-                        
-            skeleton = Skeleton.new
             
             #0.upto anm_file.number_of_frames - 1 do |frame_index|
             0.upto 5 do |frame_index|
-                puts frame_index	
+                puts frame_index
                 
                 frame_vertices =[]
                 
-                anm_file.bones.each_with_index do |bone, i|
-                    frame = bone.frames[frame_index]
-                    
-                    static_bone = static_skeleton.bones[i]
-                    
-                    b = Bone.new skeleton
-                    
-                    b.index = i
-                    b.name = bone.name
-                    b.parent_id = static_bone.parent_id
-                    b.scale = static_bone.scale
-                    
-                    b.transform = static_bone.transform						
-                    b.orientation = frame.orientation
-                    b.position = frame.position	
-                    
-                    skeleton.bones << b
-                end
+                skeleton = get_skl_from_anm_frame(anm_file, frame_index)
                 
-                skeleton.bones.each do |b|
-                    b.absolutify!
-                end		
-                
-                @skin_file.vertices.each do |v|
+                vertices.each do |v|
                     vertex = SknFile::SknVertex.new
                     
                     #// Transform the vertex information based on bones.
                     position = RVec3.new
                     normal = RVec3.new
+                    total_weight = 0.0
                     
                     0.upto 3 do |i|
-                        bone_transformer = skeleton.bones[v.bone_index[i]].transform
+                        bone_index = remap_bone_index(v.bone_index[i])
                         
-                        v_postion_4 = RVec4.new(v.position.x.value, v.position.y.value, v.position.z.value, 1.0).transform(bone_transformer)
+                        scale = static_skeleton.bones[bone_index].scale
+
                         
-                        position += v.weights[i] * v_postion_4.xyz
+                        bone_transformer =  static_skeleton.bones[bone_index].reverse_transform
+                        bone_transformer *= skeleton.bones[bone_index].transform
                         
-                        v_normal_4 = RVec4.new(v.normal.x.value, v.normal.y.value, v.normal.z.value, 1.0).transform(bone_transformer)
+                         #static_skeleton.bones[bone_index].reverse_transform * 
                         
-                        normal += v.weights[i] * v_normal_4.xyz
+                        
+                        #bone_transformer = RMtx4.new.rotationY(0.314 * frame_index)
+                        
+                        v_postion = RVec3.new(v.position.x.value, v.position.y.value, v.position.z.value).transformCoord(bone_transformer)
+                        
+                        position += v.weights[i] * v_postion
+                        
+                        v_normal = RVec3.new(v.normal.x.value, v.normal.y.value, v.normal.z.value).transformNormal(bone_transformer)
+                        
+                        normal += v.weights[i] * v_normal
+                        
+                        total_weight += v.weights[i]
                     end
                     
-                    vertex.position.x = position.x
-                    vertex.position.y = position.y
-                    vertex.position.z = position.z
+                    vertex.position.x = position.x / total_weight
+                    vertex.position.y = position.y / total_weight
+                    vertex.position.z = position.z / total_weight
                     
-                    vertex.normal.x = normal.x
-                    vertex.normal.y = normal.y
-                    vertex.normal.z = normal.z
+                    vertex.normal.x = normal.x / total_weight
+                    vertex.normal.y = normal.y / total_weight
+                    vertex.normal.z = normal.z / total_weight
                     
                     v.bone_index.each do |bi|
                         vertex.bone_index << bi
@@ -438,8 +517,9 @@ module LolModelFormat
                     
                     vertex.tex_coords.x = v.tex_coords.x
                     vertex.tex_coords.y = v.tex_coords.y
-                    
+                                   
                     frame_vertices << vertex
+
                 end
             
                 vertice_frames << frame_vertices

@@ -4,8 +4,10 @@ describe LolModelFormat::LolModel do
     
     include LolModelFormat
     
-    it 'should convert to md2 file' do
-        ["Annie", "bear", "Akali"].each do |model_name|
+    before :all do
+        @models = {}
+        
+        ["Annie"].each do |model_name| #, "bear", "Akali"
                         
             @skl_file_name = File.expand_path("../fixture/#{model_name}.skl", __FILE__)
             File.open(@skl_file_name, 'rb') do |io|
@@ -31,14 +33,28 @@ describe LolModelFormat::LolModel do
                 @animations[animation_name] = anm
             end
             
-            m = LolModel.new @skl, @skn, @animations
-            
+            @models[model_name] = LolModel.new @skl, @skn, @animations
+        end
+    end
+    
+    it 'should convert to md2 file' do
+        @models.each do |model_name, m|         
             md2 = m.to_md2
             
-            @md2_file_name = File.expand_path("../fixture/#{model_name}.md2", __FILE__)
+            @md2_file_name = File.expand_path("../fixture/md2demo/#{model_name}.md2", __FILE__)
             wio = File.open(@md2_file_name, 'wb')	        
             md2.write(wio)
             wio.close        
+        end
+    end
+    
+    it 'should convert to md2 file for skeleton' do
+        @models.each do |model_name, m|           
+            md2 = m.to_md2_skl            
+            @md2_skl_file_name = File.expand_path("../fixture/md2demo/#{model_name}_skl.md2", __FILE__)
+            wio = File.open(@md2_skl_file_name, 'wb')        
+            md2.write(wio)
+            wio.close     
         end
     end
     

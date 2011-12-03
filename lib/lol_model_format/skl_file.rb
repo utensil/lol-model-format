@@ -21,21 +21,8 @@ module LolModelFormat
             float :scale                    
             array :transform_matrix4, :type => :float, 
                   :read_until => lambda { index == TRANSFORM_SIZE - 1 }
-                  
-            def position
-                v = Vector3.new
-                v.x = transform_matrix4[3]
-                v.y = transform_matrix4[7]
-                v.z = transform_matrix4[11]
-                v
-            end
             
-            def orientation            	
-                q = RQuat.new.rotationMatrix( transform )
-                q
-            end
-            
-            def transform
+            def orientation    
                 m = RMtx4.new.setIdentity
                 
                 m.e00 = transform_matrix4[0];
@@ -49,9 +36,17 @@ module LolModelFormat
                 m.e02 = transform_matrix4[8];
                 m.e12 = transform_matrix4[9];
                 m.e22 = transform_matrix4[10]
-                
-                #TODO how about postion?                
-                m
+                            
+                q = RQuat.new.setIdentity.rotationMatrix( m )
+                q
+            end
+                  
+            def position
+                v = Vector3.new
+                v.x = transform_matrix4[3]
+                v.y = transform_matrix4[7]
+                v.z = transform_matrix4[11]
+                v
             end
         end
         

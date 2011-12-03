@@ -1,6 +1,6 @@
 module RMath
 
-  TOLERANCE = 1.0e-15
+  TOLERANCE = 0 #1.0e-15
 
   #
   # Document-class: RMath::RMtx3

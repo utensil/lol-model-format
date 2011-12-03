@@ -143,7 +143,7 @@ module LolModelFormat
                 string :name, :length => 16
                 #/* list of frame's vertices */
                 array :verts, :type => :vertex, 
-                      :read_until => lambda { index == header.num_vertices - 1 }
+                      :read_until => lambda { header.num_vertices == 0 || index == header.num_vertices - 1 }
             end
             
             #/* GL command packet */
@@ -165,28 +165,28 @@ module LolModelFormat
             # skin names 
             array :skin_names, :type => :skin_name,
                     :adjust_offset => lambda { header.offset_skins },
-                    :read_until => lambda { index == header.num_skins - 1 }
+                    :read_until => lambda { header.num_skins == 0 || index == header.num_skins - 1 }
                     
             # texture coordinates 
             array :skin_coords, :type => :skin_coord,
                     :adjust_offset => lambda { header.offset_st },
-                    :read_until => lambda { index == header.num_st - 1 }
+                    :read_until => lambda { header.num_st == 0 || index == header.num_st - 1 }
                         
             # triangle indexes
             array :triangles, :type => :triangle,
                     :adjust_offset => lambda { header.offset_tris },
-                    :read_until => lambda { index == header.num_tris - 1 }
+                    :read_until => lambda { header.num_tris == 0 || index == header.num_tris - 1 }
                     
             # frame data (vertices)
             array :frames, :type => :frame, 
                     :adjust_offset => lambda { header.offset_frames }, 
-                    :read_until => lambda { index == header.num_frames - 1 }
+                    :read_until => lambda { header.num_frames == 0 || index == header.num_frames - 1 }
 
             #OpenGL Commands
             #OpenGL commands are stored in an array of integer (int). 
             array :gl_cmds, :type => :int32,
                     :adjust_offset => lambda { header.offset_glcmds },
-                    :read_until => lambda { index == header.num_glcmds - 1 }
+                    :read_until => lambda { header.num_glcmds == 0 || index == header.num_glcmds - 1 }
         end
     end
 end
