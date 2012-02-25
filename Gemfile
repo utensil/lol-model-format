@@ -1,4 +1,4 @@
-source "http://rubygems.org"
+source "http://ruby.taobao.org"
 
 gem 'bindata', '~> 1.4'
 
