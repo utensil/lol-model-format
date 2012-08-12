@@ -24,6 +24,7 @@ Based on http://code.google.com/p/lolmodelviewer/ .
 ### Well-known formats
 
 * .md2 ( based on http://tfc.duke.free.fr/old/models/md2.htm )
+* .dae ( aka. COLLADA, based on http://www.wazim.com/Collada_Tutorial_1.htm )
 
 Copyright Issues
 -----------------
