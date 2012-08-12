@@ -2,6 +2,7 @@ require 'lol_model_format/skl_file'
 require 'lol_model_format/skn_file'
 require 'lol_model_format/anm_file'
 require 'lol_model_format/ext/md2_file'
+require "erb"
 
 module LolModelFormat
     
@@ -144,68 +145,96 @@ module LolModelFormat
             triangles       	
         end
         
+        def apply_joint_vertext_default(vertex, bone_id)
+	        vertex.normal.x = -0.525731
+	        vertex.normal.y = 0.000000
+	        vertex.normal.z = 0.850651
+	        
+	        [bone_id, 0, 0, 0].each do |bi|
+	            vertex.bone_index << bi
+	        end
+	        
+            [1.0, 0.0, 0.0, 0.0].each do |w|
+                vertex.weights << w
+            end
+            
+            #vertex.tex_coords.x = v.tex_coords.x
+            #vertex.tex_coords.y = v.tex_coords.y
+            
+            vertex
+        end
+        
         def get_vertices_from_skl(skl, offset)
             vertices = []
             
             skl.bones.each do |i, b|
                 
-                next unless @skeleton_file.bone_ids.include? i        	 	
+                next unless @skeleton_file.bone_ids.include? i    
                 
                 unless b.root?
-                    
-                    #TODO
-                    #vertex.normal.x = normal.x / total_weight
-                    #vertex.normal.y = normal.y / total_weight
-                    #vertex.normal.z = normal.z / total_weight
-                    
-                    #v.bone_index.each do |bi|
-                    #    vertex.bone_index << bi
-                    #end
-                    
-                    #v.weights.each do |w|
-                    #    vertex.weights << w
-                    #end
-                    
-                    #vertex.tex_coords.x = v.tex_coords.x
-                    #vertex.tex_coords.y = v.tex_coords.y
-                    
+                	
+                	bone_transformer = skl.bones[i].transform
+                	
+                	b_position = RVec3.new(0.0, 0.0, 0.0).transformCoord(bone_transformer)
+                	
+                	b_position = RVec3.new(b.position.x.value, b.position.y.value, b.position.z.value)
+                	
                     #top
                     vertex = SknFile::SknVertex.new
-                    vertex.position.x = b.position.x
-                    vertex.position.y = b.position.y
-                    vertex.position.z = b.position.z
+                    vertex.position.x = b_position.x
+                    vertex.position.y = b_position.y
+                    vertex.position.z = b_position.z
+
+                    vertex = apply_joint_vertext_default(vertex, i)
                     
                     #bottom three vertexes
-                                
-                    #parent
-                    bp = b.parent
                     
+                    bone_parent_transformer = skl.bones[b.parent_id].transform
+                    
+                    bp_position = RVec3.new(0.0, 0.0, 0.0).transformCoord(bone_parent_transformer)                    
+                    bp = b.parent                    
+                    bp_position = RVec3.new(bp.position.x.value, bp.position.y.value, bp.position.z.value)
+                                
+                    #parent                    
                     vertex_parent = SknFile::SknVertex.new
-                    vertex_parent.position.x = bp.position.x
-                    vertex_parent.position.y = bp.position.y
-                    vertex_parent.position.z = bp.position.z
+                    vertex_parent.position.x = bp_position.x
+                    vertex_parent.position.y = bp_position.y
+                    vertex_parent.position.z = bp_position.z
+                    
+                    vertex_parent = apply_joint_vertext_default(vertex_parent, b.parent_id)
                     
                     #slightly offset
                     vertex_helper = SknFile::SknVertex.new
-                    vertex_helper.position.x = bp.position.x + offset
-                    vertex_helper.position.y = bp.position.y - offset
-                    vertex_helper.position.z = bp.position.z + offset
+                    vertex_helper.position.x = bp_position.x + offset
+                    vertex_helper.position.y = bp_position.y - offset
+                    vertex_helper.position.z = bp_position.z + offset
+                    
+                    vertex_helper = apply_joint_vertext_default(vertex_helper, b.parent_id)
                     
                     #slightly offset 2
                     vertex_helper2 = SknFile::SknVertex.new
-                    vertex_helper2.position.x = bp.position.x - offset
-                    vertex_helper2.position.y = bp.position.y + offset
-                    vertex_helper2.position.z = bp.position.z - offset        			
+                    vertex_helper2.position.x = bp_position.x - offset
+                    vertex_helper2.position.y = bp_position.y + offset
+                    vertex_helper2.position.z = bp_position.z - offset
+                    
+                    vertex_helper2 = apply_joint_vertext_default(vertex_helper2, b.parent_id)        			
                     
                     vertices << vertex
                     vertices << vertex_parent
                     vertices << vertex_helper
                     vertices << vertex_helper2
                 else
+                	bone_transformer = skl.bones[i].transform
+                	
+                	b_position = RVec3.new(0.0, 0.0, 0.0).transformCoord(bone_transformer)
+                	b_position = RVec3.new(b.position.x.value, b.position.y.value, b.position.z.value)
+                	
                     vertex = SknFile::SknVertex.new
-                    vertex.position.x = b.position.x
-                    vertex.position.y = b.position.y
-                    vertex.position.z = b.position.z
+                    vertex.position.x = b_position.x
+                    vertex.position.y = b_position.y
+                    vertex.position.z = b_position.z
+                    
+                    vertex = apply_joint_vertext_default(vertex, i)
                     
                     vertices << vertex
                     vertices << vertex
@@ -268,19 +297,28 @@ module LolModelFormat
             
             #add a frame to describe the static skeleton
             md2.frames << get_md2_frame("skl_static001", static_vertices)
-
-            @animation_files.each do |name, anm_file|
-                
-                0.upto anm_file.number_of_frames - 1 do |frame_index|
-                #1.upto 2 do |frame_index|
-                    puts frame_index	
-                                    
-                        formated_frame_name = "skl_%s%03d" % [escape_md2_frame_name(name), frame_index + 1] 
-                        
-                        skeleton = get_skl_from_anm_frame(anm_file, frame_index)
-                                        
-                        md2.frames << get_md2_frame(formated_frame_name, get_vertices_from_skl(skeleton, offset))
-                    end
+            
+            if false
+	            @animation_files.each do |name, anm_file|
+	                
+	                0.upto anm_file.number_of_frames - 1 do |frame_index|
+	                #1.upto 2 do |frame_index|
+	                    puts frame_index	
+	                                    
+	                        formated_frame_name = "skl_%s%03d" % [escape_md2_frame_name(name), frame_index + 1] 
+	                        
+	                        skeleton = get_skl_from_anm_frame(anm_file, frame_index)
+	                                        
+	                        md2.frames << get_md2_frame(formated_frame_name, get_vertices_from_skl(skeleton, offset))
+	                    end
+	            end	            
+            else            
+	            @animation_files.each do |name, anm_file|
+	                get_animated_vertice_frames(static_vertices, anm_file).each_with_index do |frame_vertices, i|
+	                    formated_frame_name = "skl_%s%03d" % [escape_md2_frame_name(name), i + 1]
+	                    md2.frames << get_md2_frame(formated_frame_name, frame_vertices)
+	                end
+	            end
             end
 
             md2
@@ -315,6 +353,53 @@ module LolModelFormat
             end
 
             md2
+        end
+
+        #COLLADA 
+        def to_dae(model_name)
+            @model = {}
+
+            positions = []
+            normals = []
+            tex_coords = []
+            triangles = []
+
+            @skin_file.vertices.each do |v|
+                positions << v.position.x.to_f.round(4)
+                positions << v.position.y.to_f.round(4)
+                positions << v.position.z.to_f.round(4)
+
+                normals << v.normal.x.to_f.round(6)
+                normals << v.normal.y.to_f.round(6)
+                normals << v.normal.z.to_f.round(6)
+
+                tex_coords << v.tex_coords.x.to_f.round(6)
+                tex_coords << -v.tex_coords.y.to_f.round(6)
+            end
+            
+            @model["positions-array"] = positions.join " "
+            @model["positions-array-size"] = positions.size
+
+            @model["normals-array"] = normals.join " "
+            @model["normals-array-size"] = normals.size
+
+            @model["map-array"] = tex_coords.join " "
+            @model["map-array-size"] = tex_coords.size
+
+            @skin_file.indices.each do |i|
+                1.upto 3 do
+                    triangles << i
+                end                
+            end
+
+            @model["triangles-array"] = triangles.to_a.join " "
+
+            #computedLen = ((triangleData.length) / cl_inputmap.length) / 3;
+            # cl_inputmap: [VERTEX NORMAL TEXCOORD].size == 3
+            @model["triangles-array-size"] = triangles.size / 9
+            @model["texture-file-name"] = "#{model_name || 'texture'}.jpg" 
+
+            ERB.new(File.read(File.expand_path('../ext/model.dae.erb', __FILE__))).result binding
         end
         
         def escape_md2_frame_name(name)
@@ -357,20 +442,18 @@ module LolModelFormat
             def parent
                 return nil if root?
                 @skeleton.bones[parent_id]
-            end
+            end            
             
             def absolutify!
-                return if absolute?
+                return if absolute?                
                 
-                local_transform = RMtx4.new.setIdentity.rotationQuaternion(@orientation)
-                local_transform *= RMtx4.new.setIdentity.translation(@position.x, @position.y, @position.z)
+                
+                local_transform = RMtx4.new.rotationQuaternion(@orientation)      
+                local_transform *= RMtx4.new.translation(@position.x, @position.y, @position.z)
+                  
                 #local_transform *= RMtx4.new.scaling(scale, scale, scale) 
                 
                 #/ 
-                #local_transform.e30 = position.x# * (1.0 / scale)
-                #local_transform.e31 = position.y# * (1.0 / scale)
-                #local_transform.e32 = position.z# * (1.0 / scale)	
-                                
                 if root?
                     # No parent bone for root bones.
                     # So, just calculate directly.                                       
@@ -437,8 +520,7 @@ module LolModelFormat
 
         
         def remap_bone_index(i)
-            #return i
-            
+
             bone_index = 0
             
             if @skeleton_file.version == 2
@@ -477,10 +559,11 @@ module LolModelFormat
                     0.upto 3 do |i|
                         bone_index = remap_bone_index(v.bone_index[i])
                         
-                        scale = static_skeleton.bones[bone_index].scale
-
+                        static_bone = static_skeleton.bones[bone_index]
                         
-                        bone_transformer =  static_skeleton.bones[bone_index].reverse_transform
+                        scale = static_bone.scale.value
+                        
+                        bone_transformer =  static_bone.reverse_transform
                         bone_transformer *= skeleton.bones[bone_index].transform
                         
                          #static_skeleton.bones[bone_index].reverse_transform * 

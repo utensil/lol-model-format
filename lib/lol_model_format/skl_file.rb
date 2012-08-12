@@ -25,16 +25,16 @@ module LolModelFormat
             def orientation    
                 m = RMtx4.new.setIdentity
                 
-                m.e00 = transform_matrix4[0];
-                m.e10 = transform_matrix4[1];
-                m.e20 = transform_matrix4[2];
+                m.e00 = transform_matrix4[0]
+                m.e10 = transform_matrix4[1]
+                m.e20 = transform_matrix4[2]
                 
-                m.e01 = transform_matrix4[4];
-                m.e11 = transform_matrix4[5];
-                m.e21 = transform_matrix4[6];
+                m.e01 = transform_matrix4[4]
+                m.e11 = transform_matrix4[5]
+                m.e21 = transform_matrix4[6]
                 
-                m.e02 = transform_matrix4[8];
-                m.e12 = transform_matrix4[9];
+                m.e02 = transform_matrix4[8]
+                m.e12 = transform_matrix4[9]
                 m.e22 = transform_matrix4[10]
                             
                 q = RQuat.new.setIdentity.rotationMatrix( m )
