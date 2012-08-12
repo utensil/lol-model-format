@@ -3,11 +3,7 @@ Models As Fixtures
 
 For testing with Rspec, I have to use some well-formed model files extracted from other sources, namely:
 
-* Akali.skl (not included due to copyright reasons, you can find it within HeroPak_client.zip\DATA\Characters\Akali)
-
-* Akali.skn (not included due to copyright reasons, you can find it within HeroPak_client.zip\DATA\Characters\Akali)
-
-* Akali_Attack1.anm (not included due to copyright reasons, you can find it within HeroPak_client.zip\DATA\Characters\Akali\Animations)
+* Annie (not included due to copyright reasons, you can find it within HeroPak_client.zip\DATA\Characters\Annie)
 
 * ogro.md2 (included, copyright info please see Ogro.txt)
 

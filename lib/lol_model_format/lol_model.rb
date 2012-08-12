@@ -356,7 +356,7 @@ module LolModelFormat
         end
 
         #COLLADA 
-        def to_dae(model_name)
+        def to_dae(model_name = nil)
             @model = {}
 
             positions = []

@@ -8,7 +8,7 @@ describe LolModelFormat::SklFile do
     before :all do
         lambda {
             
-            @skl_file_name = File.expand_path('../fixture/Akali.skl', __FILE__)
+            @skl_file_name = File.expand_path('../fixture/Annie/Annie.skl', __FILE__)
             io = File.open(@skl_file_name, 'rb')			
             @skl = SklFile.read(io)
             io.close

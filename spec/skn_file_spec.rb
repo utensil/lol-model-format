@@ -8,7 +8,7 @@ describe LolModelFormat::SknFile do
     before :all do
         lambda {
             
-            @skn_file_name = File.expand_path('../fixture/Akali.skn', __FILE__)
+            @skn_file_name = File.expand_path('../fixture/Annie/Annie.skn', __FILE__)
             io = File.open(@skn_file_name, 'rb')			
             @skn = SknFile.read(io)
             io.close

@@ -8,7 +8,7 @@ describe LolModelFormat::AnmFile do
     before :all do
         lambda {
             
-            @anm_file_name = File.expand_path('../fixture/Akali_Attack1.anm', __FILE__)
+            @anm_file_name = File.expand_path('../fixture/Annie/Annie_Attack1.anm', __FILE__)
             io = File.open(@anm_file_name, 'rb')			
             @anm = AnmFile.read(io)
             io.close

@@ -9,7 +9,7 @@ describe LolModelFormat::Ext::Md2File do
         #It's time-consuming to load a model, so do it only once
         before :all do
             lambda {            
-                @md2_file_name = File.expand_path('../fixture/ogro.md2', __FILE__)
+                @md2_file_name = File.expand_path('../fixture/ogro/ogro.md2', __FILE__)
                 io = File.open(@md2_file_name, 'rb')			
                 @md2 = Md2File.read(io)
                 io.close
@@ -45,7 +45,7 @@ describe LolModelFormat::Ext::Md2File do
     context '2' do
         
         before :each do        
-           @md2_file_name = File.expand_path('../fixture/ogro.md2', __FILE__)
+           @md2_file_name = File.expand_path('../fixture/ogro/ogro.md2', __FILE__)
         end
     
         it 'should be self consistent when some fields are changed' do
