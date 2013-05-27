@@ -7,29 +7,6 @@
         <unit meter="0.01" name="centimeter"/>
         <up_axis>Y_UP</up_axis>
     </asset>
-    <library_cameras>
-        <camera id="cameraShape1" name="cameraShape1">
-            <optics>
-                <technique_common>
-                    <perspective>
-                        <yfov>37.8492</yfov>
-                        <aspect_ratio>1.5</aspect_ratio>
-                        <znear>1</znear>
-                        <zfar>10000</zfar>
-                    </perspective>
-                </technique_common>
-            </optics>
-        </camera>
-    </library_cameras>
-    <library_lights>
-        <light id="directionalLightShape1-lib" name="directionalLightShape1">
-            <technique_common>
-                <directional>
-                    <color>1 1 1</color>
-                </directional>
-            </technique_common>
-        </light>
-    </library_lights>
     <library_images>
         <image id="skin" name="skin" depth="1">
             <init_from><%= @model["texture-file-name"] %></init_from>

@@ -7,7 +7,10 @@ module LolModelFormat
         
         uint32 :magic_1
         uint32 :magic_2
-        uint32 :version
+        uint32 :version, :check_value => lambda { 
+                    value == 0 || value == 1 || value == 2 || value == 3
+                    #Version 4 and above is not supported yet
+                }
         uint32 :magic_3
         uint32 :number_of_bones , :value => lambda { bones.size }
         uint32 :number_of_frames ,
@@ -21,7 +24,7 @@ module LolModelFormat
             
             endian :little
             
-            string :name, :length => BONE_NAME_LENGTH
+            string :name, :length => BONE_NAME_LENGTH, :trim_padding => true
             uint32 :flag
               
             class AnmFrame < BinData::Record

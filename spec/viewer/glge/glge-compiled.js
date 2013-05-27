@@ -16480,6 +16480,7 @@ GLGE.Collada.prototype.getInstanceController=function(node){
 					}
 				}else{
 					for(var n=0; n<skeletons.length;n++){
+            console.log(skeletons[n].firstChild.nodeValue.substr(1));
 						var skeletonElement=this.xml.getElementById(skeletons[n].firstChild.nodeValue.substr(1));
 						sid=skeletonElement.getAttribute("sid");
 						if(sid) sidArray[sid]=skeletonElement;

@@ -21,7 +21,7 @@ describe LolModelFormat::SklFile do
     end
     
     it 'should has accessible fields' do
-        lambda {
+        #lambda {
             puts "version: #{@skl.version}"
             puts "designer_id : #{@skl.designer_id}"
             puts "num_of_bones: #{@skl.num_of_bones.value}"
@@ -29,7 +29,7 @@ describe LolModelFormat::SklFile do
             puts "bone.name: #{bone.name}"
             puts "bone.parent_id: #{bone.parent_id}"
             puts "bone.scale: #{bone.scale}"
-            puts "bone.transform_matrix4: #{bone.transform_matrix4.inspect}"
+            puts "bone.matrix: #{bone.matrix.inspect}"
             puts "bone.position: #{bone.position.inspect}"
             puts "bone.orientation: #{bone.orientation.inspect}"
             
@@ -37,7 +37,7 @@ describe LolModelFormat::SklFile do
               puts "num_of_bone_ids: #{@skl.num_of_bone_ids.value}"
               puts "bone_ids: #{@skl.bone_ids.inspect}"
             end
-        }.should_not raise_error
+        #}.should_not raise_error
     end
     
     it 'should be self consistent' do

@@ -16,37 +16,47 @@ module LolModelFormat
             
             endian :little
             
-            string :name, :length => BONE_NAME_SIZE
+            string :name, :length => BONE_NAME_SIZE, :trim_padding => true
             uint32 :parent_id
-            float :scale                    
-            array :transform_matrix4, :type => :float, 
+            float :scale   
+            #transform_matrix4                 
+            array :matrix, :type => :float, 
                   :read_until => lambda { index == TRANSFORM_SIZE - 1 }
             
-            def orientation    
-                m = RMtx4.new.setIdentity
-                
-                m.e00 = transform_matrix4[0]
-                m.e10 = transform_matrix4[1]
-                m.e20 = transform_matrix4[2]
-                
-                m.e01 = transform_matrix4[4]
-                m.e11 = transform_matrix4[5]
-                m.e21 = transform_matrix4[6]
-                
-                m.e02 = transform_matrix4[8]
-                m.e12 = transform_matrix4[9]
-                m.e22 = transform_matrix4[10]
-                            
-                q = RQuat.new.setIdentity.rotationMatrix( m )
-                q
+            def orientation
+                unless @orientation    
+                    orientation_transform = RMtx4.new.setIdentity
+                    
+                    orientation_transform.e00 = matrix[0].value
+                    orientation_transform.e10 = matrix[1].value
+                    orientation_transform.e20 = matrix[2].value
+
+                    orientation_transform.e01 = matrix[4].value
+                    orientation_transform.e11 = matrix[5].value
+                    orientation_transform.e21 = matrix[6].value
+
+                    orientation_transform.e02 = matrix[8].value
+                    orientation_transform.e12 = matrix[9].value
+                    orientation_transform.e22 = matrix[10].value
+
+                    @orientation = RQuat.new.setIdentity.rotationMatrix( orientation_transform )
+                end
+                @orientation
             end
                   
             def position
-                v = Vector3.new
-                v.x = transform_matrix4[3]
-                v.y = transform_matrix4[7]
-                v.z = transform_matrix4[11]
-                v
+                @position ||= RVec3.new(matrix[3].value, matrix[7].value, matrix[11].value)
+                @position
+            end
+
+            def transform
+                unless @transform
+                    @transform = RMtx4.new.setIdentity
+                    @transform *= RMtx4.new.scaling(scale.value, scale.value, scale.value)
+                    @transform *= RMtx4.new.rotationQuaternion(orientation)
+                    @transform *= RMtx4.new.translation(position.x, position.y, position.z)
+                end
+                @transform
             end
         end
         

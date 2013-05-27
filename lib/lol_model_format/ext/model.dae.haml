@@ -1,0 +1,144 @@
+!!! XML
+%COLLADA{:version => "1.4.1", :xmlns => "http://www.collada.org/2005/11/COLLADASchema"}
+  %asset
+    %contributor
+      %authoring_tool github/lol-model-format
+    %unit{:meter => "0.01", :name => "centimeter"}/
+    %up_axis Y_UP
+  %library_images
+    %image#skin{:depth => "1", :name => "skin"}
+      %init_from= @model["texture-file-name"]
+  %library_materials
+    %material#material{:name => "material"}
+      %instance_effect{:url => "#material-fx"}/
+  %library_effects
+    %effect#material-fx
+      %profile_COMMON
+        %newparam{:sid => "skin-surface"}
+          %surface{:type => "2D"}
+            %init_from skin
+            %format A8R8G8B8
+        %newparam{:sid => "skin-sampler"}
+          %sampler2D
+            %source skin-surface
+            %minfilter LINEAR_MIPMAP_LINEAR
+            %magfilter LINEAR
+        %technique{:sid => "common"}
+          %blinn
+            %emission
+              %color 0 0 0 1
+            %ambient
+              %color 0 0 0 1
+            %diffuse
+              %texture{:texcoord => "TEX0", :texture => "skin-sampler"}/
+            %specular
+              %color 0 0 0 1
+            %shininess
+              %float 0.3
+            %reflective
+              %color 0 0 0 1
+            %reflectivity
+              %float 0.5
+            %transparent
+              %color 0 0 0 1
+            %transparency
+              %float 1
+            %index_of_refraction
+              %float 1
+  %library_geometries
+    %geometry#LOLModel-geometry{:name => "LOLModel"}
+      %mesh
+        %source#LOLModel-geometry-positions{:name => "position"}
+          %float_array#LOLModel-geometry-positions-array{:count => @model["positions-array-size"]}= @model["positions-array"]
+          %technique_common
+            %accessor{:count => @model["positions-array-size"] / 3, :offset => "0", :source => "#LOLModel-geometry-positions-array", :stride => "3"}
+              %param{:name => "X", :type => "float"}/
+              %param{:name => "Y", :type => "float"}/
+              %param{:name => "Z", :type => "float"}/
+        %source#LOLModel-geometry-normals{:name => "normal"}
+          %float_array#LOLModel-geometry-normals-array{:count => @model["normals-array-size"]}= @model["normals-array"]
+          %technique_common
+            %accessor{:count => @model["normals-array-size"] / 3, :offset => "0", :source => "#LOLModel-geometry-normals-array", :stride => "3"}
+              %param{:name => "X", :type => "float"}/
+              %param{:name => "Y", :type => "float"}/
+              %param{:name => "Z", :type => "float"}/
+        %source#LOLModel-geometry-uvmap{:name => "uvmap"}
+          %float_array#LOLModel-geometry-uvmap-array{:count => @model["map-array-size"]}= @model["map-array"]
+          %technique_common
+            %accessor{:count => @model["map-array-size"] / 2, :offset => "0", :source => "#LOLModel-geometry-uvmap-array", :stride => "2"}
+              %param{:name => "S", :type => "float"}/
+              %param{:name => "T", :type => "float"}/
+        %vertices#LOLModel-geometry-vertices
+          %input{:semantic => "POSITION", :source => "#LOLModel-geometry-positions"}/
+        %triangles{:count => @model["triangles-array-size"], :material => "materialSG"}
+          %input{:offset => "0", :semantic => "VERTEX", :source => "#LOLModel-geometry-vertices"}/
+          %input{:offset => "1", :semantic => "NORMAL", :source => "#LOLModel-geometry-normals"}/
+          %input{:offset => "2", :semantic => "TEXCOORD", :set => "0", :source => "#LOLModel-geometry-uvmap"}/
+          %p= @model["triangles-array"]
+
+  %library_controllers
+    %controller#LOLModelSkinned-controller{:name => "LOLModelSkinned-controller"}
+      %skin{:source => "#LOLModel-geometry"}
+        %bind_shape_matrix= @model["bind-shape-matrix"]
+        %source#LOLModelSkinned-controller-joints{:name => "LOLModelSkinned-controller-joints"}
+          %Name_array#LOLModelSkinned-controller-joints-array{:count => @model["joints-name-array-size"]}= @model["joints-name-array"]
+          %technique_common
+            %accessor{:count => @model["joints-name-array-size"], :source => "#LOLModelSkinned-controller-joints-array"}
+              %param{:name => "JOINT", :type => "name"}/
+        %source#LOLModelSkinned-controller-bind_poses{:name => "LOLModelSkinned-controller-bind_poses"}
+          %float_array#LOLModelSkinned-controller-bind_poses-array{:count => @model["bind-poses-array-size"]}<
+            =@model["bind-poses-array"]
+          %technique_common
+            %accessor{:count => @model["bind-poses-array-size"].to_i / 16, :source => "#LOLModelSkinned-controller-bind_poses-array", :stride => "16"}
+              %param{:name => "TRANSFORM", :type => "float4x4"}/
+        %source#LOLModelSkinned-controller-weights{:name => "LOLModelSkinned-controller-weights"}
+          %float_array#LOLModelSkinned-controller-weights-array{:count => @model["weights-array-size"]}<
+            =@model["weights-array"]
+          %technique_common
+            %accessor{:count => @model["weights-array-size"], :source => "#LOLModelSkinned-controller-weights-array"}
+              %param{:name => "WEIGHT", :type => "float"}/
+        %joints
+          %input{:semantic => "JOINT", :source => "#LOLModelSkinned-controller-joints"}/
+          %input{:semantic => "INV_BIND_MATRIX", :source => "#LOLModelSkinned-controller-bind_poses"}/
+        %vertex_weights{:count => @model["vertex-weights-count"]}
+          %input{:offset => "0", :semantic => "JOINT", :source => "#LOLModelSkinned-controller-joints"}/
+          %input{:offset => "1", :semantic => "WEIGHT", :source => "#LOLModelSkinned-controller-weights"}/
+          %vcount<
+            =@model["vcount-array"]
+          %v<
+            =@model["v-array"]
+  %library_visual_scenes
+    %visual_scene#VisualSceneNode{:name => "untitled"}
+      %node#LOLModel{:name => "LOLModel"}
+        %instance_geometry{:url => "#LOLModel-geometry"}
+          %bind_material
+            %technique_common
+              %instance_material{:symbol => "materialSG", :target => "#material"}
+                %bind_vertex_input{:input_semantic => "TEXCOORD", :input_set => "0", :semantic => "TEX0"}/
+      %node#LOLModelSkinned{:name => "LOLModelSkinned"}
+        %matrix{:sid => "transform"}<
+          -# no need for any transform here, just use the identity
+          1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1
+        %instance_controller{:url => "#LOLModelSkinned-controller"}
+          - @model["skeleton-names"].each do |name|
+            %skeleton= "##{name}"
+          %bind_material
+            %technique_common
+              %instance_material{:symbol => "materialSG", :target => "#material"}/
+
+      - def bone_node_tag(bone)
+        - haml_tag :node, {:id => bone[:bone].name, :name => bone[:bone].name, :sid => bone[:bone].name, :type => "JOINT"} do
+          - haml_tag :matrix, bone[:bone].local_transform.getTransposed.to_a.join(' '), {:sid => "transform"}
+          -# haml_tag :rotate, bone[:bone].toAxisAngle.join(' '), {:sid => "rotate"}
+          -# haml_tag :scale, "#{bone[:bone].scale} #{bone[:bone].scale} #{bone[:bone].scale}", {:sid => "scale"}
+          -# haml_tag :translate, bone[:bone].position.to_a.join(' '), {:sid => "translate"}
+          - bone[:children].each do |child|
+            - bone_node_tag(child)
+
+      - @model["bone-tree"].each do |root_bone|
+        - if root_bone[:bone].name == 'root'
+          - bone_node_tag(root_bone)
+
+  %scene
+    %instance_visual_scene{:url => "#VisualSceneNode"}/
+    
