@@ -1,5 +1,4 @@
 !!! XML
-!!!
 %COLLADA{:version => "1.4.1", :xmlns => "http://www.collada.org/2005/11/COLLADASchema"}
   %asset
     %contributor
@@ -77,37 +76,37 @@
           %input{:offset => "2", :semantic => "TEXCOORD", :set => "0", :source => "#LOLModel-geometry-uvmap"}/
           %p= @model["triangles-array"]
 
-          /  %library_controllers
-          /    %controller#LOLModelSkinned-controller{:name => "LOLModelSkinned-controller"}
-          /      %skin{:source => "#LOLModel-geometry"}
-          /        %bind_shape_matrix= @model["bind-shape-matrix"]
-          /        %source#LOLModelSkinned-controller-joints{:name => "LOLModelSkinned-controller-joints"}
-          /          %Name_array#LOLModelSkinned-controller-joints-array{:count => @model["joints-name-array-size"]}= @model["joints-name-array"]
-          /          %technique_common
-          /            %accessor{:count => @model["joints-name-array-size"], :source => "#LOLModelSkinned-controller-joints-array"}
-          /              %param{:name => "JOINT", :type => "name"}/
-          /        %source#LOLModelSkinned-controller-bind_poses{:name => "LOLModelSkinned-controller-bind_poses"}
-          /          %float_array#LOLModelSkinned-controller-bind_poses-array{:count => @model["bind-poses-array-size"]}<
-          /            =@model["bind-poses-array"]
-          /          %technique_common
-          /            %accessor{:count => @model["bind-poses-array-size"].to_i / 16, :source => "#LOLModelSkinned-controller-bind_poses-array", :stride => "16"}
-          /              %param{:name => "TRANSFORM", :type => "float4x4"}/
-          /        %source#LOLModelSkinned-controller-weights{:name => "LOLModelSkinned-controller-weights"}
-          /          %float_array#LOLModelSkinned-controller-weights-array{:count => @model["weights-array-size"]}<
-          /            =@model["weights-array"]
-          /          %technique_common
-          /            %accessor{:count => @model["weights-array-size"], :source => "#LOLModelSkinned-controller-weights-array"}
-          /              %param{:name => "WEIGHT", :type => "float"}/
-          /        %joints
-          /          %input{:semantic => "JOINT", :source => "#LOLModelSkinned-controller-joints"}/
-          /          %input{:semantic => "INV_BIND_MATRIX", :source => "#LOLModelSkinned-controller-bind_poses"}/
-          /        %vertex_weights{:count => @model["vertex-weights-count"]}
-          /          %input{:offset => "0", :semantic => "JOINT", :source => "#LOLModelSkinned-controller-joints"}/
-          /          %input{:offset => "1", :semantic => "WEIGHT", :source => "#LOLModelSkinned-controller-weights"}/
-          /          %vcount<
-          /            =@model["vcount-array"]
-          /          %v<
-          /            =@model["v-array"]
+  %library_controllers
+    %controller#LOLModelSkinned-controller{:name => "LOLModelSkinned-controller"}
+      %skin{:source => "#LOLModel-geometry"}
+        %bind_shape_matrix= @model["bind-shape-matrix"]
+        %source#LOLModelSkinned-controller-joints{:name => "LOLModelSkinned-controller-joints"}
+          %Name_array#LOLModelSkinned-controller-joints-array{:count => @model["joints-name-array-size"]}= @model["joints-name-array"]
+          %technique_common
+            %accessor{:count => @model["joints-name-array-size"], :source => "#LOLModelSkinned-controller-joints-array"}
+              %param{:name => "JOINT", :type => "name"}/
+        %source#LOLModelSkinned-controller-bind_poses{:name => "LOLModelSkinned-controller-bind_poses"}
+          %float_array#LOLModelSkinned-controller-bind_poses-array{:count => @model["bind-poses-array-size"]}<
+            =@model["bind-poses-array"]
+          %technique_common
+            %accessor{:count => @model["bind-poses-array-size"].to_i / 16, :source => "#LOLModelSkinned-controller-bind_poses-array", :stride => "16"}
+              %param{:name => "TRANSFORM", :type => "float4x4"}/
+        %source#LOLModelSkinned-controller-weights{:name => "LOLModelSkinned-controller-weights"}
+          %float_array#LOLModelSkinned-controller-weights-array{:count => @model["weights-array-size"]}<
+            =@model["weights-array"]
+          %technique_common
+            %accessor{:count => @model["weights-array-size"], :source => "#LOLModelSkinned-controller-weights-array"}
+              %param{:name => "WEIGHT", :type => "float"}/
+        %joints
+          %input{:semantic => "JOINT", :source => "#LOLModelSkinned-controller-joints"}/
+          %input{:semantic => "INV_BIND_MATRIX", :source => "#LOLModelSkinned-controller-bind_poses"}/
+        %vertex_weights{:count => @model["vertex-weights-count"]}
+          %input{:offset => "0", :semantic => "JOINT", :source => "#LOLModelSkinned-controller-joints"}/
+          %input{:offset => "1", :semantic => "WEIGHT", :source => "#LOLModelSkinned-controller-weights"}/
+          %vcount<
+            =@model["vcount-array"]
+          %v<
+            =@model["v-array"]
 
   %library_visual_scenes
     %visual_scene#VisualSceneNode{:name => "untitled"}
@@ -120,29 +119,29 @@
             %technique_common
               %instance_material{:symbol => "materialSG", :target => "#material"}
                 %bind_vertex_input{:input_semantic => "TEXCOORD", :input_set => "0", :semantic => "TEX0"}/
-      /%node#LOLModelSkinned{:name => "LOLModelSkinned"}
-      /  %matrix{:sid => "transform"}<
-      /    -# no need for any transform here, just use the identity
-      /    1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1
-      /  %instance_controller{:url => "#LOLModelSkinned-controller"}
-      /    - @model["skeleton-names"].each do |name|
-      /      %skeleton= "##{name}"
-      /    %bind_material
-      /      %technique_common
-      /        %instance_material{:symbol => "materialSG", :target => "#material"}/
+      %node#LOLModelSkinned{:name => "LOLModelSkinned"}
+        %matrix{:sid => "transform"}<
+          -# no need for any transform here, just use the identity
+          1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1
+        %instance_controller{:url => "#LOLModelSkinned-controller"}
+          - @model["skeleton-names"].each do |name|
+            %skeleton= "##{name}"
+          %bind_material
+            %technique_common
+              %instance_material{:symbol => "materialSG", :target => "#material"}/
 
-      /      - def bone_node_tag(bone)
-      /        - haml_tag :node, {:id => bone[:bone].name, :name => bone[:bone].name, :sid => bone[:bone].name, :type => "JOINT"} do
-      /          - haml_tag :matrix, bone[:bone].local_transform.getTransposed.to_a.join(' '), {:sid => "transform"}
-      /          -# haml_tag :rotate, bone[:bone].toAxisAngle.join(' '), {:sid => "rotate"}
-      /          -# haml_tag :scale, "#{bone[:bone].scale} #{bone[:bone].scale} #{bone[:bone].scale}", {:sid => "scale"}
-      /          -# haml_tag :translate, bone[:bone].position.to_a.join(' '), {:sid => "translate"}
-      /          - bone[:children].each do |child|
-      /            - bone_node_tag(child)
-      /
-      /      - @model["bone-tree"].each do |root_bone|
-      /        - if root_bone[:bone].name == 'root'
-      /          - bone_node_tag(root_bone)
+            - def bone_node_tag(bone)
+              - haml_tag :node, {:id => bone[:bone].name, :name => bone[:bone].name, :sid => bone[:bone].name, :type => "JOINT"} do
+                - haml_tag :matrix, bone[:bone].local_transform.getTransposed.to_a.join(' '), {:sid => "transform"}
+                -# haml_tag :rotate, bone[:bone].toAxisAngle.join(' '), {:sid => "rotate"}
+                -# haml_tag :scale, "#{bone[:bone].scale} #{bone[:bone].scale} #{bone[:bone].scale}", {:sid => "scale"}
+                -# haml_tag :translate, bone[:bone].position.to_a.join(' '), {:sid => "translate"}
+                - bone[:children].each do |child|
+                  - bone_node_tag(child)
+      
+            - @model["bone-tree"].each do |root_bone|
+              - if root_bone[:bone].name == 'root'
+                - bone_node_tag(root_bone)
 
   %scene
     %instance_visual_scene{:url => "#VisualSceneNode"}/

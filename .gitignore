@@ -45,3 +45,13 @@
 /vendor/ruby-math-3d/RVec3.o
 /vendor/ruby-math-3d/RVec4.o
 /vendor/ruby-math-3d/WrapRMath.o
+
+/spec/fixture/Annie/Annie.dds
+/spec/fixture/Annie/Annie.skl
+/spec/fixture/Annie/Annie.skn
+/spec/fixture/Annie/Annie_Attack1.anm
+/spec/viewer/Gemfile.lock
+/spec/viewer/generated/Annie.dae
+/spec/viewer/generated/Annie.erb.dae
+/spec/viewer/generated/Annie.md2
+/spec/viewer/generated/Annie_skl.md2
