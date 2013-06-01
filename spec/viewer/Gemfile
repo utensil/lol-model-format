@@ -1,0 +1,5 @@
+source 'http://ruby.taobao.org/'
+
+gem 'rack-contrib'
+gem 'rack-rewrite' 
+

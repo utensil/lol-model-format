@@ -1,6 +1,7 @@
 source "http://ruby.taobao.org"
 
-gem 'bindata', '~> 1.4'
+gem 'bindata'
+#, '~> 1.4'
 
 gem 'nokogiri'
 gem 'haml'

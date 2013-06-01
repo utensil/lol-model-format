@@ -42,7 +42,7 @@ describe LolModelFormat::LolModel do
         @models.each do |model_name, m|         
             md2 = m.to_md2
             
-            @md2_file_name = File.expand_path("../generated/#{model_name}.md2", __FILE__)
+            @md2_file_name = File.expand_path("../viewer/generated/#{model_name}.md2", __FILE__)
             wio = File.open(@md2_file_name, 'wb')	        
             md2.write(wio)
             wio.close        
@@ -53,7 +53,7 @@ describe LolModelFormat::LolModel do
         @models.each do |model_name, m|         
             dae = m.to_dae_by_erb
             
-            @dae_file_name = File.expand_path("../generated/#{model_name}.erb.dae", __FILE__)
+            @dae_file_name = File.expand_path("../viewer/generated/#{model_name}.erb.dae", __FILE__)
             wio = File.open(@dae_file_name, 'wb')           
             wio.write(dae)
             wio.close        
@@ -64,7 +64,7 @@ describe LolModelFormat::LolModel do
         @models.each do |model_name, m|         
             dae = m.to_dae
             
-            @dae_file_name = File.expand_path("../generated/#{model_name}.dae", __FILE__)
+            @dae_file_name = File.expand_path("../viewer/generated/#{model_name}.dae", __FILE__)
             wio = File.open(@dae_file_name, 'wb')           
             wio.write(dae)
             wio.close        
@@ -74,7 +74,7 @@ describe LolModelFormat::LolModel do
     it 'should convert to md2 file for skeleton' do
         @models.each do |model_name, m|           
             md2 = m.to_md2_skl            
-            @md2_skl_file_name = File.expand_path("../generated/#{model_name}_skl.md2", __FILE__)
+            @md2_skl_file_name = File.expand_path("../viewer/generated/#{model_name}_skl.md2", __FILE__)
             wio = File.open(@md2_skl_file_name, 'wb')        
             md2.write(wio)
             wio.close     

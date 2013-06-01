@@ -71,44 +71,44 @@
         </effect>
     </library_effects>
     <library_geometries>
-        <geometry id="LOLModel-lib" name="LOLModel">
+        <geometry id="LOLModel-geometry" name="LOLModel">
             <mesh>
-                <source id="LOLModel-lib-positions" name="position">
-                    <float_array id="LOLModel-lib-positions-array" count="<%= @model["positions-array-size"] %>"><%= @model["positions-array"] %></float_array>
+                <source id="LOLModel-geometry-positions" name="position">
+                    <float_array id="LOLModel-geometry-positions-array" count="<%= @model["positions-array-size"] %>"><%= @model["positions-array"] %></float_array>
                     <technique_common>
-                        <accessor count="<%= @model["positions-array-size"] / 3 %>" offset="0" source="#LOLModel-lib-positions-array" stride="3">
+                        <accessor count="<%= @model["positions-array-size"] / 3 %>" offset="0" source="#LOLModel-geometry-positions-array" stride="3">
                             <param name="X" type="float"/>
                             <param name="Y" type="float"/>
                             <param name="Z" type="float"/>
                         </accessor>
                     </technique_common>
                 </source>
-                <source id="LOLModel-lib-normals" name="normal">
-                    <float_array id="LOLModel-lib-normals-array" count="<%= @model["normals-array-size"] %>"><%= @model["normals-array"] %></float_array>
+                <source id="LOLModel-geometry-normals" name="normal">
+                    <float_array id="LOLModel-geometry-normals-array" count="<%= @model["normals-array-size"] %>"><%= @model["normals-array"] %></float_array>
                     <technique_common>
-                        <accessor count="<%= @model["normals-array-size"] / 3 %>" offset="0" source="#LOLModel-lib-normals-array" stride="3">
+                        <accessor count="<%= @model["normals-array-size"] / 3 %>" offset="0" source="#LOLModel-geometry-normals-array" stride="3">
                             <param name="X" type="float"/>
                             <param name="Y" type="float"/>
                             <param name="Z" type="float"/>
                         </accessor>
                     </technique_common>
                 </source>
-                <source id="LOLModel-lib-map1" name="map1">
-                    <float_array id="LOLModel-lib-map1-array" count="<%= @model["map-array-size"] %>"><%= @model["map-array"] %></float_array>
+                <source id="LOLModel-geometry-uvmap" name="uvmap">
+                    <float_array id="LOLModel-geometry-uvmap-array" count="<%= @model["map-array-size"] %>"><%= @model["map-array"] %></float_array>
                     <technique_common>
-                        <accessor count="<%= @model["map-array-size"] / 2 %>" offset="0" source="#LOLModel-lib-map1-array" stride="2">
+                        <accessor count="<%= @model["map-array-size"] / 2 %>" offset="0" source="#LOLModel-geometry-uvmap-array" stride="2">
                             <param name="S" type="float"/>
                             <param name="T" type="float"/>
                         </accessor>
                     </technique_common>
                 </source>
-                <vertices id="LOLModel-lib-vertices">
-                    <input semantic="POSITION" source="#LOLModel-lib-positions"/>
+                <vertices id="LOLModel-geometry-vertices">
+                    <input semantic="POSITION" source="#LOLModel-geometry-positions"/>
                 </vertices>
                 <triangles count="<%= @model["triangles-array-size"] %>" material="materialSG">
-                    <input offset="0" semantic="VERTEX" source="#LOLModel-lib-vertices"/>
-                    <input offset="1" semantic="NORMAL" source="#LOLModel-lib-normals"/>
-                    <input offset="2" semantic="TEXCOORD" source="#LOLModel-lib-map1" set="0"/>
+                    <input offset="0" semantic="VERTEX" source="#LOLModel-geometry-vertices"/>
+                    <input offset="1" semantic="NORMAL" source="#LOLModel-geometry-normals"/>
+                    <input offset="2" semantic="TEXCOORD" source="#LOLModel-geometry-uvmap" set="0"/>
                     <p><%= @model["triangles-array"] %></p>
                 </triangles>
             </mesh>
@@ -120,7 +120,7 @@
                 <rotate sid="rotateZ">0 0 1 0</rotate>
                 <rotate sid="rotateY">0 1 0 0</rotate>
                 <rotate sid="rotateX">1 0 0 0</rotate>
-                <instance_geometry url="#LOLModel-lib">
+                <instance_geometry url="#LOLModel-geometry">
                     <bind_material>
                         <technique_common>
                             <instance_material symbol="materialSG" target="#material">
@@ -129,20 +129,6 @@
                         </technique_common>
                     </bind_material>
                 </instance_geometry>
-            </node>
-            <node id="camera1" name="camera1">
-                <translate sid="translate">400.113 463.264 -431.078</translate>
-                <rotate sid="rotateZ">0 0 1 0</rotate>
-                <rotate sid="rotateY">0 1 0 -223.2</rotate>
-                <rotate sid="rotateX">1 0 0 -38.4</rotate>
-                <instance_camera url="#cameraShape1"/>
-            </node>
-            <node id="directionalLight1" name="directionalLight1">
-                <translate sid="translate">148.654 183.672 -292.179</translate>
-                <rotate sid="rotateZ">0 0 1 -12.8709</rotate>
-                <rotate sid="rotateY">0 1 0 -191.679</rotate>
-                <rotate sid="rotateX">1 0 0 -45.6358</rotate>
-                <instance_light url="#directionalLightShape1-lib"/>
             </node>
         </visual_scene>
     </library_visual_scenes>

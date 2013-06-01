@@ -179,7 +179,7 @@ module LolModelFormat
                 	
                 	b_position = RVec3.new(0.0, 0.0, 0.0).transformCoord(bone_transformer)
                 	
-                	b_position = RVec3.new(b.position.x.value, b.position.y.value, b.position.z.value)
+                	b_position = RVec3.new(b.position.x, b.position.y, b.position.z)
                 	
                     #top
                     vertex = SknFile::SknVertex.new
@@ -195,7 +195,7 @@ module LolModelFormat
                     
                     bp_position = RVec3.new(0.0, 0.0, 0.0).transformCoord(bone_parent_transformer)                    
                     bp = b.parent                    
-                    bp_position = RVec3.new(bp.position.x.value, bp.position.y.value, bp.position.z.value)
+                    bp_position = RVec3.new(bp.position.x, bp.position.y, bp.position.z)
                                 
                     #parent                    
                     vertex_parent = SknFile::SknVertex.new
@@ -229,7 +229,7 @@ module LolModelFormat
                 	bone_transformer = skl.bones[i].transform
                 	
                 	b_position = RVec3.new(0.0, 0.0, 0.0).transformCoord(bone_transformer)
-                	b_position = RVec3.new(b.position.x.value, b.position.y.value, b.position.z.value)
+                	b_position = RVec3.new(b.position.x, b.position.y, b.position.z)
                 	
                     vertex = SknFile::SknVertex.new
                     vertex.position.x = b_position.x
@@ -460,7 +460,8 @@ module LolModelFormat
             #end
             #puts builder.to_xml
 
-            haml_engine = Haml::Engine.new(File.read(File.expand_path('../ext/model.dae.haml', __FILE__)))
+            haml_engine = Haml::Engine.new(File.read(File.expand_path('../ext/model.dae.haml', __FILE__)), 
+                :attr_wrapper => '"', :format => :xhtml)
 
             haml_engine.render binding
 
