@@ -446,7 +446,14 @@ module LolModelFormat
 
             @model["bind-shape-matrix"] = "1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1"
 
+
+            #@model["animations"] = []
+
+            #["anm_bones"] = []
+
             static_skeleton
+
+
 
             #builder = Nokogiri::XML::Builder.new do |xml|
             #  xml.root {
@@ -557,6 +564,8 @@ module LolModelFormat
             # cl_inputmap: [VERTEX NORMAL TEXCOORD].size == 3
             @model["triangles-array-size"] = triangles.size / 9
             @model["texture-file-name"] = "#{model_name || 'texture'}.jpg" 
+
+
 
 
             ##· Bind Pose: visual_scenes node[type="JOINT"] matrix 

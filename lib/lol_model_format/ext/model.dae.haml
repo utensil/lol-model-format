@@ -77,36 +77,72 @@
           %p= @model["triangles-array"]
 
   %library_controllers
-    %controller#LOLModelSkinned-controller{:name => "LOLModelSkinned-controller"}
+    %controller#LOLModelAnimated-controller{:name => "LOLModelAnimated-controller"}
       %skin{:source => "#LOLModel-geometry"}
         %bind_shape_matrix= @model["bind-shape-matrix"]
-        %source#LOLModelSkinned-controller-joints{:name => "LOLModelSkinned-controller-joints"}
-          %Name_array#LOLModelSkinned-controller-joints-array{:count => @model["joints-name-array-size"]}= @model["joints-name-array"]
+        %source#LOLModelAnimated-controller-joints{:name => "LOLModelAnimated-controller-joints"}
+          %Name_array#LOLModelAnimated-controller-joints-array{:count => @model["joints-name-array-size"]}= @model["joints-name-array"]
           %technique_common
-            %accessor{:count => @model["joints-name-array-size"], :source => "#LOLModelSkinned-controller-joints-array"}
+            %accessor{:count => @model["joints-name-array-size"], :source => "#LOLModelAnimated-controller-joints-array"}
               %param{:name => "JOINT", :type => "name"}/
-        %source#LOLModelSkinned-controller-bind_poses{:name => "LOLModelSkinned-controller-bind_poses"}
-          %float_array#LOLModelSkinned-controller-bind_poses-array{:count => @model["bind-poses-array-size"]}<
+        %source#LOLModelAnimated-controller-bind_poses{:name => "LOLModelAnimated-controller-bind_poses"}
+          %float_array#LOLModelAnimated-controller-bind_poses-array{:count => @model["bind-poses-array-size"]}<
             =@model["bind-poses-array"]
           %technique_common
-            %accessor{:count => @model["bind-poses-array-size"].to_i / 16, :source => "#LOLModelSkinned-controller-bind_poses-array", :stride => "16"}
+            %accessor{:count => @model["bind-poses-array-size"].to_i / 16, :source => "#LOLModelAnimated-controller-bind_poses-array", :stride => "16"}
               %param{:name => "TRANSFORM", :type => "float4x4"}/
-        %source#LOLModelSkinned-controller-weights{:name => "LOLModelSkinned-controller-weights"}
-          %float_array#LOLModelSkinned-controller-weights-array{:count => @model["weights-array-size"]}<
+        %source#LOLModelAnimated-controller-weights{:name => "LOLModelAnimated-controller-weights"}
+          %float_array#LOLModelAnimated-controller-weights-array{:count => @model["weights-array-size"]}<
             =@model["weights-array"]
           %technique_common
-            %accessor{:count => @model["weights-array-size"], :source => "#LOLModelSkinned-controller-weights-array"}
+            %accessor{:count => @model["weights-array-size"], :source => "#LOLModelAnimated-controller-weights-array"}
               %param{:name => "WEIGHT", :type => "float"}/
         %joints
-          %input{:semantic => "JOINT", :source => "#LOLModelSkinned-controller-joints"}/
-          %input{:semantic => "INV_BIND_MATRIX", :source => "#LOLModelSkinned-controller-bind_poses"}/
+          %input{:semantic => "JOINT", :source => "#LOLModelAnimated-controller-joints"}/
+          %input{:semantic => "INV_BIND_MATRIX", :source => "#LOLModelAnimated-controller-bind_poses"}/
         %vertex_weights{:count => @model["vertex-weights-count"]}
-          %input{:offset => "0", :semantic => "JOINT", :source => "#LOLModelSkinned-controller-joints"}/
-          %input{:offset => "1", :semantic => "WEIGHT", :source => "#LOLModelSkinned-controller-weights"}/
+          %input{:offset => "0", :semantic => "JOINT", :source => "#LOLModelAnimated-controller-joints"}/
+          %input{:offset => "1", :semantic => "WEIGHT", :source => "#LOLModelAnimated-controller-weights"}/
           %vcount<
             =@model["vcount-array"]
           %v<
             =@model["v-array"]
+  %library_animations
+    - @animation_files.each do |name, anm_file|      
+      %animation{:id => "animation-#{name}",:name => name}
+        - anm_file.bones.each do |anm_bone|
+          %source{:id => "#{anm_bone.name}-matrix-input"}
+            %float_array{:id => "#{anm_bone.name}-matrix-input-array", :count => anm_file.number_of_frames }<
+              - time_array = []
+              - 0.upto(anm_file.number_of_frames - 1) do |frame_num|
+                - time_array << "#{0.3333 * frame_num}"
+              = time_array.join ' '
+            %technique_common
+              %accessor{:source => "##{anm_bone.name}-matrix-input-array", :count => anm_file.number_of_frames, :stride => "1"}
+                %param{:name => "TIME", :type => "float"}/
+          %source{:id => "#{anm_bone.name}-matrix-output"}
+            %float_array{:id => "#{anm_bone.name}-matrix-output-array", :count => anm_file.number_of_frames * 16 }<
+              - transform_array = []
+              - anm_bone.frames.each do |frame|
+                - frame_transform = frame.transform
+                - 0.upto(3) do |row|
+                  - 0.upto(3) do |col|
+                    - transform_array << frame_transform[row, col].to_f.round(4)
+              = transform_array.join ' '
+            %technique_common
+              %accessor{:source => "##{anm_bone.name}-matrix-output-array", :count => anm_file.number_of_frames, :stride => 16}
+                %param{:name => "TRANSFORM", :type => "float4x4"}/
+          %source{:id => "#{anm_bone.name}-matrix-interpolation"}
+            %Name_array{:id => "#{anm_bone.name}-matrix-interpolation-array", :count => anm_file.number_of_frames}<
+              = "#{'LINEAR ' * (anm_file.number_of_frames - 1)}LINEAR"
+            %technique_common
+              %accessor{:source => "##{anm_bone.name}-matrix-interpolation-array", :count => anm_file.number_of_frames, :stride => 1}
+                %param{:name => "INTERPOLATION", :type => "name"}/
+          %sampler{:id => "#{anm_bone.name}-matrix-sampler"}
+            %input{:semantic => 'INPUT', :source => "##{anm_bone.name}-matrix-input"}
+            %input{:semantic => 'OUTPUT', :source => "##{anm_bone.name}-matrix-output"}
+            %input{:semantic => 'INTERPOLATION', :source => "##{anm_bone.name}-matrix-interpolation"}
+          %channel{:source => "##{anm_bone.name}-matrix-sampler", :target => "#{anm_bone.name}/matrix"}
 
   %library_visual_scenes
     %visual_scene#VisualSceneNode{:name => "untitled"}
@@ -119,29 +155,29 @@
             %technique_common
               %instance_material{:symbol => "materialSG", :target => "#material"}
                 %bind_vertex_input{:input_semantic => "TEXCOORD", :input_set => "0", :semantic => "TEX0"}/
-      %node#LOLModelSkinned{:name => "LOLModelSkinned"}
-        %matrix{:sid => "transform"}<
+      %node#LOLModelAnimated{:name => "LOLModelAnimated"}
+        %matrix{:sid => "matrix"}<
           -# no need for any transform here, just use the identity
           1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1
-        %instance_controller{:url => "#LOLModelSkinned-controller"}
-          - @model["skeleton-names"].each do |name|
+        %instance_controller{:url => "#LOLModelAnimated-controller"}
+          - ["root"].each do |name|
             %skeleton= "##{name}"
           %bind_material
             %technique_common
               %instance_material{:symbol => "materialSG", :target => "#material"}/
 
-            - def bone_node_tag(bone)
-              - haml_tag :node, {:id => bone[:bone].name, :name => bone[:bone].name, :sid => bone[:bone].name, :type => "JOINT"} do
-                - haml_tag :matrix, bone[:bone].local_transform.getTransposed.to_a.join(' '), {:sid => "transform"}
-                -# haml_tag :rotate, bone[:bone].toAxisAngle.join(' '), {:sid => "rotate"}
-                -# haml_tag :scale, "#{bone[:bone].scale} #{bone[:bone].scale} #{bone[:bone].scale}", {:sid => "scale"}
-                -# haml_tag :translate, bone[:bone].position.to_a.join(' '), {:sid => "translate"}
-                - bone[:children].each do |child|
-                  - bone_node_tag(child)
-      
-            - @model["bone-tree"].each do |root_bone|
-              - if root_bone[:bone].name == 'root'
-                - bone_node_tag(root_bone)
+      - def bone_node_tag(bone)
+        - haml_tag :node, {:id => bone[:bone].name, :name => bone[:bone].name, :sid => bone[:bone].name, :type => "JOINT"} do
+          - haml_tag :matrix, bone[:bone].local_transform.getTransposed.to_a.join(' '), {:sid => "matrix"}
+          -# haml_tag :rotate, bone[:bone].toAxisAngle.join(' '), {:sid => "rotate"}
+          -# haml_tag :scale, "#{bone[:bone].scale} #{bone[:bone].scale} #{bone[:bone].scale}", {:sid => "scale"}
+          -# haml_tag :translate, bone[:bone].position.to_a.join(' '), {:sid => "translate"}
+          - bone[:children].each do |child|
+            - bone_node_tag(child)
+
+      - @model["bone-tree"].each do |root_bone|
+        - if root_bone[:bone].name == 'root'
+          - bone_node_tag(root_bone)
 
   %scene
     %instance_visual_scene{:url => "#VisualSceneNode"}/

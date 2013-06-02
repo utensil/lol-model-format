@@ -34,12 +34,19 @@ module LolModelFormat
                 vector3 :position_origin
                 
                 def orientation            	
-                    RQuat.new(orientation_origin.x.value, orientation_origin.y.value,
+                    @orientation ||= RQuat.new(orientation_origin.x.value, orientation_origin.y.value,
                         orientation_origin.z.value, orientation_origin.w.value)
+                    @orientation
                 end
                 
                 def position
-                    RVec3.new(position_origin.x.value, position_origin.y.value, position_origin.z.value)
+                    @position ||= RVec3.new(position_origin.x.value, position_origin.y.value, position_origin.z.value)
+                    @position
+                end
+
+                def transform
+                    @readable_transform ||= RMtx4.new.setIdentity.rotationQuaternion(orientation) * RMtx4.new.setIdentity.translation(position.x, position.y, position.z).getTransposed
+                    @readable_transform
                 end
             end
                     
