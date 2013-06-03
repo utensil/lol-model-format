@@ -1,0 +1,6 @@
+* cg spec should be improved, clear more doubts
+* skl_file needs to confirm correctness of the cg calculation part
+* skn_file needs to merge bone mapping logic from lol_model
+* md2 related logic should be extracted from lol_model
+* dae should remove erb and focus on haml
+* dae should remove the array bridges and directly expose model data in haml, only providing some helpers to make ruby code in haml more concise
