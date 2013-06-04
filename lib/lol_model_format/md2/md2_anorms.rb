@@ -1,5 +1,5 @@
 module LolModelFormat
-    module Ext
+    module Md2
     	
     	class Md2File < BinData::Record
     	

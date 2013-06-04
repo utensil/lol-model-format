@@ -1,8 +1,8 @@
 require 'spec_helper'
 
-describe LolModelFormat::Ext::Md2File do
+describe LolModelFormat::Md2::Md2File do
     
-    include LolModelFormat::Ext
+    include LolModelFormat::Md2
     
     context '1' do
 

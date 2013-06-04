@@ -1,7 +1,7 @@
 require 'lol_model_format/skl_file'
 require 'lol_model_format/skn_file'
 require 'lol_model_format/anm_file'
-require 'lol_model_format/ext/md2_file'
+require 'lol_model_format/md2/md2_file'
 require "erb"
 require "haml"
 require "json"
@@ -10,7 +10,7 @@ module LolModelFormat
     
     class LolModel
         
-        include LolModelFormat::Ext
+        include LolModelFormat::Md2
 
         #must be set when initialize, can't change for the time being
         attr_reader :skeleton_file, :skin_file, :animation_files
@@ -467,7 +467,7 @@ module LolModelFormat
             #end
             #puts builder.to_xml
 
-            haml_engine = Haml::Engine.new(File.read(File.expand_path('../ext/model.dae.haml', __FILE__)), 
+            haml_engine = Haml::Engine.new(File.read(File.expand_path('../dae/model.dae.haml', __FILE__)), 
                 :attr_wrapper => '"', :format => :xhtml)
 
             haml_engine.render binding
@@ -616,7 +616,7 @@ module LolModelFormat
             ##ever really need to make your own inverse bind pose anyway but I thought it was
             ##still an important note.
 #
-            ERB.new(File.read(File.expand_path('../ext/model.dae.erb', __FILE__))).result binding
+            ERB.new(File.read(File.expand_path('../dae/model.dae.erb', __FILE__))).result binding
         end
         
         def escape_md2_frame_name(name)

@@ -1,8 +1,8 @@
 require 'lol_model_format/base_types'
-require 'lol_model_format/ext/md2_anorms'
+require 'lol_model_format/md2/md2_anorms'
 
 module LolModelFormat
-    module Ext
+    module Md2
         
         class Md2File < BinData::Record
             endian :little
