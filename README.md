@@ -6,6 +6,12 @@ Reading, writing and parsing model formats used in the game League of Legends, a
 Development Status
 -------------------
 
+
+[![Build Status](https://travis-ci.org/utensil/lol-model-format.png)](https://travis-ci.org/utensil/lol-model-format)
+[![Code Coverage](https://coveralls.io/repos/utensil/lol-model-format/badge.png)](https://coveralls.io/r/utensil/lol-model-format)
+[![Dependency Status](https://gemnasium.com/utensil/lol-model-format.png)](https://gemnasium.com/utensil/lol-model-format)
+[![Code Quality](https://codeclimate.com/github/utensil/lol-model-format.png)](https://codeclimate.com/github/utensil/lol-model-format)
+
 Early stage. Use the code at your own risk.
 
 For now, all formats are rspeced at a fundamental level, more specs are planned to be added.
