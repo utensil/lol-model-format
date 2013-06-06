@@ -2,8 +2,6 @@ require 'spec_helper'
 
 describe LolModelFormat::AnmFile do
     
-    include LolModelFormat
-    
     #It's time-consuming to load a model, so do it only once
     before :all do
         lambda {
@@ -13,7 +11,6 @@ describe LolModelFormat::AnmFile do
             @anm = AnmFile.read(io)
             io.close
         }.should_not raise_error
-
     end
     
     it 'should read and parse correctly' do

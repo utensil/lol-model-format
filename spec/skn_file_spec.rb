@@ -2,8 +2,6 @@ require 'spec_helper'
 
 describe LolModelFormat::SknFile do
     
-    include LolModelFormat
-    
     #It's time-consuming to load a model, so do it only once
     before :all do
         lambda {

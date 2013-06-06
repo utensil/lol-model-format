@@ -2,6 +2,7 @@
 require 'stringio'
 require 'digest/md5'
 require 'lol_model_format.rb'
+include LolModelFormat
 
 RSpec.configure do |config|
   # == Mock Framework

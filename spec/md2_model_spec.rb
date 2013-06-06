@@ -1,11 +1,10 @@
 require 'spec_helper'
 require 'model_shared'
+include LolModelFormat::Md2
 
 describe LolModelFormat::Md2::Md2Model do
 
-    include_context "model_shared"
-    
-    include LolModelFormat::Md2
+    include_context "model_shared"    
 
     it 'should convert to md2 file' do
         @models.each do |model_name, m|         

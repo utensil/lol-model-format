@@ -1,6 +1,4 @@
 shared_context "model_shared"  do
-
-    include LolModelFormat
     
     before :all do
         @models = {}
@@ -15,7 +13,7 @@ shared_context "model_shared"  do
             @skn_file_name = File.expand_path("../fixture/#{model_name}/#{model_name}.skn", __FILE__)
             File.open(@skn_file_name, 'rb') do |io|
                 @skn = SknFile.read(io)
-            end         
+            end             
             
             @animations = {}
             

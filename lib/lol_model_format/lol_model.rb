@@ -578,7 +578,7 @@ module LolModelFormat
         end
 
         def add_children_recursively(skeleton, i, name_array = [])
-            current_bone = { bone: skeleton.bones[i], children: [] }
+            current_bone = { :bone => skeleton.bones[i], :children => [] }
             name_array << skeleton.bones[i].name.to_s
 
             skeleton.bones.each do |j, bone|
