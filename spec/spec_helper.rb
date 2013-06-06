@@ -1,4 +1,7 @@
 #require File.expand_path('../NothingForTheTimeBeing', __FILE__)
+require 'coveralls'
+Coveralls.wear!
+
 require 'stringio'
 require 'digest/md5'
 require 'lol_model_format.rb'
