@@ -1,5 +1,6 @@
 require 'rspec/core/rake_task'
 require 'fileutils'
+require 'rubygems'
 
 desc 'Default: run specs.'
 RSpec::Core::RakeTask.new :spec => [:build_ruby_math_3d] do |t|
@@ -14,7 +15,7 @@ task :build_ruby_math_3d do |t|
     Dir.chdir('ruby-math-3d') do
       puts Dir.pwd
       FileUtils.rm(File.expand_path('./Makefile', Dir.pwd), :force => true)   # never raises exception
-      require File.expand_path('./extconf.rb', Dir.pwd)
+      system "#{Gem.ruby} #{File.expand_path('./extconf.rb', Dir.pwd)}"
       puts IO.read(File.expand_path('./Makefile', Dir.pwd))
       system 'make'
     end
