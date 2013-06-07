@@ -17,8 +17,7 @@ task :build_ruby_math_3d do |t|
       end
     end
   end
-  pid, status = Process.waitpid2(pid, Process::WNOHANG)
-  status.exitstatus == 0
+  Process.waitpid2(pid, Process::WNOHANG)
 end
 
 task :default  => :spec
