@@ -8,16 +8,17 @@ end
 
 task :build_ruby_math_3d do |t|
   # vendor / ruby-math-3d
-  Dir.chdir('vendor') do
-    Dir.chdir('ruby-math-3d') do
-      pid=Process.fork do
-          require 'extconf.rb'
-          system 'make'
-          Process.exit
+  pid = Process.fork do
+    Dir.chdir('vendor') do
+      Dir.chdir('ruby-math-3d') do
+        require File.expand_path('./extconf.rb', Dir.pwd)
+        system 'make'
+        Process.exit
       end
-      Process.waitpid2(pid, Process::WNOHANG)
     end
   end
+  pid, status = Process.waitpid2(pid, Process::WNOHANG)
+  status.exitstatus == 0
 end
 
 task :default  => :spec
