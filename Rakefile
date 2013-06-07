@@ -10,18 +10,15 @@ end
 desc 'build ruby-math-3d native extension'
 task :build_ruby_math_3d do |t|
   # vendor / ruby-math-3d
-  pid = Process.fork do
-    Dir.chdir('vendor') do
-      Dir.chdir('ruby-math-3d') do
-        FileUtils.rm(File.expand_path('./Makefile', Dir.pwd), :force => true)   # never raises exception
-        require File.expand_path('./extconf.rb', Dir.pwd)
-        puts IO.read(File.expand_path('./Makefile', Dir.pwd))
-        system 'make'        
-        Process.exit
-      end
+  Dir.chdir('vendor') do
+    Dir.chdir('ruby-math-3d') do
+      puts Dir.pwd
+      FileUtils.rm(File.expand_path('./Makefile', Dir.pwd), :force => true)   # never raises exception
+      require File.expand_path('./extconf.rb', Dir.pwd)
+      puts IO.read(File.expand_path('./Makefile', Dir.pwd))
+      system 'make'
     end
   end
-  Process.waitpid2(pid, Process::WNOHANG)
 end
 
 task :default  => :spec
