@@ -108,7 +108,7 @@
           %v<
             =@model["v-array"]
   %library_animations
-    - @animation_files.each do |name, anm_file|      
+    - @lol_model.animation_files.each do |name, anm_file|      
       %animation{:id => "animation-#{name}",:name => name}
         - anm_file.bones.each do |anm_bone|
           %source{:id => "#{anm_bone.name}-matrix-input"}
