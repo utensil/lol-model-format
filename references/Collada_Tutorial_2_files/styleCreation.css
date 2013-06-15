@@ -1,0 +1,247 @@
+/* Comments Engine by Wasim Abbas */
+/* CSS file Specification */
+
+body { background: #FFFFFF; font-size: 12px; font-family: Verdana, Arial; }
+
+.sbl { background: url('ComEnImg/bl.gif') bottom left no-repeat #EDEFF0; width: 100%; text-align: left; min-width: 100px; min-height: 10px; }
+.sbr { background: url('ComEnImg/br.gif') bottom right no-repeat; }
+.stl { background: url('ComEnImg/tl.gif') top left no-repeat; }
+.str { background: url('ComEnImg/tr.gif') top right no-repeat; padding: 10px; } 
+.sb { padding: 2px 0px 10px 50px; background: url('ComEnImg/b.gif') 30px top no-repeat; }
+
+div
+ {
+	border:0px solid #000;
+	background:#FFFFFF;
+	color:#555555;
+}
+
+a
+{
+	text-decoration:none;
+}
+
+a.link
+ {
+	color:#2970A6;
+	text-decoration:none;
+}
+
+.com .aut 
+{
+	border:3px solid #FF0000;
+	background:#00FF00;
+	color:#0000FF;
+}
+
+ol,li
+{
+	list-style:none;
+	padding: 0px;
+	margin: 0px;
+}
+
+li.Comment 
+{
+	clear:both;
+}
+
+pre.CommentTextUser
+{
+	width:40px;
+}
+.CommentsTable
+{
+	width:800px;
+	background: #FFFFFF; 
+	font-size: 12px; 
+	font-family: Verdana, Arial;
+}
+
+.CommentsTable th
+{
+	font-size: 15px;
+	padding:5px;
+}
+
+.CommentsTable .CommentsCell
+{
+	border:1px solid #EDEFF0;
+	padding:15px;
+}
+
+.Comment .RegularComment 
+{
+	float:left;
+}
+
+.Comment .AuthorComment 
+{
+	float:righ;
+}
+
+.AuthorComment .AdminDisplay 
+{
+	height:80px;
+	width:80px;
+	float:left;
+	color:#FF0000;
+}
+
+.RegularComment .AdminDisplay 
+{
+	height:80px;
+	width:80px;
+	float:right;
+	color:#FF0000;
+}
+
+.RegularComment .Author 
+{
+	height:80px;
+	width:80px;
+	float:left;
+	background:url(ComEnImg/SignalAuthor.gif) 100% 33% no-repeat;
+}
+
+.RegularComment .Data
+{
+	width:500px;
+	float:left;
+}
+
+.RegularComment .Fixed
+{
+	clear:both;
+	height:4px;
+}
+
+.RegularComment .Avatar
+{
+	margin-top:10px;
+	margin-left:15px;
+	width:32px;
+	height:32px;
+	padding:1px;
+	border:1px solid #999;
+}
+
+.RegularComment .Name {
+	float:left;
+	width:62px;
+	text-align:center;
+	font-weight:bolder;
+	overflow:hidden;
+	background:#FFFFFF;
+}
+
+.AuthorComment .Author 
+{
+	height:80px;
+	width:80px;
+	float:right;
+	background:url(ComEnImg/SignalRegular.gif) 100% 33% no-repeat;
+}
+
+.AuthorComment .Data
+{
+	width:500px;
+	float:right;
+}
+
+.AuthorComment .Fixed
+{
+	clear:both;
+	height:4px;
+}
+
+.AuthorComment .Avatar
+{
+	margin-top:10px;
+	margin-left:33px;
+	width:32px;
+	height:32px;
+	padding:1px;
+	border:1px solid #999;
+}
+
+.AuthorComment .Name {
+	float:right;
+	width:62px;
+	text-align:center;
+	font-weight:bolder;
+	overflow:hidden;
+	background:#FFFFFF;
+}
+
+strong.AdminNewCommentAlert
+{
+	border:20px solid #FF0000;
+}
+
+.Data .Date
+{
+	float:left;
+	margin:5px;
+	font-size:10px;
+	background:#EDEFF0;
+}
+
+.Data .Response
+{
+	float:right;
+	margin:5px;
+	font-size:10px;
+	background:#EDEFF0;
+}
+
+.Data .CommentText
+{
+	clear:both;
+	margin:5px;
+	background:#EDEFF0;
+}
+
+.CommentText .PreCommentText
+{
+	width:170px;
+}
+
+.Author img
+{
+	width:32px;
+	height:32px;
+}
+
+.CommentText .Quote
+{
+	border:1px dotted #999;
+	margin-left:5px;
+	margin-right:5px;
+	padding:4px;
+	background:#F1F2F3;
+}
+
+.Quote .Quote
+{
+	margin-left:5px;
+	margin-right:5px;
+	padding:4px;
+	background:#F6F7F8;
+}
+
+.QuoteCommentee
+{
+	margin:2px;
+	padding:2px;
+	font-size:12px;
+	background-color:transparent;
+}
+
+.ReplyCommentee
+{
+	margin:2px;
+	padding:2px;
+	font-size:12px;
+	background-color:transparent;
+}

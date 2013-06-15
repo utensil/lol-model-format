@@ -1,0 +1,1331 @@
+
+<!-- saved from url=(0043)http://www.wazim.com/Collada_Tutorial_1.htm -->
+<html xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office" xmlns="http://www.w3.org/TR/REC-html40"><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta http-equiv="Content-Language" content="en-us">
+
+<!-- style -->
+<link rel="stylesheet" type="text/css" href="./Collada_Tutorial_1_files/styleCreation.css">
+<!-- script -->
+<title>Step by Step Skeletal Animation</title>
+<style>
+<!--
+ p.MsoNormal
+	{mso-style-parent:"";
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	margin-left:0in; margin-right:0in; margin-top:0in}
+-->
+</style>
+<link type="text/css" rel="stylesheet" href="chrome-extension://imamemhokkdleoelohnmkimbmpfglcil/css/capture.css"><style id="__huaban_Style">#__huaban_Container {font-family: 'helvetica neue', arial, sans-serif; position: absolute; padding-top: 37px; z-index: 100000002; top: 0; left: 0; background-color: transparent; opacity: 1;hasLayout:-1;}#__huaban_Overlay {position: fixed; z-index: 100000001; top: 0; right: 0; bottom: 0; left: 0; background-color: #f2f2f2; opacity: .95;}* html #__huaban_Overlay {position: absolute;}#__huaban_Control {position:relative; z-index: 100000; float: left; background-color: #fcf9f9; border: solid #ccc; border-width: 0 1px 1px 0; height: 200px; width: 200px; opacity: 1;}* html #__huaban_Control {position:static;}#__huaban_Control img {position: relative; padding: 0; display: block; margin: 82px auto 0; -ms-interpolation-mode: bicubic;}#__huaban_Control a {position: fixed; z-index: 10001; right: 0; top: 0; left: 0; height: 24px; padding: 12px 0 0; text-align: center; font-size: 14px; line-height: 1em; text-shadow: 0 1px #fff; color: #211922; font-weight: bold; text-decoration: none; background: #fff url(http://huaban.com/img/fullGradient07Normal.png) 0 0 repeat-x; border-bottom: 1px solid #ccc; -mox-box-shadow: 0 0 2px #d7d7d7; -webkit-box-shadow: 0 0 2px #d7d7d7;}* html #__huaban_Control a {position: absolute; width: 100%;}#__huaban_Control a:hover {color: #fff; text-decoration: none; background-color: #1389e5; border-color: #1389e5; text-shadow: 0 -1px #46A0E6;}#__huaban_Control a:active {height: 23px; padding-top: 13px; background-color: #211922; border-color: #211922; background-image: url(http://huaban.com/img/fullGradient07Inverted.png); text-shadow: 0 -1px #211922;}.__huabanImagePreview {position: relative; padding: 0; margin: 0; float: left; background-color: #fff; border: solid #e7e7e7; border-width: 0 1px 1px 0; height: 200px; width: 200px; opacity: 1; z-index: 10002; text-align: center; overflow:hidden;}.__huabanImagePreview .__huabanVideoIcon {position:absolute;display:block;top:0;left:0;width:100%;height:100%;background:url(http://huaban.com/img/media_video.png) center center no-repeat;}.__huabanImagePreview .__huabanImg {border: none; height: 200px; width: 200px; opacity: 1; padding: 0; position: absolute; top: 0;}.__huabanImagePreview .__huabanImg a {margin: 0; padding: 0; position: absolute; top: 0; bottom: 0; right: 0; left: 0; display: block; text-align: center;  z-index: 1;}.__huabanImagePreview .__huabanImg a:hover {background-color: #fcf9f9; border: none;}.__huabanImagePreview .__huabanImg .ImageToPin {max-height: 200px; max-width: 200px; width: auto !important; height: auto !important;}.__huabanImagePreview img.__huaban_PinIt {border: none; position: absolute; top: 82px; left: 42px; display: none; padding: 0; background-color: transparent; z-index: 100;}.__huabanImagePreview strong {text-indent: -9999px; position: absolute; top: 82px; display: none; height: 32px; background: url(http://huaban.com/img/bm_pin_sprite.png?20120801) no-repeat 0 0;}.__huabanImagePreview strong.__huaban_ThunderPin {width: 24px; left: 52px; background-position: 0 0;}.__huabanImagePreview strong.__huaban_ThunderPin:hover {background-position: 0 -50px;}.__huabanImagePreview strong.__huaban_ThunderPin:active {background-position: 0 -100px;}.__huabanImagePreview strong.__huaban_Pin {width: 72px; left: 75px; background-position: -40px 0;}.__huabanImagePreview strong.__huaban_Pin:hover {background-position: -40px -50px;}.__huabanImagePreview strong.__huaban_Pin:active {background-position: -40px -100px;}.__huabanImagePreview img.__huaban_vidind {border: none; position: absolute; top: 75px; left: 75px; padding: 0; background-color: transparent; z-index: 99;}.__huabanDimensions { color: #000; position: relative; margin-top: 180px; text-align: center; font-size: 10px; z-index:10003; display: inline-block; background: white; border-radius: 4px; padding: 0 2px;}#__huaban_Button, #__huaban_Button *, #__huaban_Container, #__huaban_Container * { -webkit-box-sizing: content-box; -moz-box-sizing: content-box; -ms-box-sizing: content-box; box-sizing: content-box;}#__huaban_Button { display: block; position: absolute; z-index: 999999999 !important; color: #211922; text-shadow: 0 1px #eaeaea; font: 12px/1 'Helvetica Neue',Helvetica,Arial,Sans-serif; text-align: center; padding: 0; margin: 0; cursor: pointer;}#__huaban_Button a {text-decoration: none; color: #211922; display: inline-block; text-align: center; line-height: 14px; height: 14px; border-radius: 2px; -webkit-border-radius: 2px; -moz-border-radius: 2px; -ms-border-radius: 2px; -o-border-radius: 2px; cursor: pointer; position: absolute; top: 0; left: 0; height: 14px; margin: 0 2px; padding: 5px 8px; border: 1px solid #555; border: 1px solid rgba(140, 126, 126, .5); background-color: #fff;}#__huaban_Button a:hover {text-decoration: none; background-image: -webkit-linear-gradient(top, #fefeff, #efefef); background-image: -moz-linear-gradient(top, #fefeff, #efefef); box-shadow: inset 0 1px rgba(255,255,255,0.35), 0 1px 1px rgba(35,24,24,0.75); -o-box-shadow: inset 0 1px rgba(255,255,255,0.35), 0 1px 1px rgba(35,24,24,0.75); -ms-box-shadow: inset 0 1px rgba(255,255,255,0.35), 0 1px 1px rgba(35,24,24,0.75); -moz-box-shadow: inset 0 1px rgba(255,255,255,0.35), 0 1px 1px rgba(35,24,24,0.75); -webkit-box-shadow: inset 0 1px rgba(255,255,255,0.35), 0 1px 1px rgba(35,24,24,0.75);}#__huaban_Button a:active {text-decoration: none; background-image: -webkit-linear-gradient(top, #fefeff, #efefef); background-image: -moz-linear-gradient(top, #fefeff, #efefef); box-shadow: inset 0 1px 2px rgba(34,25,25,0.25), 0 0 1px rgba(232,230,230,0.5); -o-box-shadow: inset 0 1px 2px rgba(34,25,25,0.25), 0 0 1px rgba(232,230,230,0.5); -ms-box-shadow: inset 0 1px 2px rgba(34,25,25,0.25), 0 0 1px rgba(232,230,230,0.5); -moz-box-shadow: inset 0 1px 2px rgba(34,25,25,0.25), 0 0 1px rgba(232,230,230,0.5); -webkit-box-shadow: inset 0 1px 2px rgba(34,25,25,0.25), 0 0 1px rgba(232,230,230,0.5);}#__huaban_Button a strong {position: relative; line-height: 12px;}#__huaban_Button a.thunderpin {margin-right: 0; border-right: none; width: 14px; padding: 5px 0 5px 4px; border-top-right-radius: 0; border-bottom-right-radius: 0; -webkit-border-top-right-radius: 0; -webkit-border-bottom-right-radius: 0; -moz-border-top-right-radius: 0; -moz-border-bottom-right-radius: 0; -ms-border-top-right-radius: 0; -ms-border-bottom-right-radius: 0; -o-border-top-right-radius: 0; -o-border-bottom-right-radius: 0;}#__huaban_Button a.thunderpin em {background: url(http://huaban.com/img/ActionIcons10.png?20120801) no-repeat -30px 0; position: relative; display: inline-block; width: 10px; height: 10px; top: 1px; left: -2px;}#__huaban_Button a.thunderpin:hover em {background-image-postion: -30px -10px;}#__huaban_Button a.thunderpin:active em {background-image-postion: -30px -20px;}#__huaban_Button a.pin {left: 20px; width: 64px; margin-left: 0; *margin-left: -2px; border-top-left-radius: 0; border-bottom-left-radius: 0; -webkit-border-top-left-radius: 0; -webkit-border-bottom-left-radius: 0; -moz-border-top-left-radius: 0; -moz-border-bottom-left-radius: 0; -ms-border-top-left-radius: 0; -ms-border-bottom-left-radius: 0; -o-border-top-left-radius: 0; -o-border-bottom-left-radius: 0;}.__huaban_Button_share {text-indent: -9999px; width: 68px; height: 24px; padding:0; background: url(http://huaban.com/img/sharebutton_sprite.png?20121226) no-repeat 0 -80px !important; border: none;}.__huaban_Button_share:hover {background-position: 0 -120px; background-position: 0 -120px !important;}.__huaban_Button_share_top {background-position: 0 -80px; background-position: 0 -80px !important;}.__huaban_Button_share_top:hover {background-position: 0 -120px; background-position: 0 -120px !important;}.__huaban_Button_share_bottom {background-position: 0 0; background-position: 0 0 !important;}.__huaban_Button_share_bottom:hover {background-position: 0 -40px; background-position: 0 -40px !important;}.__huaban_thunder_tip { height: 16px; position: absolute; z-index: 999999999 !important; background: #000; background: rgba(0,0,0,0.5); color: #ddd; line-height: 16px; padding: 5px; border-radius: 2px; margin-left: 2px; }.__huabanImagePreview .__huaban_thunder_tip {height: 12px; line-height: 12px; padding: 10px; font-size: 14px; top: 50%; left: 50%; margin-left: -48px; margin-top: -18px;}.__huaban_thunder_tip_success {color: #fff;font-weight: bold; height: 32px;}.__huaban_thunder_tip p {font-weight: normal; text-align: center; margin-top: 2px;}.__huaban_thunder_tip a {color: #fff;}.__huaban_thunder_tip_failed {height: 32px; font-weight: bold; color: #fff;background: #c90000; background: rgba(201, 0, 0, .5); }.__huaban_thunder_tip_failed p {margin: 0 2px; font-weight: normal; font-size: 12px;}.__huaban_thunder_tip span { padding-left: 18px; position: relative;}.__huaban_thunder_tip span em { background: url(http://huaban.com/img/bm_pin_sprite.png?20120801) no-repeat 0px -150px; display: inline-block; height: 16px; width: 16px; position: absolute; left: 0; top: 50%; margin-top: -8px;}.__huaban_thunder_tip_success span em { background: url(http://huaban.com/img/bm_pin_sprite.png?20120801) no-repeat 0px -150px;}.__huaban_thunder_tip_failed span em { background: url(http://huaban.com/img/bm_pin_sprite.png?20120801) no-repeat -40px -150px;}.__huaban_thunder_tip_ing span em { background: url(http://huaban.com/img/thunder_motion.gif?20120801) no-repeat 2px 2px;}.__huabanImagePreview .__huaban_thunder_tip_failed {height: 32px; width: 140px; margin-left: -80px; margin-top: -26px;}.__huabanImagePreview .__huaban_thunder_tip_success {height: 32px; width: 88px; margin-left: -52px; margin-top: -26px;}.__huabanImagePreview .__huaban_thunder_tip_ing {width: 72px;}.__huabanImagePreview .__huaban_thunder_tip_success p, .__huabanImagePreview .__huaban_thunder_tip_failed p {margin-top: 9px; font-size: 12px; display: block;}</style></head>
+
+<body onload="CheckLoadedFrame1();" huaban_screen_capture_injected="true">
+<script type="text/javascript">
+<!--
+/*
+ onLoad="Loaded();" onUnLoad="UnLoaded();"
+function Loaded()
+{
+	//alert("Loaded");
+	//document.getElementById('CommentIFrame').style.height = document.getElementById('CommentIFrame').document.body.scrollHeight + 20;
+}
+function UnLoaded()
+{
+	//alert("Unloaded");
+}
+*/
+function CheckLoadedFrame1()
+{
+	/*
+	if( !window.frames['CommentIFrame'] ) 
+	{ 
+		window.alert( 'Frame has not loaded' ); 
+	}
+	else
+	{
+		window.alert( 'Frame has been loaded' ); 
+	}*/
+	parent.frames['CommentIFrame1'].window.location.reload();
+}
+function autoIframe(frameId)
+{
+	try
+	{
+		frame = document.getElementById(frameId);
+		innerDoc = (frame.contentDocument) ? frame.contentDocument : frame.contentWindow.document;
+		objToResize = (frame.style) ? frame.style : frame;
+		objToResize.height = innerDoc.body.scrollHeight + 20;
+	}
+	catch(err)
+	{
+		window.status = err.message;
+	}
+}
+//-->
+</script>
+<!-- Comments PHP and JS Section Start-->
+
+<!-- JavaScript Section -->
+
+<!-- Comments PHP and JS Section End-->
+
+<p class="MsoNormal" align="center" style="text-align: center"><b>
+<span style="font-size: 14.0pt; font-family: Arial">Step by Step Skeletal 
+Animation in C++ and OpenGL, Using COLLADA</span></b></p>
+<p class="MsoNormal" align="center" style="text-align: center"><b>
+<span style="font-size: 14.0pt; font-family: Arial">Part 1</span></b></p>
+<div style="text-align: center"><a href="http://www.wazim.com/Collada_Tutorial_1.htm#Leave_Comment_CL1" onclick="">Leave a comment</a></div>
+<p class="MsoNormal" align="center" style="text-align:center">Last update December 2010</p>
+<p class="MsoNormal"><span style="font-family: Arial">&nbsp;</span></p>
+<p class="MsoNormal"><b>
+<span style="font-size: 14.0pt; font-family: Arial; color: navy">Level: Beginner 
+to Intermediate</span></b></p>
+<p class="MsoNormal"><span style="font-family: Arial">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-size:14.0pt;font-family:Arial">
+Introduction</span><span style="font-family:Arial">: Hi I am waZim and welcome 
+to my first tutorial(s) on Skeletal Animation. This series of tutorials consists 
+of two parts.</span></p>
+<p class="MsoNormal"><span style="font-family:Arial">&nbsp;</span></p>
+<p class="MsoNormal" style="text-indent: -.25in; margin-left: .5in">
+<span style="font-family: Arial">1)<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style="font-family:Arial">Reading and Understanding COLLADA. 
+(high level overview of COLLADA documents)</span></p>
+<p class="MsoNormal" style="text-indent: -.25in; margin-left: .5in">
+<span style="font-family: Arial">2)<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style="font-family:Arial">Actual Implementations in C++ 
+using OpenGL, of what we learn in Part 1.</span></p>
+<p class="MsoNormal"><span style="font-family:Arial">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family:Arial">These two parts are further 
+broken down into sub categories or parts which will be explained as we progress 
+through the tutorials.</span></p>
+<p class="MsoNormal"><span style="font-family:Arial">&nbsp;</span></p>
+<p class="MsoNormal">
+<span style="font-size:14.0pt;font-family:Arial;color:navy">Who should read 
+these tutorials?</span></p>
+<p class="MsoNormal"><span style="font-family:Arial">This tutorial is written 
+for those programmers (Not artists) who want to implement Skeletal Animations in 
+General and Skeletal Animations using COLLADA in Specific, Using C++ and OpenGL, 
+in their (Game) Engines. It is also helpful to programmers who want to learn how 
+to load static 3D COLLADA models in their engines;</span></p>
+<p class="MsoNormal"><span style="font-family:Arial">&nbsp;</span></p>
+<p class="MsoNormal">
+<span style="font-size:14.0pt;font-family:Arial;color:navy">What we will and 
+will not cover?</span></p>
+<p class="MsoNormal"><span style="font-family:Arial">In this set of tutorials I 
+will try to explain step by step how to read Geometry, Skeleton and Animation 
+Data from COLLADA documents and how to implement and animate your characters 
+using skeletal animations, in C++ and OpenGL. We will not be covering EVERY 
+aspect of COLLADA; rather we will take some assumptions which will help us to 
+understand the COLLADA document format easily.</span></p>
+<p class="MsoNormal"><span style="font-family:Arial">We will also not discuss 
+things like shaders and FX using COLLADA.</span></p>
+<p class="MsoNormal"><span style="font-size:14.0pt;font-family:Arial">&nbsp;</span></p>
+<p class="MsoNormal">
+<span style="font-size:14.0pt;font-family:Arial;color:navy">What you need to 
+know, to get the Most out of these tutorials?</span></p>
+<p class="MsoNormal"><span style="font-family:Arial">Any-one who wants to get 
+the most benefit out of these tutorials should have solid knowledge of 
+programming in general and C++ programming in particular. Advanced OpenGL 
+programming is not required although it is a plus. You should know what a vector 
+is and what a texture coordinate is, how geometry and animation is represented, 
+what an XML format is and so on. For the rest, I hope you will learn everything 
+you need here.</span></p>
+<p class="MsoNormal"><span style="font-size:14.0pt;font-family:Arial">&nbsp;</span></p>
+<p class="MsoNormal">
+<span style="font-size:14.0pt;font-family:Arial;color:navy">What you need to 
+have, to learn and read through these tutorials?</span></p>
+<p class="MsoNormal"><span style="font-family:Arial">You need a C++ compiler 
+with OpenGL Support and working drivers for OpenGL. </span></p>
+<p class="MsoNormal"><span style="font-family:Arial">Some COLLADA example 
+documents. Which you can find on
+<a style="color: blue; text-decoration: underline; text-underline: single" href="http://www.collada.org/">
+www.COLLADA.org</a> , find model bank, or in downloads section of this website (<a style="color: blue; text-decoration: underline; text-underline: single" href="http://www.wazim.com/">www.wazim.com</a>).</span></p>
+<p class="MsoNormal"><span style="font-family:Arial">A good Text Editor like 
+Notepad++</span></p>
+<p class="MsoNormal"><span style="font-size:14.0pt;font-family:Arial">&nbsp;</span></p>
+<p class="MsoNormal">
+<span style="font-size:14.0pt;font-family:Arial;color:navy">Background and 
+Motivation:</span></p>
+<p class="MsoNormal"><span style="font-family:Arial">Over the years when I first 
+started graphics programming, I was already tired of writing geometry by hand 
+and drawing everything vertex by vertex :). Then the time came when I saw some 
+simple demos over the internet, reading Geometry data from ASCII files in 
+OpenGL, like .OBJ file format etc.. After some time, I wanted to animate the 
+models so I found MD2 Demos. When I started creating my own MD2 files, it was 
+really hard to find a robust importer for MD2 files for my own engine. In the 
+end, I decided to forget about all those formats and read Autodesk Maya (.ma) or 
+Autodesk Studio Max (.max) files. But reading Geometry and animation data from 
+those two files are not recommended by the authors of those two Authoring 
+softwares. I don't know much about Maya .mb or .ma files but I love Studio Max 
+and .max files and yet they are unfortunately poorly documented. And even if you 
+start to write an exporter for any of these files it's really hard to port your 
+models from Maya to Max or vice versa. There is always something missing when 
+you import those files into other software.</span></p>
+<p class="MsoNormal"><span style="font-family:Arial">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family:Arial">The solution that I found 
+was COLLADA. COLLADA documents are cross platform because they are stored in 
+UTF-8 format using XML schema. I think you already know something about COLLADA 
+that is why you are here! So let's not waste any time and jump straight to the 
+implementation. If you want to read more about COLLADA documents then go visit (<a style="color: blue; text-decoration: underline; text-underline: single" href="http://www.collada.org/">www.COLLADA.org</a>) 
+and keep reading the COLLADA wiki and COLLADA forums.</span></p>
+<p class="MsoNormal"><span style="font-family:Arial">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family:Arial">So after I have found 
+COLLADA the solution to my problems I have been working with COLLADA. There are 
+many implementations of COLLADA which are too generic, for example the first 
+thing I saw was the COLLADA DOM which is available on COLLADA.org. And you can 
+write your own code on top of DOM to extract all the information from COLLADA 
+document which is loaded in DOM and export it to your Custom Format. This is the 
+easy way to go but still you need to understand the COLLADA format and then DOM 
+has its own problems. You might find it very hard to get what you really need 
+and what you don't need. What I found annoying with DOM was that it can read 
+Texture Coordinates with (s,t) two components while can't read (s,t,p) type of 
+Texture coordinates which are default to Studio Max COLLADA Exporter. So at the 
+end I decided to write my own exporter and it's really not that hard as it 
+seems.</span></p>
+<p class="MsoNormal"><span style="font-family:Arial">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family:Arial">When I started reading 
+about COLLADA I was unable to find a step by step tutorial, so the purpose of 
+this tutorial is to give you the COLLADA document format in easy to learn chunks 
+and C++ code to implement, with step by step explanation.</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">&nbsp;</span></p>
+<p class="MsoNormal"><b><span style="font-size:14.0pt;font-family:Arial">Part 1:</span></b></p>
+<p class="MsoNormal">
+<span style="font-size:14.0pt;font-family:Arial;color:navy">Reading and 
+Understanding COLLADA documents</span></p>
+<p class="MsoNormal"><span style="font-family:Arial">As we have discussed in the 
+introduction part, this tutorial is split in to two parts, first one general 
+introduction to COLLADA documents which is irrespective of any programming 
+language. So if you want to skip this part and directly jump to the 
+implementation part, it is quite possible that you will find it hard to 
+understand what is going on. So it's highly recommended, for those who know 
+nothing or very little about COLLADA documents, to read this part before moving 
+to the next part.</span></p>
+<p class="MsoNormal"><span style="font-family:Arial">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family:Arial">Enough Ranting :), let's 
+start working.</span></p>
+<p class="MsoNormal"><span style="font-family:Arial">&nbsp;</span></p>
+<p class="MsoNormal">
+<span style="font-size:14.0pt;font-family:Arial;color:navy">COLLADA documents</span></p>
+<p class="MsoNormal"><span style="font-family:Arial">Before we dig into COLLADA 
+documents I would like you to download the example file which we will be using 
+through out the tutorial. It's available in the COLLADA Model Bank and is also 
+shipped with COLLADA DOM. It's called "astroBoy_walk.dae" if you can't find this 
+file anywhere then its available in downloads section of this tutorial's 
+website, and you can find it there.</span></p>
+<p class="MsoNormal"><span style="font-family:Arial">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family:Arial">Like we discussed earlier 
+(in case you read the intro part) COLLADA documents are stored in XML format. If 
+you open astroBoy_walk.dae, which I will call <i>example file</i> from now on, 
+in your favorite text editor, </span><span style="font-family: Arial">you can 
+see a root node called "COLLADA" and if your text editor supports expanding or 
+collapsing XML nodes (if you are using Notepad++ you can set the language type 
+to XML from the "language" menu to get XML Editing enabled) then you can click 
+on the (-) sign in front of &lt;COLLADA&gt; tag to Collapse it to one line, there you 
+will see that the whole file is Collapsed to one line and that’s all the COLLADA 
+document is about.</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">&nbsp;</span></p>
+<p class="MsoNormal">
+<img border="0" src="./Collada_Tutorial_1_files/ColladaFile.jpg" width="742" height="252" data-pinit="registered"></p>
+<p class="MsoNormal"><span style="font-family: Arial">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: Arial; color: #993300">Figure 1: 
+COLLADA document in short</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">Within this &lt;COLLADA&gt; node 
+which is the root of this .dae or .xml file, you will find many other libraries 
+which are used for storing different types of information like &lt;library_geometries&gt; 
+is used to store geometry data and &lt;library_lights&gt; is used to store Lights in 
+the scene. Refer to figure 1. See it's not rocket science :) and then within 
+those libraries you will find the actual data. For example a geometry library 
+will have &lt;geometry&gt; nodes and a lights library can have &lt;light&gt; nodes, which 
+means those libraries are used to store more then one lights or geometries in 
+your scene. Now let's analyze all of those libraries one by one by increasing 
+importance to the tutorial and our COLLADA exporter, in their corresponding 
+sections.</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">First of all let's make 
+things easier for us. Just like I said in the beginning we will not be 
+discussing COLLADA documents from all aspects; rather we will be taking some 
+assumptions, to remove complexities.</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">&nbsp;</span></p>
+<p class="MsoNormal">
+<span style="font-size: 14.0pt; font-family: Arial; color: #003366">List of 
+Assumptions:</span><span style="font-family: Arial; color: #003366"> </span></p>
+<p class="MsoNormal"><span style="font-family: Arial">&nbsp;</span></p>
+<p class="MsoNormal" style="text-indent: -.25in; margin-left: .5in">
+<span style="font-family: Arial">1)<span style="font-style: normal; font-variant: normal; font-weight: normal; font-size: 7.0pt; font-family: Times New Roman">&nbsp;&nbsp;&nbsp;&nbsp;
+</span>Although COLLADA documents exported from Max or Maya Should be the same but 
+in some cases they are different. We will only talk about COLLADA document exported 
+from Studio Max</span><span style="font-family: Arial">, which of course does 
+not mean that this tutorial might not help those who work in Maya. Because I am 
+still positive that COLLADA documents exported from Maya should be the same, if we 
+export them with backed matrices and triangulate options checked, from the 
+COLLADA Exporter Options dialog. But I have never worked with Maya and don't 
+know where my exporter might fail. </span></p>
+<p class="MsoNormal" style="text-indent: -.25in; margin-left: .5in">
+<span style="font-family: Arial">2)<span style="font-style: normal; font-variant: normal; font-weight: normal; font-size: 7.0pt; font-family: Times New Roman">&nbsp;&nbsp;&nbsp;&nbsp;
+</span>The COLLADA document must have at least and at most a mesh, which means, 
+anything in the asset's Max file, should be attached. So we must not have more 
+then one &lt;mesh&gt; in the &lt;library_geometries&gt; in the COLLADA document. If we are able 
+to read one &lt;mesh&gt; then we can read a 10000 too.</span></p>
+<p class="MsoNormal" style="text-indent: -.25in; margin-left: .5in">
+<span style="font-family: Arial">3)<span style="font-style: normal; font-variant: normal; font-weight: normal; font-size: 7.0pt; font-family: Times New Roman">&nbsp;&nbsp;&nbsp;&nbsp;
+</span>Geometry in COLLADA should be triangulated, since that’s the better (If 
+not best) option, we can provide OpenGL, so we let the triangulation work done 
+by Max.</span></p>
+<p class="MsoNormal" style="text-indent: -.25in; margin-left: .5in">
+<span style="font-family: Arial">4)<span style="font-style: normal; font-variant: normal; font-weight: normal; font-size: 7.0pt; font-family: Times New Roman">&nbsp;&nbsp;&nbsp;&nbsp;
+</span>Later in the implementations part we will assume our Model which was 
+exported to COLLADA document has only One Texture file.</span></p>
+<p class="MsoNormal" style="text-indent: -.25in; margin-left: .5in">
+<span style="font-family: Arial">5)<span style="font-style: normal; font-variant: normal; font-weight: normal; font-size: 7.0pt; font-family: Times New Roman">&nbsp;&nbsp;&nbsp;&nbsp;
+</span>Animations in COLLADA must have at least or at most one Skeleton, with 
+only one Root Bone (Typical). And I think that’s why we are here, to implement 
+skeletal animation.</span></p>
+<p class="MsoNormal" style="text-indent: -.25in; margin-left: .5in">
+<span style="font-family: Arial">6)<span style="font-style: normal; font-variant: normal; font-weight: normal; font-size: 7.0pt; font-family: Times New Roman">&nbsp;&nbsp;&nbsp;&nbsp;
+</span>Animation exported to COLLADA must be baked in matrices, which 
+essentially in some cases makes 1 channel of animation and in others 16 channels 
+of animation (Now what is channel? It should be explained later).</span></p>
+<p class="MsoNormal" style="text-indent: -.25in; margin-left: .5in">
+<span style="font-family: Arial">7)<span style="font-style: normal; font-variant: normal; font-weight: normal; font-size: 7.0pt; font-family: Times New Roman">&nbsp;&nbsp;&nbsp;&nbsp;
+</span>Animations can only be valid if the channel targets the "Transform" of 
+the targeted entity, just to keep things clear and easy. When you will bake 
+matrices, then you will have this automatically, so don't need to worry about 
+that.</span></p>
+<p class="MsoNormal" style="text-indent: -.25in; margin-left: .5in">
+<span style="font-family: Arial">8)<span style="font-style: normal; font-variant: normal; font-weight: normal; font-size: 7.0pt; font-family: Times New Roman">&nbsp;&nbsp;&nbsp;&nbsp;
+</span>Animations can't have nested animations.</span></p>
+<p class="MsoNormal" style="text-indent: -.25in; margin-left: .5in">
+<span style="font-family: Arial">9)<span style="font-style: normal; font-variant: normal; font-weight: normal; font-size: 7.0pt; font-family: Times New Roman">&nbsp;&nbsp;&nbsp;&nbsp;
+</span>Only Skeletal Animation is supported (No baked animation yet).</span></p>
+<p class="MsoNormal" style="text-indent: -.25in; margin-left: .5in">
+<span style="font-family: Arial">10)<span style="font-style: normal; font-variant: normal; font-weight: normal; font-size: 7.0pt; font-family: Times New Roman">
+</span>&nbsp;Every bone in the hierarchy must be attached as effecter on the skin. In 
+other words, it must be added to the skin.</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">Keeping those assumptions 
+in mind all the times, let's start explaining different libraries in their 
+related sections. You might also find it easy and handy to switch to 
+Implementation part for each section immediately, when you read that section, 
+before you finish reading the first part completely. The link to the 
+implementation of each section is given at the end of that section.</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">&nbsp;</span></p>
+<p class="MsoNormal">&nbsp;</p>
+<a name="First_Part"></a>
+<p class="MsoNormal">
+<span style="font-size: 14.0pt; font-family: Arial; color: #003366">Reading 
+Geometry Data from COLLADA document</span></p>
+<p class="MsoNormal"><span style="font-family: Arial; color: #003366">&lt;library_geometries&gt;</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">This is by far the most 
+important library of all of the COLLADA libraries; if you have a character to 
+animate we need its geometric data, which is provided in &lt;library_geometries&gt;.</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">This library contains 
+&lt;geometry&gt; type nodes which contain separate geometries in the scene, keep in 
+mind COLLADA is not just an asset file format rather you can put a complete 
+scene and many scenes in them. Like we assumed we are only concerned with one 
+&lt;geometry&gt; node which will have one &lt;mesh&gt; node. So if so far you have found 
+that node lets analyze it.</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: Arial; color: #003366">&lt;mesh&gt;</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">Mesh is the node where we 
+will find our geometry data. If you try to analyze the node you will see further 
+at least 1 or 2 &lt;source&gt; nodes, which, depending on its type, gives information 
+about Vertices, Normals and Texture Coordinates etc. In the example file (if you 
+have downloaded from COLLADA.org, it will not have backed animation in it, so 
+you have to import it in Max and then export it back with Backed Matrices and 
+"triangulate" checkbox checked as shown in figure 2), you will find 3 &lt;source&gt; 
+nodes and we are lucky that each source node is defined in the same way in 
+COLLADA.</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">&nbsp;</span></p>
+<p class="MsoNormal">
+<img border="0" src="./Collada_Tutorial_1_files/ColladaExport.jpg" width="406" height="254" data-pinit="registered"></p>
+<p class="MsoNormal"><span style="font-family: Arial">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: Arial; color: #993300">Figure 2: 
+Export Options from COLLADAMax</span></p>
+<p class="MsoNormal"><span style="font-size: 14.0pt; font-family: Arial">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: Arial; color: #003366">&lt;souce&gt;</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">Remember all these XML 
+nodes discussed so far have an ID associated with them which is used for 
+locating the Node in COLLADA document when referred from any place. And Source Nodes 
+are not any exception to that. Now &lt;source&gt; can have many children nodes but the 
+most important ones are &lt;float_array&gt; or &lt;NAME_array&gt; and &lt;technique_common&gt;.</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">As the names suggests &lt;float_array&gt; 
+contains floats which can be used for different purposes which are described by 
+&lt;technique_common&gt; of that source and the difference between &lt;float_array&gt; and &lt;NAME_array&gt; 
+is that, the former contains floats and the later contains strings.</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">Now we use the &lt;technique_common&gt;'s 
+&lt;accessor&gt; child node to specify what kind of data is in those arrays &lt;float_array&gt;, 
+&lt;NAME_array&gt; or any other type of many types of arrays. &lt;accessor&gt; node has a 
+"source" attribute which says "What kind of "array" are we talking about?". And 
+a "count" attribute says how many elements we have in the "array". The "stride" 
+attribute says after how many values the next element starts.</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">I hope I am not talking 
+Chinese but let's explain it with a figure and example COLLADA source.</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">&nbsp;</span></p>
+<p class="MsoNormal" style="text-autospace: none"><b>
+<span style="font-family: CourierNewPS-BoldMT; color: #000081">&lt;</span><span style="font-family: CourierNewPS-BoldMT; color: #810081">source
+</span><span style="font-family: CourierNewPS-BoldMT; color: #000081">id="</span><span style="font-family: CourierNewPS-BoldMT; color: blue">vertices_source</span><span style="font-family: CourierNewPS-BoldMT; color: #000081">" 
+name="</span><span style="font-family: CourierNewPS-BoldMT; color: blue">Vertices</span><span style="font-family: CourierNewPS-BoldMT; color: #000081">"&gt;</span></b></p>
+<p class="MsoNormal" style="text-autospace: none; margin-left: .5in">
+<span style="font-family: CourierNewPSMT; color: #000081">&lt;</span><span style="font-family: CourierNewPSMT; color: #810081">float_array
+</span><span style="font-family: CourierNewPSMT; color: #000081">id="</span><span style="font-family: CourierNewPSMT; color: blue">values</span><span style="font-family: CourierNewPSMT; color: #000081">" 
+count="</span><span style="font-family: CourierNewPSMT; color: blue">6</span><span style="font-family: CourierNewPSMT; color: #000081">"&gt; 
+0.3 0.5 0.7 0.2 0.4 0.6 &lt;/</span><span style="font-family: CourierNewPSMT; color: #810081">float_array</span><span style="font-family: CourierNewPSMT; color: #000081">&gt;</span></p>
+<p class="MsoNormal" style="text-autospace: none; margin-left: .5in">
+<span style="font-family: CourierNewPSMT; color: #000081">&lt;</span><span style="font-family: CourierNewPSMT; color: #810081">technique_common</span><span style="font-family: CourierNewPSMT; color: #000081">&gt;</span></p>
+<p class="MsoNormal" style="text-autospace: none; margin-left: 1.0in">
+<span style="font-family: CourierNewPSMT; color: #000081">&lt;</span><span style="font-family: CourierNewPSMT; color: #810081">accessor
+</span><span style="font-family: CourierNewPSMT; color: #000081">source="</span><span style="font-family: CourierNewPSMT; color: blue">#values</span><span style="font-family: CourierNewPSMT; color: #000081">" 
+count="</span><span style="font-family: CourierNewPSMT; color: blue">2</span><span style="font-family: CourierNewPSMT; color: #000081">" 
+stride="</span><span style="font-family: CourierNewPSMT; color: blue">3</span><span style="font-family: CourierNewPSMT; color: #000081">"&gt;</span></p>
+<p class="MsoNormal" style="text-autospace: none; margin-left: 1.5in">
+<span style="font-family: CourierNewPSMT; color: #000081">&lt;</span><span style="font-family: CourierNewPSMT; color: #810081">param
+</span><span style="font-family: CourierNewPSMT; color: #000081">name="</span><span style="font-family: CourierNewPSMT; color: blue">X</span><span style="font-family: CourierNewPSMT; color: #000081">" 
+type="</span><span style="font-family: CourierNewPSMT; color: blue">float</span><span style="font-family: CourierNewPSMT; color: #000081">"/&gt;</span></p>
+<p class="MsoNormal" style="text-autospace: none; margin-left: 1.5in">
+<span style="font-family: CourierNewPSMT; color: #000081">&lt;</span><span style="font-family: CourierNewPSMT; color: #810081">param
+</span><span style="font-family: CourierNewPSMT; color: #000081">name="</span><span style="font-family: CourierNewPSMT; color: blue">Y</span><span style="font-family: CourierNewPSMT; color: #000081">" 
+type="</span><span style="font-family: CourierNewPSMT; color: blue">float</span><span style="font-family: CourierNewPSMT; color: #000081">"/&gt;</span></p>
+<p class="MsoNormal" style="text-autospace: none; margin-left: 1.5in">
+<span style="font-family: CourierNewPSMT; color: #000081">&lt;</span><span style="font-family: CourierNewPSMT; color: #810081">param
+</span><span style="font-family: CourierNewPSMT; color: #000081">name="</span><span style="font-family: CourierNewPSMT; color: blue">Z</span><span style="font-family: CourierNewPSMT; color: #000081">" 
+type="</span><span style="font-family: CourierNewPSMT; color: blue">float</span><span style="font-family: CourierNewPSMT; color: #000081">"/&gt;</span></p>
+<p class="MsoNormal" style="text-autospace: none; margin-left: 1.0in">
+<span style="font-family: CourierNewPSMT; color: #000081">&lt;/</span><span style="font-family: CourierNewPSMT; color: #810081">accessor</span><span style="font-family: CourierNewPSMT; color: #000081">&gt;</span></p>
+<p class="MsoNormal" style="text-autospace: none; margin-left: .5in">
+<span style="font-family: CourierNewPSMT; color: #000081">&lt;/</span><span style="font-family: CourierNewPSMT; color: #810081">technique_common</span><span style="font-family: CourierNewPSMT; color: #000081">&gt;</span></p>
+<p class="MsoNormal"><span style="font-family: CourierNewPSMT; color: #000081">
+&lt;/</span><span style="font-family: CourierNewPSMT; color: #810081">source</span><span style="font-family: CourierNewPSMT; color: #000081">&gt;</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">&nbsp;</span></p>
+<p class="MsoNormal">
+<img border="0" src="./Collada_Tutorial_1_files/Source Node.jpg" width="1143" height="425" data-pinit="registered"></p>
+<p class="MsoNormal"><span style="font-family: Arial">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: Arial; color: #993300">Figure 3: 
+Structure of a source</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">As you can see in figure 
+3, there are float array's (count="6") values which are 3 (x, y, z) float 
+components of &lt;accessor&gt;'s (count="2") number of vertices. And when we have 3 &lt;param&gt; 
+child nodes in &lt;accessor&gt; then we have 3 (x, y, z) components in each Vertex (3D 
+vertex) (it can also be 3 Components of Normal, or 3 Components of Texture 
+Coordinates). This information is very important since I can't find it in 
+COLLADA Specifications and it took me a lot of time to understand this concept 
+(may be I am dumb) :( So if you don't understand, please read again.</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">In short, this source 
+says, "I have 2 vertices with 3 components each, which are saved in &lt;floats_array&gt; 
+as 6 float values". Components are called "X", "Y" and "Z". And they are float 
+type values. If we had a &lt;source&gt; which saves texture coordinates, then those 
+components would be "S", "T" and "P".</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">So that’s all a source is 
+about. Now as we discussed before there are 3 &lt;source&gt; nodes in the example 
+COLLADA document. And as you might have guessed already, the other two sources are 
+for Normals and Texture Coordinates, if you have exported your Model with other 
+attributes then you will have more &lt;source&gt; nodes, like bitangents and tangets 
+etc. </span></p>
+<p class="MsoNormal"><span style="font-family: Arial">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">Now when we are able to 
+decode &lt;source&gt;s, we still can't just decide on the order of those sources which 
+one is Vertices and which one is Normals etc. we have to read one other child of 
+&lt;mesh&gt; which is called &lt;vertices&gt; to find the vertices source, although I really 
+don't understand the reason why they do this in COLLADA but for the sake of 
+completeness you have to read this Node it has at least one Child node called 
+&lt;input&gt; with a semantic attribute of "POSITIONS" value, which references the 
+vertices &lt;source&gt; with another source name/id. And then you refer to this ID 
+when ever you need the vertices source. If you don't understand these sections 
+then skip to the next section and you hopefully will understand.</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: Arial; color: #003366">
+&lt;triangles&gt;</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">Now as we have assumed we 
+are only considering COLLADA documents triangulated so you will only see &lt;triangles&gt; 
+types nodes as children of &lt;mesh&gt; otherwise you might see &lt;polylist&gt; etc nodes, 
+which we are least concerned with.</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">This &lt;triangles&gt; node 
+tells all the information we need to make a triangle out of those 3 sources (in 
+this case) which we read earlier. A &lt;triangles&gt; node says how many triangles we 
+have in this &lt;triangles&gt; node with a "count" attribute and also lists "material" 
+attribute which is used to find the material from the &lt;library_material&gt; and 
+that material is used to render the list of triangles from this &lt;triangles&gt; 
+node. So you might see many triangle groups in one Mesh, which are separated by 
+Materials. So we have to read all the &lt;triangles&gt; nodes.</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">To decode &lt;triangles&gt; 
+nodes we have to read its children in which &lt;input&gt; and &lt;p&gt; are the most 
+important. The number of &lt;input&gt; nodes says the number of attributes per vertex. 
+And &lt;p&gt; has the indices of those attributes in their corresponding &lt;source&gt; 
+nodes. Let's see an example.</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">&nbsp;</span></p>
+<p class="MsoNormal" style="text-autospace: none">
+<span style="font-family: CourierNewPSMT; color: #000081">&lt;</span><span style="font-family: CourierNewPSMT; color: #810081">mesh</span><span style="font-family: CourierNewPSMT; color: #000081">&gt;</span></p>
+<p class="MsoNormal" style="text-autospace: none; margin-left: .5in">
+<span style="font-family: CourierNewPSMT; color: #000081">&lt;</span><span style="font-family: CourierNewPSMT; color: #810081">source
+</span><span style="font-family: CourierNewPSMT; color: #000081">id="</span><span style="font-family: CourierNewPSMT; color: blue">position</span><span style="font-family: CourierNewPSMT; color: #000081">"/&gt;</span></p>
+<p class="MsoNormal" style="text-autospace: none; margin-left: .5in">
+<span style="font-family: CourierNewPSMT; color: #000081">&lt;</span><span style="font-family: CourierNewPSMT; color: #810081">source
+</span><span style="font-family: CourierNewPSMT; color: #000081">id="</span><span style="font-family: CourierNewPSMT; color: blue">normal</span><span style="font-family: CourierNewPSMT; color: #000081">"/&gt;</span></p>
+<p class="MsoNormal" style="text-autospace: none; margin-left: .5in">
+<span style="font-family: CourierNewPSMT; color: #000081">&lt;</span><span style="font-family: CourierNewPSMT; color: #810081">source
+</span><span style="font-family: CourierNewPSMT; color: #000081">id="</span><span style="font-family: CourierNewPSMT; color: blue">textureCoords</span><span style="font-family: CourierNewPSMT; color: #000081">"/&gt;</span></p>
+<p class="MsoNormal" style="text-autospace: none; margin-left: .5in">
+<span style="font-family: CourierNewPSMT; color: #000081">&nbsp;</span></p>
+<p class="MsoNormal" style="text-autospace: none; margin-left: .5in">
+<span style="font-family: CourierNewPSMT; color: #000081">&lt;</span><span style="font-family: CourierNewPSMT; color: #810081">vertices
+</span><span style="font-family: CourierNewPSMT; color: #000081">id="</span><span style="font-family: CourierNewPSMT; color: blue">verts</span><span style="font-family: CourierNewPSMT; color: #000081">"&gt;</span></p>
+<p class="MsoNormal" style="text-indent: .5in; text-autospace: none; margin-left: .5in">
+<span style="font-family: CourierNewPSMT; color: #000081">&lt;</span><span style="font-family: CourierNewPSMT; color: #810081">input
+</span><span style="font-family: CourierNewPSMT; color: #000081">semantic="</span><span style="font-family: CourierNewPSMT; color: blue">POSITION</span><span style="font-family: CourierNewPSMT; color: #000081">" 
+source="</span><span style="font-family: CourierNewPSMT; color: blue">#position</span><span style="font-family: CourierNewPSMT; color: #000081">"/&gt;</span></p>
+<p class="MsoNormal" style="text-autospace: none; margin-left: .5in">
+<span style="font-family: CourierNewPSMT; color: #000081">&lt;/</span><span style="font-family: CourierNewPSMT; color: #810081">vertices</span><span style="font-family: CourierNewPSMT; color: #000081">&gt;</span></p>
+<p class="MsoNormal" style="text-autospace: none; margin-left: .5in"><b>
+<span style="font-family: CourierNewPS-BoldMT; color: #000081">&lt;</span><span style="font-family: CourierNewPS-BoldMT; color: #810081">triangles
+</span><span style="font-family: CourierNewPS-BoldMT; color: #000081">count="</span><span style="font-family: CourierNewPS-BoldMT; color: blue">2</span><span style="font-family: CourierNewPS-BoldMT; color: #000081">" 
+material="</span><span style="font-family: CourierNewPS-BoldMT; color: blue">Bricks</span><span style="font-family: CourierNewPS-BoldMT; color: #000081">"&gt;</span></b></p>
+<p class="MsoNormal" style="text-autospace: none; margin-left: 1.0in">
+<span style="font-family: CourierNewPSMT; color: #000081">&lt;</span><span style="font-family: CourierNewPSMT; color: #810081">input
+</span><span style="font-family: CourierNewPSMT; color: #000081">semantic="</span><span style="font-family: CourierNewPSMT; color: blue">VERTEX</span><span style="font-family: CourierNewPSMT; color: #000081">" 
+source="</span><span style="font-family: CourierNewPSMT; color: blue">#verts</span><span style="font-family: CourierNewPSMT; color: #000081">" 
+offset="</span><span style="font-family: CourierNewPSMT; color: blue">0</span><span style="font-family: CourierNewPSMT; color: #000081">"/&gt;</span></p>
+<p class="MsoNormal" style="text-autospace: none; margin-left: 1.0in">
+<span style="font-family: CourierNewPSMT; color: #000081">&lt;</span><span style="font-family: CourierNewPSMT; color: #810081">input
+</span><span style="font-family: CourierNewPSMT; color: #000081">semantic="</span><span style="font-family: CourierNewPSMT; color: blue">NORMAL</span><span style="font-family: CourierNewPSMT; color: #000081">" 
+source="</span><span style="font-family: CourierNewPSMT; color: blue">#normal</span><span style="font-family: CourierNewPSMT; color: #000081">" 
+offset="</span><span style="font-family: CourierNewPSMT; color: blue">1</span><span style="font-family: CourierNewPSMT; color: #000081">"/&gt;</span></p>
+<p class="MsoNormal" style="text-autospace: none; margin-left: 1.0in">
+<span style="font-family: CourierNewPSMT; color: #000081">&lt;</span><span style="font-family: CourierNewPSMT; color: #810081">input
+</span><span style="font-family: CourierNewPSMT; color: #000081">semantic="</span><span style="font-family: CourierNewPSMT; color: blue">TEXCOORD</span><span style="font-family: CourierNewPSMT; color: #000081">" 
+source="</span><span style="font-family: CourierNewPSMT; color: blue">#textureCoords</span><span style="font-family: CourierNewPSMT; color: #000081">" 
+offset="</span><span style="font-family: CourierNewPSMT; color: blue">2</span><span style="font-family: CourierNewPSMT; color: #000081">" 
+set="</span><span style="font-family: CourierNewPSMT; color: blue">1</span><span style="font-family: CourierNewPSMT; color: #000081">" 
+/&gt;</span></p>
+<p class="MsoNormal" style="text-autospace: none; margin-left: 1.0in">
+<span style="font-family: CourierNewPSMT; color: #000081">&lt;</span><span style="font-family: CourierNewPSMT; color: #810081">p</span><span style="font-family: CourierNewPSMT; color: #000081">&gt;</span></p>
+<p class="MsoNormal" style="text-autospace: none; margin-left: 1.5in">
+<span style="font-family: CourierNewPSMT; color: #000081">0 0 1 3 2 1</span></p>
+<p class="MsoNormal" style="text-autospace: none; margin-left: 1.5in">
+<span style="font-family: CourierNewPSMT; color: #000081">0 0 2 1 3 2</span></p>
+<p class="MsoNormal" style="text-autospace: none; margin-left: 1.0in">
+<span style="font-family: CourierNewPSMT; color: #000081">&lt;/</span><span style="font-family: CourierNewPSMT; color: #810081">p</span><span style="font-family: CourierNewPSMT; color: #000081">&gt;</span></p>
+<p class="MsoNormal" style="text-autospace: none; margin-left: .5in"><b>
+<span style="font-family: CourierNewPS-BoldMT; color: #000081">&lt;/</span><span style="font-family: CourierNewPS-BoldMT; color: #810081">triangles</span><span style="font-family: CourierNewPS-BoldMT; color: #000081">&gt;</span></b></p>
+<p class="MsoNormal"><span style="font-family: CourierNewPSMT; color: #000081">
+&lt;/</span><span style="font-family: CourierNewPSMT; color: #810081">mesh</span><span style="font-family: CourierNewPSMT; color: #000081">&gt;</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">&nbsp;</span></p>
+<p class="MsoNormal">
+<img border="0" src="./Collada_Tutorial_1_files/Triangles Node.jpg" width="953" height="500" data-pinit="registered"></p>
+<p class="MsoNormal"><span style="font-family: Arial">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: Arial; color: #993300">Figure 4: 
+Structure of a Triangle</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">As you can see from the 
+above example &lt;vertices&gt; node is renaming the "position" source with "verts" and 
+then defining the triangles vertices source with "verts" name. So this is why we 
+need to read &lt;vertices&gt; node to find the real position &lt;source&gt; from the 
+&lt;source&gt;s.</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">If you read the Children 
+of &lt;triangles&gt; node you can see that it has 3 &lt;input&gt; nodes with values of 
+"VERTEX" "NORMAL" and "TEXCOORD" for its semantic attribute. This essentially 
+means that our triangles have 3 attributes per vertex, first Vertex Position, 
+second Vertex Normal and third Vertex Texture Coordinate. </span></p>
+<p class="MsoNormal"><span style="font-family: Arial">And how we know which one 
+is first in the list of indices in &lt;p&gt;? We can see that </span></p>
+<p class="MsoNormal"><span style="font-family: Arial">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">&lt;input&gt; node with semantic 
+= "VERTEX" has offset = "0",</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">&lt;input&gt; node with semantic 
+= "NORMAL" has offset = "1" and</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">&lt;input&gt; node with semantic 
+= "TEXCOORD" has offset = "2".</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">So when ever we will read 
+values from &lt;p&gt; for each triangle's each vertex, </span></p>
+<p class="MsoNormal"><span style="font-family: Arial">The first one will be the 
+Index of "VERTEX" Position from the "positions" &lt;source&gt;, </span></p>
+<p class="MsoNormal"><span style="font-family: Arial">The second one will be the 
+index of the "NORMAL" from the "normal" &lt;source&gt; and </span></p>
+<p class="MsoNormal"><span style="font-family: Arial">The third one is the index 
+of "TEXCOORD" from the "textureCoords" &lt;source&gt;.</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">Now one thing I would like 
+to make clear here is, that all these values we read from &lt;p&gt; are "indices" not 
+actual values. And all the data for all the triangles are saved as indexed data 
+to save space in case of repetitions of attributes data. To find the real data 
+we have to refer to the corresponding &lt;source&gt;s and pick the corresponding data 
+at that particular index.</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">Making Triangles is very 
+easy now. All you have to do is keep on reading 3 * (Number of Input Nodes in 
+&lt;triangles&gt;) values from &lt;p&gt; and read the corresponding attribute values from 
+the corresponding &lt;source&gt;s. If we have only one attribute per vertex for any 
+number of triangles then we will have the following &lt;triangles&gt; Node, with only 
+one &lt;input&gt; child. In this case all you have to do to read the triangle is to 
+keep on reading 3 values from &lt;p&gt; and read the corresponding vertex values from 
+the corresponding "verts" source.</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">&nbsp;</span></p>
+<p class="MsoNormal" style="text-autospace: none"><b>
+<span style="font-family: CourierNewPS-BoldMT; color: #000081">&lt;</span><span style="font-family: CourierNewPS-BoldMT; color: #810081">triangles
+</span><span style="font-family: CourierNewPS-BoldMT; color: #000081">count="</span><span style="font-family: CourierNewPS-BoldMT; color: blue">2</span><span style="font-family: CourierNewPS-BoldMT; color: #000081">" 
+material="</span><span style="font-family: CourierNewPS-BoldMT; color: blue">Bricks</span><span style="font-family: CourierNewPS-BoldMT; color: #000081">"&gt;</span></b></p>
+<p class="MsoNormal" style="text-autospace: none; margin-left: .5in">
+<span style="font-family: CourierNewPSMT; color: #000081">&lt;</span><span style="font-family: CourierNewPSMT; color: #810081">input
+</span><span style="font-family: CourierNewPSMT; color: #000081">semantic="</span><span style="font-family: CourierNewPSMT; color: blue">VERTEX</span><span style="font-family: CourierNewPSMT; color: #000081">" 
+source="</span><span style="font-family: CourierNewPSMT; color: blue">#verts</span><span style="font-family: CourierNewPSMT; color: #000081">" 
+offset="</span><span style="font-family: CourierNewPSMT; color: blue">0</span><span style="font-family: CourierNewPSMT; color: #000081">"/&gt;</span></p>
+<p class="MsoNormal" style="text-autospace: none; margin-left: .5in">
+<span style="font-family: CourierNewPSMT; color: #000081">&lt;</span><span style="font-family: CourierNewPSMT; color: #810081">p</span><span style="font-family: CourierNewPSMT; color: #000081">&gt;</span></p>
+<p class="MsoNormal" style="text-autospace: none; margin-left: 1.0in">
+<span style="font-family: CourierNewPSMT; color: #000081">0 3 2</span></p>
+<p class="MsoNormal" style="text-autospace: none; margin-left: 1.0in">
+<span style="font-family: CourierNewPSMT; color: #000081">0 2 1</span></p>
+<p class="MsoNormal" style="text-autospace: none; margin-left: .5in">
+<span style="font-family: CourierNewPSMT; color: #000081">&lt;/</span><span style="font-family: CourierNewPSMT; color: #810081">p</span><span style="font-family: CourierNewPSMT; color: #000081">&gt;</span></p>
+<p class="MsoNormal" style="text-autospace: none"><b>
+<span style="font-family: CourierNewPS-BoldMT; color: #000081">&lt;/</span><span style="font-family: CourierNewPS-BoldMT; color: #810081">triangles</span><span style="font-family: CourierNewPS-BoldMT; color: #000081">&gt;</span></b></p>
+<p class="MsoNormal"><span style="font-family: Arial">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">One thing we still need to 
+know is the "material" attribute of a &lt;triangles&gt; node. This attribute 
+references the material used from the "library_materials&gt; which will we discuss 
+later in the tutorial.</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">That’s all for the 
+geometry data. If you understand this part correctly I hope you will have no 
+problems going on from here onwards. Other wise go back and read again until you 
+understand completely. Now if you directly want to jump to the implementation 
+part (part 2) of the tutorial, you should be able to read and display static 3D 
+objects in your engine. And if you want to render them with Materials and 
+texture maps as well as animate them, you will have to keep on reading this part 
+of the tutorial completely.</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: Arial; color: #FF6600"><a style="color: blue; text-decoration: underline; text-underline: single" href="http://www.wazim.com/Collada_Tutorial_2.htm#First_Part">Click 
+here to go to: Implementation section in part 2, for this section of part 1</a></span></p>
+<p class="MsoNormal"><span style="font-family: Arial">&nbsp;</span></p>
+<a name="Second_Part"></a>
+<p class="MsoNormal">
+<span style="font-size: 14.0pt; font-family: Arial; color: navy">Reading Texture 
+filename from COLLADA document</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">As you know we took some 
+assumptions in the beginning, one of which was only one texture file can be used 
+in the COLLADA document. This will make finding the file name very easy.</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">All we have to do is to 
+read the &lt;library_images&gt; and read the "id" attribute of the "Only" &lt;image&gt; node 
+in it. Usually that will be the file name of the texture file used in COLLADA. 
+But it might not be correct file name, and COLLADA might create that ID 
+different then the file name. So, to correctly read the file name we must read 
+the &lt;init_from&gt; child node of &lt;image&gt; node, which gives the whole path, with 
+file name. For our export purposes I am only interested in the file name, not 
+the whole path, so I will tokenize the full path and save the file name only.</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: Arial; color: #FF6600"><a style="color: blue; text-decoration: underline; text-underline: single" href="http://www.wazim.com/Collada_Tutorial_2.htm#Second_Part">Click 
+here to go to: Implementation section in part 2, for this section of par 1 </a></span></p>
+<p class="MsoNormal"><span style="font-family: Arial">&nbsp;</span></p>
+<a name="Third_Part"></a>
+<p class="MsoNormal">
+<span style="font-size: 14.0pt; font-family: Arial; color: navy">Reading 
+Materials from COLLADA document</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">We discussed in the 
+section "Reading Geometry Data from COLLADA document" that each triangle group is 
+separated by a "material" and the Material ID is the value of the "material" 
+attribute in &lt;triangles&gt; node. Now to find those materials with those IDs we 
+have to read &lt;library_materials&gt;. In &lt;library_materials&gt; you will find 
+&lt;material&gt; nodes with those IDs which were referenced from &lt;triangles&gt; nodes. 
+But unfortunately those &lt;material&gt; nodes have only one type of child named &lt;instance_effect&gt; 
+which has one attributes called "url". All what its saying is that this specific 
+&lt;material&gt; node is referring to an effect from the &lt;library_effects&gt;, which in 
+turn defines the material completely.</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">So we take the value of 
+this "url" attribute for this specific &lt;material&gt; and find it in 
+&lt;library_effects&gt;, now unfortunately this library &lt;library_effects&gt; is the most 
+complicated library of COLLADA as much as I know. It can get very complicated 
+when shaders and what not is included in the COLLADA document. But since I promised 
+to keep things clear and easy, we will only read the data that we desperately 
+need for defining a material.</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">Once we have found the 
+&lt;effect&gt; node with id of the value of the "url" attribute for any material, we 
+have to find either &lt;phong&gt; or &lt;blin&gt; node in &lt;profile_COMMON&gt; child node of the 
+&lt;effects&gt; node. &lt;phong&gt; or &lt;blin&gt; are usually inside &lt;technique&gt; child node of 
+&lt;profile_COMMON&gt;. Once we have found either &lt;phong&gt; or &lt;blin&gt; keep looking for 
+all the parameters of the Material we are looking for, like "ambient" "diffuse" 
+"specular" "emission" "shininess" and "transparency" etc. what ever you need for 
+the material to look good. Usually "diffuse" "shininess" and "transparency" is 
+enough to create a good looking material.</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">How can we read the data 
+from those nodes is very easy? Usually ambient, emission, diffuse and specular 
+nodes has 4 float values, inside a &lt;color&gt; child node, which corresponds to 
+"RGBA" components of that particular material's property, while reflectivity and 
+transparency etc have 1 float value.</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">&nbsp;</span></p>
+<p class="MsoNormal" style="text-autospace: none">
+<span style="font-family: CourierNewPSMT; color: #000081">&lt;</span><span style="font-family: CourierNewPSMT; color: #810081">ambient</span><span style="font-family: CourierNewPSMT; color: #000081">&gt;</span></p>
+<p class="MsoNormal" style="text-indent: .5in; text-autospace: none">
+<span style="font-family: CourierNewPSMT; color: #000081">&lt;</span><span style="font-family: CourierNewPSMT; color: #810081">color</span><span style="font-family: CourierNewPSMT; color: #000081">&gt;1.0 
+1.0 1.0 1.0&lt;/</span><span style="font-family: CourierNewPSMT; color: #810081">color</span><span style="font-family: CourierNewPSMT; color: #000081">&gt;</span></p>
+<p class="MsoNormal"><span style="font-family: CourierNewPSMT; color: #000081">
+&lt;/</span><span style="font-family: CourierNewPSMT; color: #810081">ambient</span><span style="font-family: CourierNewPSMT; color: #000081">&gt;</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">&nbsp;</span></p>
+<p class="MsoNormal" style="text-autospace: none">
+<span style="font-family: CourierNewPSMT; color: #000081">&lt;</span><span style="font-family: CourierNewPSMT; color: #810081">transparency</span><span style="font-family: CourierNewPSMT; color: #000081">&gt;</span></p>
+<p class="MsoNormal" style="text-indent: .5in; text-autospace: none">
+<span style="font-family: CourierNewPSMT; color: #000081">&lt;</span><span style="font-family: CourierNewPSMT; color: #810081">float</span><span style="font-family: CourierNewPSMT; color: #000081">&gt;0.5&lt;/</span><span style="font-family: CourierNewPSMT; color: #810081">float</span><span style="font-family: CourierNewPSMT; color: #000081">&gt;</span></p>
+<p class="MsoNormal"><span style="font-family: CourierNewPSMT; color: #000081">
+&lt;/</span><span style="font-family: CourierNewPSMT; color: #810081">transparency</span><span style="font-family: CourierNewPSMT; color: #000081">&gt;</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">If we have placed a 
+texture map on the diffuse color of the material then &lt;diffuse&gt; will not have a 
+&lt;color&gt; child, rather that texture image. But for the sake of ease we will not 
+worry about this and assume the texture map is always applied on the &lt;diffuse&gt; 
+component of the material, which means we will not be reading &lt;diffuse&gt; values 
+from COLLADA. But we will be using a default value for diffuse inside our OpenGL 
+implementation.</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">That's all what we need 
+for any static geometry. So if you are only interested in reading Static 
+geometry from COLLADA you can stop reading this part and jump to the 
+implementation. Other wise keep on reading for extracting animation data from 
+COLLADA documents.</span></p>
+<p class="MsoNormal"><span style="font-family: Arial; color: #FF6600">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: Arial; color: #FF6600"><a style="color: blue; text-decoration: underline; text-underline: single" href="http://www.wazim.com/Collada_Tutorial_2.htm#Third_Part">Click 
+here to go to: Implementation section in part 2, for this section of part 1</a></span></p>
+<p class="MsoNormal"><span style="font-family: Arial">&nbsp;</span></p>
+<a name="Fourth_Part"></a>
+<p class="MsoNormal">
+<span style="font-size: 14.0pt; font-family: Arial; color: navy">Reading 
+Skeleton from COLLADA document</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">We assumed that we will 
+only read COLLADA documents with skeletal animations, and not those with backed 
+animations, so we have to read the skeleton from the COLLADA document. By skeleton, 
+I mean reading the Joints (Bones) information. We also have to read the 
+hierarchy of the Joints. This will tell us, who are the child of whom! And who 
+is the parent of a joint etc. In the following figure all these terminologies 
+are explained. Remember that Bones and Joints are One and the same thing, they 
+are just convenience names, and the data that we read from COLLADA is actually a 
+Joint, a Bone is an imaginary line connecting two Joints.</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">&nbsp;</span></p>
+<p class="MsoNormal">
+<img border="0" src="./Collada_Tutorial_1_files/bones.jpg" width="500" height="410" data-pinit="registered"></p>
+<p class="MsoNormal"><span style="font-family: Arial; color: #993300">Figure 5: 
+Skeleton Terminologies</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">In the following figure 
+you can see the skeleton of our example file and the Skin attached to it.</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">&nbsp;</span></p>
+<p class="MsoNormal">
+<img border="0" src="./Collada_Tutorial_1_files/Skeleton.jpg" width="382" height="400" data-pinit="registered"></p>
+<p class="MsoNormal"><span style="font-family: Arial; color: #993300">Figure 6: 
+Complete Character in one pose of animation</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">The red circles on the 
+left in figure 5 are the joints we read from COLLADA and the lines connecting 
+those circles are the imaginary bones, which are used to animate the skin. On 
+the right you can see the skin attached to the skeleton in another frame.</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">You might remember we took 
+some assumptions, one of which was that, all the joints are added to the skin, 
+which will make your &lt;library_visual_scenes&gt; very simple to read. All you have 
+to do is find the root Joint (bone) &lt;node&gt; of the skeleton in the visual scene 
+and then read the whole tree of joints. One of the disadvantages with this is 
+that you will have a lot of joints considered affecting the skin, but in real 
+they will not have any effect on the skin. And if you don't add all the bones to 
+the skin, then you will see &lt;node&gt;s of type = "JOINT" and type ="NODE" mixed in 
+the hierarchy. But if you add every bone to skin you will have full tree of 
+type="JOINT"s only. This is also the default behavior for many engine exporters. 
+When you have &lt;node&gt;s with type="JOINT" and type="NODE" mixed in the hierarchy 
+then you have to read &lt;instance_controller&gt; from &lt;library_visual_scenes&gt; and 
+then read &lt;skeleton&gt; each time you have to read a joint. Those &lt;node&gt;s which are 
+not of type="JOINT" are still Joints but they are not effectors, which means 
+they are not effecting the skin. And that’s why we assumed everything must be 
+attached to the skin, to keep things easy and simple.</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">To read the hierarchy of 
+the bones, you need to have a data structure which can hold a number of children 
+and a parent of its own kind. (This will get clear in the implementation part). 
+You might also need to save the "SID" attribute of &lt;node&gt;s. Once we have the 
+data structure setup, we will find the root and start reading its children and 
+then their children and so on (recursively) and keep saving them in the data 
+structure. At the end of the whole read process your whole data structure should 
+be able to answer questions like, which joint is the child of whom? And who is 
+the parent of a joint.</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">Now how can we find the 
+root joint of the skeleton? Since we know we only have one model in the COLLADA 
+document so we don't have to read the &lt;scene&gt; node to find where the scene is 
+instanced from. We directly go to &lt;library_visual_scenes&gt; and for all the direct 
+(immediate) children of the only &lt;visual_scene&gt; we have to find the &lt;node&gt; who 
+has a children of type &lt;instance_controller&gt;, read the &lt;skeleton&gt; child of this 
+&lt;instance_controller&gt; and that will give you the ID of the root node. Since we 
+have added all the bones to the skin, we will only have one &lt;skeleton&gt; child of 
+&lt;instance_controller&gt;. Now this node is our root of the skeleton and everything 
+connected to this &lt;node&gt; is part of the skeleton.</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">If you see the structure 
+of this &lt;node&gt; in COLLADA document you will see most of the nodes have &lt;matrix&gt; as 
+the first child. And this &lt;matrix&gt; contains 16 float values, which makes the 
+Joint Matrix of the bone. This is also called the local bone transformation 
+matrix. When we connect all the joints we have to multiply the World Matrix of 
+the parent to the child's Joint Matrix and save it as world bone transformation 
+matrix for the child. For the root Joint, who doesn't have a parent, the Joint 
+Matrix becomes the World transformation matrix.</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">By now you should be able 
+to read the skeleton and derive the bind pose of the skeleton from the Joint 
+matrices you read for each &lt;node&gt;. In the next section we read the skinning 
+information which connects this skeleton with the skin.</span></p>
+<p><span style="font-family: Arial; color: #FF6600">
+<a style="color: blue; text-decoration: underline; text-underline: single" href="http://www.wazim.com/Collada_Tutorial_2.htm#Fourth_Part">Click 
+here to go to: Implementation section in part 2, for this section of part 1</a></span></p>
+<a name="Fifth_Part"></a>
+<p class="MsoNormal">
+<span style="font-size: 14.0pt; font-family: Arial; color: navy">Reading 
+Skinning information from COLLADA document</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">So far we have read the 
+geometry (vertices attributes information, materials, texture filename) as well 
+as skeleton of the model. What we need to know now is how this skeleton is 
+connected to the skin (Geometry). We have read many Joints in the skeleton. But 
+we still don't know which Joint influence which vertex. Some of the joints might 
+not even influence any vertex at all. But if you remember we took an assumption 
+that all the Joints must be added to the skin. In that case every joint must be 
+influencing the skin theoretically.</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">To properly connect the 
+skin (geometry) to the skeleton we need skinning information, and this section 
+will try to help you understand, where we can find skinning information in 
+COLLADA?</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">There is one other thing I 
+would like to explain before we go further. If we have a character who's each 
+vertex is connected to only one Joint. When ever that Joint moves the vertex 
+connected to it must also move. And you will see very rigid animation. But this 
+is not how things work. Almost every vertex is connected to more then one Joint. 
+And we specify the influence of each joint on that vertex with the help of 
+vertex weights. Each joint influences that particular vertex some percentage of 
+the total influence which totals to 1. So vertex weights are very important part 
+of the skinning information.</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">&lt;library_controllers&gt;</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">&lt;library_controllers&gt; 
+contains all the influences (joints) and their connectivity through vertex 
+weights for the whole model. According to our assumptions we only have one mesh 
+and one skeleton. So we will have only one &lt;controller&gt; node in the list of 
+children of &lt;library_controllers&gt;. Once we have found the one and only 
+&lt;controller&gt; node, we have to find its child node &lt;skin&gt;. In the &lt;skin&gt; node, 
+find the &lt;source&gt; whose attribute's "name"s value is "JOINT" in the &lt;param&gt; 
+child node of the &lt;accessor&gt; child of the &lt;technique_common&gt;, (I will not 
+explain all this again since we have already decoded &lt;source&gt; nodes when we were 
+reading Geometry data) and the &lt;NAME_array&gt; will give you the Names of all the 
+joints in the skeleton. Now you know that you can find the number of bones used 
+from the "count" attribute of the &lt;NAME_array&gt; node in this source. An example 
+&lt;source&gt; is given as follows.</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">&nbsp;</span></p>
+<p class="MsoNormal" style="text-autospace: none"><b>
+<span style="font-family: CourierNewPS-BoldMT; color: #000081">&lt;</span><span style="font-family: CourierNewPS-BoldMT; color: #810081">source
+</span><span style="font-family: CourierNewPS-BoldMT; color: #000081">id="</span><span style="font-family: CourierNewPS-BoldMT; color: blue">boyShape-skin-skin-joints</span><span style="font-family: CourierNewPS-BoldMT; color: #000081">"&gt;</span></b></p>
+<p class="MsoNormal" style="text-autospace: none; margin-left: .5in">
+<span style="font-family: CourierNewPSMT; color: #000081">&lt;</span><span style="font-family: CourierNewPSMT; color: #810081">NAME_array
+</span><span style="font-family: CourierNewPSMT; color: #000081">id="</span><span style="font-family: CourierNewPSMT; color: blue">skin-joints-array</span><span style="font-family: CourierNewPSMT; color: #000081">" 
+count="</span><span style="font-family: CourierNewPSMT; color: blue">5</span><span style="font-family: CourierNewPSMT; color: #000081">"&gt;</span><span style="font-family: CourierNewPSMT">Bone1 
+Bone2 Bone3 Bone4 Bone5<span style="color: #000081">&lt;</span><span style="color: #810081">NAME_array</span><span style="color: #000081"> 
+/&gt;</span></span></p>
+<p class="MsoNormal" style="text-autospace: none; margin-left: .5in">
+<span style="font-family: CourierNewPSMT; color: #000081">&lt;</span><span style="font-family: CourierNewPSMT; color: #810081">technique_common</span><span style="font-family: CourierNewPSMT; color: #000081">&gt;</span></p>
+<p class="MsoNormal" style="text-indent: .5in; text-autospace: none; margin-left: .5in">
+<span style="font-family: CourierNewPSMT; color: #000081">&lt;</span><span style="font-family: CourierNewPSMT; color: #810081">acessor
+</span><span style="font-family: CourierNewPSMT; color: #000081">source="#</span><span style="font-family: CourierNewPSMT; color: blue">skin-joints-array</span><span style="font-family: CourierNewPSMT; color: #000081">" 
+count="</span><span style="font-family: CourierNewPSMT; color: blue">5</span><span style="font-family: CourierNewPSMT; color: #000081">" 
+stride="</span><span style="font-family: CourierNewPSMT; color: blue">1</span><span style="font-family: CourierNewPSMT; color: #000081">"&gt;</span></p>
+<p class="MsoNormal" style="text-indent: .5in; text-autospace: none; margin-left: .5in">
+<span style="font-family: CourierNewPSMT; color: #000081">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;</span><span style="font-family: CourierNewPSMT; color: #810081">param
+</span><span style="font-family: CourierNewPSMT; color: #000081">name="</span><span style="font-family: CourierNewPSMT; color: blue">JOINT</span><span style="font-family: CourierNewPSMT; color: #000081">" 
+type="</span><span style="font-family: CourierNewPSMT; color: blue">Name</span><span style="font-family: CourierNewPSMT; color: #000081">" 
+/&gt;</span></p>
+<p class="MsoNormal" style="text-indent: .5in; text-autospace: none; margin-left: .5in">
+<span style="font-family: CourierNewPSMT; color: #000081">&lt;/</span><span style="font-family: CourierNewPSMT; color: #810081">acessor</span><span style="font-family: CourierNewPSMT; color: #000081">&gt;</span></p>
+<p class="MsoNormal" style="text-autospace: none; margin-left: .5in">
+<span style="font-family: CourierNewPSMT; color: #000081">&lt;/</span><span style="font-family: CourierNewPSMT; color: #810081">technique_common</span><span style="font-family: CourierNewPSMT; color: #000081">&gt;</span></p>
+<p class="MsoNormal" style="text-autospace: none"><b>
+<span style="font-family: CourierNewPS-BoldMT; color: #000081">&lt;/</span><span style="font-family: CourierNewPS-BoldMT; color: #810081">source</span><span style="font-family: CourierNewPS-BoldMT; color: #000081">&gt;</span></b></p>
+<p class="MsoNormal"><span style="font-family: Arial">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">And if you go back and see 
+your skeleton &lt;node&gt;s from &lt;library_visual_scene&gt;, you will see that all these 
+names of Joints you read from &lt;NAME_array&gt; are actually the SID's of these 
+&lt;node&gt;s.</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">To properly read the 
+skinning data, we first need to read the Bind shape matrix of the skin to the 
+skeleton, which is usually the first child of &lt;skin&gt; node, if it's not the first 
+child we will iterate through all the children and find and save it. And then we 
+start reading from the node called &lt;vertex_weights&gt; who's "count" attribute's 
+value gives the number of weights, as far as I know this count must be equal to 
+number of vertices in the model which we read earlier when we were reading 
+Geometry data because we have to define the vertex weights for each and every 
+vertex at least and at most once. </span></p>
+<p class="MsoNormal"><span style="font-family: Arial">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">If you see the structure 
+of the &lt;vertex_weights&gt; node you will see at least 2 &lt;input&gt; nodes, one with 
+attribute semantic="JOINT" and second with semantic="WEIGHT", One &lt;vcount&gt; node 
+and one &lt;v&gt; node.</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">When we have to read the 
+weights for each vertex we iterate &lt;vertex_weight&gt;'s attribute "count" number of 
+times into the &lt;vcount&gt; node values. And each value from the &lt;vcount&gt; is the 
+number of Joints affecting that particular vertex, on which we are currently 
+iterating. So we iterate nested for that specific value in the &lt;vcount&gt; (number 
+of joints time) and read pairs of indices from &lt;v&gt; (Here I assume we have only 
+two &lt;input&gt; nodes in &lt;vertex_weight&gt;). </span></p>
+<p class="MsoNormal"><span style="font-family: Arial">The first one index the 
+"JOINT" name in the "JOINT" &lt;source&gt;'s &lt;NAME_array&gt; (Here I assume that the 
+value of "offset" attribute of the &lt;input&gt; who's semantic="JOINT" is "0"), we 
+mentioned how to find this source earlier as well, but here you can get the ID 
+of this source from the "source" attribute of the &lt;input&gt; child of the 
+&lt;vertex_weight&gt; node with semantic="JOINT". </span></p>
+<p class="MsoNormal"><span style="font-family: Arial">And the second one index 
+the weight value from the &lt;source&gt; who's ID you can get from the "source" 
+attribute of the &lt;input&gt; child of the &lt;vertex_weight&gt; node with 
+semantic="WEIGHT" (Here I assume that the value of "offset" attribute of the 
+&lt;input&gt; who's semantic="WEIGHT" is "1").</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">&nbsp;</span></p>
+<p class="MsoNormal" style="text-autospace: none"><b>
+<span style="font-family: CourierNewPS-BoldMT; color: #000081">&lt;</span><span style="font-family: CourierNewPS-BoldMT; color: #810081">vertex</span><span style="font-family: CourierNewPS-BoldMT; color: #000081">_</span><span style="font-family: CourierNewPS-BoldMT; color: #810081">weights
+</span><span style="font-family: CourierNewPS-BoldMT; color: #000081">count="</span><span style="font-family: CourierNewPS-BoldMT; color: blue">4</span><span style="font-family: CourierNewPS-BoldMT; color: #000081">"&gt;</span></b></p>
+<p class="MsoNormal" style="text-autospace: none; margin-left: .5in">
+<span style="font-family: CourierNewPSMT; color: #000081">&lt;</span><span style="font-family: CourierNewPSMT; color: #810081">input
+</span><span style="font-family: CourierNewPSMT; color: #000081">semantic="</span><span style="font-family: CourierNewPSMT; color: blue">JOINT</span><span style="font-family: CourierNewPSMT; color: #000081">" 
+source="</span><span style="font-family: CourierNewPSMT; color: blue">#joints</span><span style="font-family: CourierNewPSMT; color: #000081">" 
+offset="</span><span style="font-family: CourierNewPSMT; color: blue">0</span><span style="font-family: CourierNewPSMT; color: #000081">"/&gt;</span></p>
+<p class="MsoNormal" style="text-autospace: none; margin-left: .5in">
+<span style="font-family: CourierNewPSMT; color: #000081">&lt;</span><span style="font-family: CourierNewPSMT; color: #810081">input
+</span><span style="font-family: CourierNewPSMT; color: #000081">semantic="</span><span style="font-family: CourierNewPSMT; color: blue">WEIGHT</span><span style="font-family: CourierNewPSMT; color: #000081">" 
+source="</span><span style="font-family: CourierNewPSMT; color: blue">#weights</span><span style="font-family: CourierNewPSMT; color: #000081">" 
+offset="</span><span style="font-family: CourierNewPSMT; color: blue">1</span><span style="font-family: CourierNewPSMT; color: #000081">"/&gt;</span></p>
+<p class="MsoNormal" style="text-autospace: none; margin-left: .5in">
+<span style="font-family: CourierNewPSMT; color: #000081">&lt;</span><span style="font-family: CourierNewPSMT; color: #810081">vcount</span><span style="font-family: CourierNewPSMT; color: #000081">&gt;3 
+2 2 3&lt;/</span><span style="font-family: CourierNewPSMT; color: #810081">vcount</span><span style="font-family: CourierNewPSMT; color: #000081">&gt;</span></p>
+<p class="MsoNormal" style="text-autospace: none; margin-left: .5in">
+<span style="font-family: CourierNewPSMT; color: #000081">&lt;</span><span style="font-family: CourierNewPSMT; color: #810081">v</span><span style="font-family: CourierNewPSMT; color: #000081">&gt;</span></p>
+<p class="MsoNormal" style="text-autospace: none; margin-left: 1.0in">
+<span style="font-family: CourierNewPSMT; color: #000081">1 0 0 1 1 2</span></p>
+<p class="MsoNormal" style="text-autospace: none; margin-left: 1.0in">
+<span style="font-family: CourierNewPSMT; color: #000081">1 3 1 4</span></p>
+<p class="MsoNormal" style="text-autospace: none; margin-left: 1.0in">
+<span style="font-family: CourierNewPSMT; color: #000081">1 3 2 4</span></p>
+<p class="MsoNormal" style="text-autospace: none; margin-left: 1.0in">
+<span style="font-family: CourierNewPSMT; color: #000081">1 0 3 1 2 2</span></p>
+<p class="MsoNormal" style="text-autospace: none; margin-left: .5in">
+<span style="font-family: CourierNewPSMT; color: #000081">&lt;/</span><span style="font-family: CourierNewPSMT; color: #810081">v</span><span style="font-family: CourierNewPSMT; color: #000081">&gt;</span></p>
+<p class="MsoNormal"><b>
+<span style="font-family: CourierNewPS-BoldMT; color: #000081">&lt;/</span><span style="font-family: CourierNewPS-BoldMT; color: #810081">vertex_weights</span><span style="font-family: CourierNewPS-BoldMT; color: #000081">&gt;</span></b></p>
+<p class="MsoNormal"><span style="font-family: Arial">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">In this example you can 
+see that this &lt;vertex_weight&gt; node is defining weights (influences) for 4 
+vertices, first vertex has 3 influences, First vertex's first influence's joint 
+index is 1 which is the index from the JOINTS &lt;source&gt;s &lt;NAME_array&gt; values. And 
+its weight index in the &lt;float_array&gt; of the &lt;source&gt; of weights is 0.</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">There is one other very 
+important child of &lt;skin&gt; node which is called &lt;joints&gt; and it usually have two 
+&lt;input&gt; nodes, the first one with attribute semantic="JOINT" references the 
+&lt;source&gt; node with Joint names, through the "source" attribute. And the second 
+&lt;input&gt; with semantic="INV_BIND_MATRIX" references the source with inverse bind 
+matrices for each Joint through the attribute "source". The source with inverse 
+bind matrices contains (Joints_count * 16) values which makes Joints_count 
+inverse bind matrices. These inverse bind matrices are needed for skinning. And 
+will be clear when we read the implementation part.</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">Once we have completely 
+read the &lt;controller&gt; node we should have one Bind shape matrix, a number of 
+Joints and their Inverse bind matrices, and we have read their Joint matrices 
+from the &lt;visual_scene&gt; earlier. Each vertex must be influenced by one or more 
+then one bone (Remember this is contrary to Each Joint must be influencing at 
+least one or more Vertex, which is not true, since their might be Joints, 
+influencing no vertices). And we must have their weights accordingly.</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">Now if you have come this 
+far, you should be able to read the geometry data, as well as the skeleton and 
+skinning data from COLLADA documents. And you should be able to draw the model in 
+raw triangles, as well as draw the skeleton. Although I haven't discussed how 
+you can accumulate the world matrices for each joint and then draw in world 
+coordinates for debugging purposes but I think I gave a hint that we have to 
+multiply parent joint's world matrix with current joint's Joint matrix and save 
+the result in current joint's world matrix. We have to start this process from 
+the root bone. So that we don't have dirty world matrices from parents, and the 
+root Joint's world matrix becomes the Joint matrix, since root don't have any 
+parent. If you are also reading the COLLADA specification version 1.5 you can 
+find the skinning equation so you should also be able to put the model in bind 
+shape. How can we animate this model is still not covered and will be covered in 
+the following sections.</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family:Arial;color:#FF6600"><a style="color: blue; text-decoration: underline; text-underline: single" href="http://www.wazim.com/Collada_Tutorial_2.htm#Fifth_Part">Click here 
+to go to: Implementation section in part 2, for this section of part 1</a></span></p>
+<p class="MsoNormal">
+&nbsp;</p>
+<a name="Sixth_Part"></a>
+<p class="MsoNormal">
+<span style="font-size: 14.0pt; font-family: Arial; color: navy">Reading 
+Animation data from COLLADA document</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">So far we are able to read 
+every thing related to the static pose of the character, the only thing we still 
+have to understand and read is the animation data part. Animation is not very 
+strong in COLLADA and is still in its infancy, as time passes and COLLADA gets 
+mature this will get better. But for our purposes we have a lot to worry about 
+:).</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">&lt;library_animations&gt;</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">In this library we have 
+all the animations data saved. For each joint animated you will see an 
+&lt;animation&gt; node which further have the animation data for that specific Joint. 
+Remember that an &lt;animation&gt; channel replaces the transform of the target on 
+which it applies, which in this case will be joints. </span></p>
+<p class="MsoNormal"><span style="font-family: Arial">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">You will see three types 
+of children nodes in &lt;animation&gt;, first one as usual will be &lt;source&gt;s of data, 
+second one is called &lt;sampler&gt; and the third one is &lt;channel&gt;. You need 
+&lt;sampler&gt; and &lt;channel&gt; nodes to define the target on which the animation data 
+is applied.</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">From &lt;channel&gt; node you 
+pick the target which gives you the ID of the Object on which the Animation data 
+will be applied. And you also get the Sampler ID from where you will pick the 
+sources from which you will pick the animation Data.</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">Remember the example I am 
+presenting here is a case which will never occur in our example COLLADA 
+documents, 
+because of our assumption of backing matrices. But this is an easy example to 
+understand.</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">Example:</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">&nbsp;</span></p>
+<p class="MsoNormal" style="text-autospace: none"><b>
+<span style="font-family: CourierNewPS-BoldMT; color: #000081">&lt;</span><span style="font-family: CourierNewPS-BoldMT; color: #810081">source</span><span style="font-family: CourierNewPS-BoldMT; color: #000081"> 
+id="</span></b><span style="font-family: CourierNewPSMT; color: blue">astroBoy-input</span><b><span style="font-family: CourierNewPS-BoldMT; color: #000081">"&gt;</span></b></p>
+<p class="MsoNormal" style="text-autospace: none; margin-left: .5in"><b>
+<span style="font-family: CourierNewPS-BoldMT; color: #000081">&lt;</span><span style="font-family: CourierNewPS-BoldMT; color: #810081">float_array</span><span style="font-family: CourierNewPS-BoldMT; color: #000081"> 
+id="</span></b><span style="font-family: CourierNewPSMT; color: blue">astroBoy-input-array</span><b><span style="font-family: CourierNewPS-BoldMT; color: #000081">" 
+count="</span></b><span style="font-family: CourierNewPSMT; color: blue">2</span><b><span style="font-family: CourierNewPS-BoldMT; color: #000081">"&gt;</span><span style="font-family: CourierNewPS-BoldMT">0 
+1.16667<span style="color: #000081">&lt;/</span><span style="color: #810081">float_array</span><span style="color: #000081">&gt;</span></span></b></p>
+<p class="MsoNormal" style="text-autospace: none; margin-left: .5in"><b>
+<span style="font-family: CourierNewPS-BoldMT; color: #000081">&lt;</span><span style="font-family: CourierNewPS-BoldMT; color: #810081"> 
+technique_common</span><span style="font-family: CourierNewPS-BoldMT; color: #000081">&gt;</span></b></p>
+<p class="MsoNormal" style="text-indent: .5in; text-autospace: none; margin-left: .5in">
+<b><span style="font-family: CourierNewPS-BoldMT; color: #000081">&lt;</span><span style="font-family: CourierNewPS-BoldMT; color: #810081">accessor 
+source</span><span style="font-family: CourierNewPS-BoldMT; color: #000081">="#</span></b><span style="font-family: CourierNewPSMT; color: blue">astroBoy-input-array</span><b><span style="font-family: CourierNewPS-BoldMT; color: #000081">" 
+count="</span></b><span style="font-family: CourierNewPSMT; color: blue">2</span><b><span style="font-family: CourierNewPS-BoldMT; color: #000081">" 
+stride="</span></b><span style="font-family: CourierNewPSMT; color: blue">1</span><b><span style="font-family: CourierNewPS-BoldMT; color: #000081">"&gt;</span></b></p>
+<p class="MsoNormal" style="text-indent: .5in; text-autospace: none; margin-left: 1.0in">
+<b><span style="font-family: CourierNewPS-BoldMT; color: #000081">&lt;</span><span style="font-family: CourierNewPS-BoldMT; color: #810081">param
+</span><span style="font-family: CourierNewPS-BoldMT; color: #000081">name="</span></b><span style="font-family: CourierNewPSMT; color: blue">TIME</span><b><span style="font-family: CourierNewPS-BoldMT; color: #000081">" 
+type="</span></b><span style="font-family: CourierNewPSMT; color: blue">float</span><b><span style="font-family: CourierNewPS-BoldMT; color: #000081">"/&gt;</span></b></p>
+<p class="MsoNormal" style="text-indent: .5in; text-autospace: none; margin-left: .5in">
+<b><span style="font-family: CourierNewPS-BoldMT; color: #000081">&lt;/</span><span style="font-family: CourierNewPS-BoldMT; color: #810081">accessor</span><span style="font-family: CourierNewPS-BoldMT; color: #000081">&gt;</span></b></p>
+<p class="MsoNormal" style="text-autospace: none; margin-left: .5in"><b>
+<span style="font-family: CourierNewPS-BoldMT; color: #000081">&lt;/</span><span style="font-family: CourierNewPS-BoldMT; color: #810081">technique_common</span><span style="font-family: CourierNewPS-BoldMT; color: #000081"> 
+&gt;</span></b></p>
+<p class="MsoNormal" style="text-autospace: none"><b>
+<span style="font-family: CourierNewPS-BoldMT; color: #000081">&lt;/</span><span style="font-family: CourierNewPS-BoldMT; color: #810081">source</span><span style="font-family: CourierNewPS-BoldMT; color: #000081">&gt;</span></b></p>
+<p class="MsoNormal" style="text-autospace: none"><b>
+<span style="font-family: CourierNewPS-BoldMT; color: #000081">&lt;</span><span style="font-family: CourierNewPS-BoldMT; color: #810081">source</span><span style="font-family: CourierNewPS-BoldMT; color: #000081"> 
+id="</span></b><span style="font-family: CourierNewPSMT; color: blue">astroBoy-output</span><b><span style="font-family: CourierNewPS-BoldMT; color: #000081">"&gt;</span></b></p>
+<p class="MsoNormal" style="text-autospace: none; margin-left: .5in"><b>
+<span style="font-family: CourierNewPS-BoldMT; color: #000081">&lt;</span><span style="font-family: CourierNewPS-BoldMT; color: #810081">float_array</span><span style="font-family: CourierNewPS-BoldMT; color: #000081"> 
+id="</span></b><span style="font-family: CourierNewPSMT; color: blue">astroBoy-output-array</span><b><span style="font-family: CourierNewPS-BoldMT; color: #000081">" 
+count="</span></b><span style="font-family: CourierNewPSMT; color: blue">2</span><b><span style="font-family: CourierNewPS-BoldMT; color: #000081">"&gt;</span><span style="font-family: CourierNewPS-BoldMT">2.2 
+3.5<span style="color: #000081">&lt;/</span><span style="color: #810081">float_array</span><span style="color: #000081">&gt;</span></span></b></p>
+<p class="MsoNormal" style="text-autospace: none; margin-left: .5in"><b>
+<span style="font-family: CourierNewPS-BoldMT; color: #000081">&lt;</span><span style="font-family: CourierNewPS-BoldMT; color: #810081">technique_common</span><span style="font-family: CourierNewPS-BoldMT; color: #000081">&gt;</span></b></p>
+<p class="MsoNormal" style="text-indent: .5in; text-autospace: none; margin-left: .5in">
+<b><span style="font-family: CourierNewPS-BoldMT; color: #000081">&lt;</span><span style="font-family: CourierNewPS-BoldMT; color: #810081">accessor</span><span style="font-family: CourierNewPS-BoldMT; color: #000081"> 
+source="#</span></b><span style="font-family: CourierNewPSMT; color: blue">astroBoy-output-array</span><b><span style="font-family: CourierNewPS-BoldMT; color: #000081">" 
+count="</span></b><span style="font-family: CourierNewPSMT; color: blue">2</span><b><span style="font-family: CourierNewPS-BoldMT; color: #000081">" 
+stride="</span></b><span style="font-family: CourierNewPSMT; color: blue">1</span><b><span style="font-family: CourierNewPS-BoldMT; color: #000081">"&gt;</span></b></p>
+<p class="MsoNormal" style="text-indent: .5in; text-autospace: none; margin-left: 1.0in">
+<b><span style="font-family: CourierNewPS-BoldMT; color: #000081">&lt;</span><span style="font-family: CourierNewPS-BoldMT; color: #810081">param
+</span><span style="font-family: CourierNewPS-BoldMT; color: #000081">name="</span></b><span style="font-family: CourierNewPSMT; color: blue">TRANSFORM</span><b><span style="font-family: CourierNewPS-BoldMT; color: #000081">" 
+type="</span></b><span style="font-family: CourierNewPSMT; color: blue">float</span><b><span style="font-family: CourierNewPS-BoldMT; color: #000081">"/&gt;</span></b></p>
+<p class="MsoNormal" style="text-indent: .5in; text-autospace: none; margin-left: .5in">
+<b><span style="font-family: CourierNewPS-BoldMT; color: #000081">&lt;/</span><span style="font-family: CourierNewPS-BoldMT; color: #810081">accessor</span><span style="font-family: CourierNewPS-BoldMT; color: #000081">&gt;</span></b></p>
+<p class="MsoNormal" style="text-autospace: none; margin-left: .5in"><b>
+<span style="font-family: CourierNewPS-BoldMT; color: #000081">&lt;/</span><span style="font-family: CourierNewPS-BoldMT; color: #810081">technique_common</span><span style="font-family: CourierNewPS-BoldMT; color: #000081">&gt;</span></b></p>
+<p class="MsoNormal" style="text-autospace: none"><b>
+<span style="font-family: CourierNewPS-BoldMT; color: #000081">&lt;/</span><span style="font-family: CourierNewPS-BoldMT; color: #810081">source</span><span style="font-family: CourierNewPS-BoldMT; color: #000081">&gt;</span></b></p>
+<p class="MsoNormal" style="text-autospace: none"><b>
+<span style="font-family: CourierNewPS-BoldMT; color: #000081">&lt;</span><span style="font-family: CourierNewPS-BoldMT; color: #810081">source</span><span style="font-family: CourierNewPS-BoldMT; color: #000081"> 
+id="</span></b><span style="font-family: CourierNewPSMT; color: blue">astroBoy-interpolations</span><b><span style="font-family: CourierNewPS-BoldMT; color: #000081">"&gt;</span></b></p>
+<p class="MsoNormal" style="text-autospace: none; margin-left: .5in"><b>
+<span style="font-family: CourierNewPS-BoldMT; color: #000081">&lt;</span><span style="font-family: CourierNewPS-BoldMT; color: #810081">NAME_array</span><span style="font-family: CourierNewPS-BoldMT; color: #000081"> 
+id="</span></b><span style="font-family: CourierNewPSMT; color: blue">astroBoy-interpolations-array</span><b><span style="font-family: CourierNewPS-BoldMT; color: #000081">" 
+count="</span></b><span style="font-family: CourierNewPSMT; color: blue">2</span><b><span style="font-family: CourierNewPS-BoldMT; color: #000081">"&gt;</span><span style="font-family: CourierNewPS-BoldMT">LINEAR 
+LINEAR<span style="color: #000081">&lt;/</span><span style="color: #810081">NAME_array</span><span style="color: #000081">&gt;</span></span></b></p>
+<p class="MsoNormal" style="text-autospace: none; margin-left: .5in"><b>
+<span style="font-family: CourierNewPS-BoldMT; color: #000081">&lt;</span><span style="font-family: CourierNewPS-BoldMT; color: #810081">technique_common</span><span style="font-family: CourierNewPS-BoldMT; color: #000081">&gt;</span></b></p>
+<p class="MsoNormal" style="text-indent: .5in; text-autospace: none; margin-left: .5in">
+<b><span style="font-family: CourierNewPS-BoldMT; color: #000081">&lt;</span><span style="font-family: CourierNewPS-BoldMT; color: #810081"> 
+accessor</span><span style="font-family: CourierNewPS-BoldMT; color: #000081"> 
+source="#</span></b><span style="font-family: CourierNewPSMT; color: blue">astroBoy-interpolations-array</span><b><span style="font-family: CourierNewPS-BoldMT; color: #000081">" 
+count="</span></b><span style="font-family: CourierNewPSMT; color: blue">2</span><b><span style="font-family: CourierNewPS-BoldMT; color: #000081">" 
+stride="</span></b><span style="font-family: CourierNewPSMT; color: blue">1</span><b><span style="font-family: CourierNewPS-BoldMT; color: #000081">"&gt;</span></b></p>
+<p class="MsoNormal" style="text-indent: .5in; text-autospace: none; margin-left: 1.0in">
+<b><span style="font-family: CourierNewPS-BoldMT; color: #000081">&lt;</span><span style="font-family: CourierNewPS-BoldMT; color: #810081">param
+</span><span style="font-family: CourierNewPS-BoldMT; color: #000081">name="</span></b><span style="font-family: CourierNewPSMT; color: blue">INTERPOLATION</span><b><span style="font-family: CourierNewPS-BoldMT; color: #000081">" 
+type="</span></b><span style="font-family: CourierNewPSMT; color: blue">float</span><b><span style="font-family: CourierNewPS-BoldMT; color: #000081">"/&gt;</span></b></p>
+<p class="MsoNormal" style="text-indent: .5in; text-autospace: none; margin-left: .5in">
+<b><span style="font-family: CourierNewPS-BoldMT; color: #000081">&lt;/</span><span style="font-family: CourierNewPS-BoldMT; color: #810081">accessor</span><span style="font-family: CourierNewPS-BoldMT; color: #000081"> 
+&gt;</span></b></p>
+<p class="MsoNormal" style="text-autospace: none; margin-left: .5in"><b>
+<span style="font-family: CourierNewPS-BoldMT; color: #000081">&lt;/</span><span style="font-family: CourierNewPS-BoldMT; color: #810081">technique_common</span><span style="font-family: CourierNewPS-BoldMT; color: #000081">&gt;</span></b></p>
+<p class="MsoNormal" style="text-autospace: none"><b>
+<span style="font-family: CourierNewPS-BoldMT; color: #000081">&lt;/</span><span style="font-family: CourierNewPS-BoldMT; color: #810081">source</span><span style="font-family: CourierNewPS-BoldMT; color: #000081">&gt;</span></b></p>
+<p class="MsoNormal" style="text-autospace: none"><b>
+<span style="font-family: CourierNewPS-BoldMT; color: #000081">&nbsp;</span></b></p>
+<p class="MsoNormal" style="text-autospace: none"><b>
+<span style="font-family: CourierNewPS-BoldMT; color: #000081">&lt;</span><span style="font-family: CourierNewPS-BoldMT; color: #810081">sampler</span><span style="font-family: CourierNewPS-BoldMT; color: #000081"> 
+id="</span></b><span style="font-family: CourierNewPSMT; color: blue">astroBoy_Skeleton-sampler</span><b><span style="font-family: CourierNewPS-BoldMT; color: #000081">"&gt;</span></b></p>
+<p class="MsoNormal" style="text-autospace: none; margin-left: .5in"><b>
+<span style="font-family: CourierNewPS-BoldMT; color: #000081">&lt;</span><span style="font-family: CourierNewPS-BoldMT; color: #810081">input</span><span style="font-family: CourierNewPS-BoldMT; color: #000081"> 
+semantic="</span></b><span style="font-family: CourierNewPSMT; color: blue">INPUT</span><b><span style="font-family: CourierNewPS-BoldMT; color: #000081">" 
+source="#</span></b><span style="font-family: CourierNewPSMT; color: blue">astroBoy-input</span><b><span style="font-family: CourierNewPS-BoldMT; color: #000081">"/&gt;</span></b></p>
+<p class="MsoNormal" style="text-autospace: none; margin-left: .5in"><b>
+<span style="font-family: CourierNewPS-BoldMT; color: #000081">&lt;</span><span style="font-family: CourierNewPS-BoldMT; color: #810081">input</span><span style="font-family: CourierNewPS-BoldMT; color: #000081"> 
+semantic="</span></b><span style="font-family: CourierNewPSMT; color: blue">OUTPUT</span><b><span style="font-family: CourierNewPS-BoldMT; color: #000081">" 
+source="#</span></b><span style="font-family: CourierNewPSMT; color: blue">astroBoy-output</span><b><span style="font-family: CourierNewPS-BoldMT; color: #000081">"/&gt;</span></b></p>
+<p class="MsoNormal" style="text-autospace: none; margin-left: .5in"><b>
+<span style="font-family: CourierNewPS-BoldMT; color: #000081">&lt;</span><span style="font-family: CourierNewPS-BoldMT; color: #810081">input</span><span style="font-family: CourierNewPS-BoldMT; color: #000081"> 
+semantic="</span></b><span style="font-family: CourierNewPSMT; color: blue">INTERPOLATION</span><b><span style="font-family: CourierNewPS-BoldMT; color: #000081">" 
+source="#</span></b><span style="font-family: CourierNewPSMT; color: blue">astroBoy-interpolations</span><b><span style="font-family: CourierNewPS-BoldMT; color: #000081">"/&gt;</span></b></p>
+<p class="MsoNormal" style="text-autospace: none"><b>
+<span style="font-family: CourierNewPS-BoldMT; color: #000081">&lt;/</span><span style="font-family: CourierNewPS-BoldMT; color: #810081">sampler</span><span style="font-family: CourierNewPS-BoldMT; color: #000081">&gt;</span></b></p>
+<p class="MsoNormal" style="text-autospace: none"><b>
+<span style="font-family: CourierNewPS-BoldMT; color: #000081">&nbsp;</span></b></p>
+<p class="MsoNormal" style="text-autospace: none"><b>
+<span style="font-family: CourierNewPS-BoldMT; color: #000081">&lt;</span><span style="font-family: CourierNewPS-BoldMT; color: #810081">channel</span><span style="font-family: CourierNewPS-BoldMT; color: #000081"> 
+source="#</span></b><span style="font-family: CourierNewPSMT; color: blue">astroSkeleton-sampler</span><b><span style="font-family: CourierNewPS-BoldMT; color: #000081">" 
+target="</span></b><span style="font-family: CourierNewPSMT; color: blue">astroBoy_Skeleton/trans.X</span><b><span style="font-family: CourierNewPS-BoldMT; color: #000081">"/&gt;</span></b></p>
+<p class="MsoNormal"><span style="font-family: Arial">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">Now Lets read from the 
+Bottom &lt;channel&gt; node.</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">This says that there is 
+one Entity (in our case will be Joint) called "astroBoy_Skeleton" in the scene 
+who's "X translation values" is being animated by the sampler 
+"astroSkeleton-sampler".</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">So we need to know how 
+"astroSkeleton-sampler" animated that "X translation value", we read &lt;sampler&gt; 
+which says. </span></p>
+<p class="MsoNormal"><span style="font-family: Arial">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">There are three types of 
+inputs you must read to read the animation data. </span></p>
+<p class="MsoNormal"><span style="font-family: Arial">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">First &lt;intput&gt; node is: 
+INPUT </span></p>
+<p class="MsoNormal"><span style="font-family: Arial">Second &lt;intput&gt; node is: 
+OUTPUT</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">Third &lt;intput&gt; node is: 
+INTERPOLATION</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">When we start reading the 
+&lt;input&gt;s from the &lt;sampler&gt;,</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">The "input" with attribute 
+semantic = "INPUT" gives you the input &lt;source&gt; for the animation</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">The "input" with attribute 
+semantic = "OUTPUT" gives you the output &lt;source&gt; for the animation</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">The "input" with attribute 
+semantic = "INTERPOLATON" gives you the interpolation &lt;source&gt; for the animation</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">Now when we go and read 
+those &lt;source&gt;s, we see that the source who was referred to semantic = "INPUT" 
+by the sampler has name="TIME" in &lt;param&gt; child of &lt;accessor&gt; child of the 
+&lt;technique_common&gt; child of that &lt;source&gt;, in short it says this sources has 
+time values of the animation in floats.</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">The source who was 
+referred to semantic = "OUTPUT" by the sampler has name="TRANSFORM" in &lt;param&gt; 
+child of &lt;accessor&gt; child of the &lt;technique_common&gt; child of that &lt;source&gt;, 
+which says this sources has "X translation" values in floats for those times 
+which we read from the previous source.</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">The source who was 
+referred to semantic = "INTERPOLATION" by the sampler has name="INTERPOLATION" 
+in &lt;param&gt; child of &lt;accessor&gt; child of the &lt;technique_common&gt; child of that 
+&lt;source&gt;, which says this sources has the interpolation values in Strings for 
+those OUTPUTS which we read from the previous source. (In studio max those 
+interpolation values are usually "LINEAR" so we will not read this source and 
+assume they are all "LINEAR")</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">What this last source 
+means is that, if you see the &lt;source&gt;s, you are given OUTPUT values for two 
+values of time. What happens if we want to run the animation on a time which 
+falls in between those two time values? Then we apply interpolation to find the 
+middle OUTPUT value for the in-between time value. And in this case it's LINEAR 
+interpolated.</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">Now if you see the TIME 
+Source, that's actually your key frames. And the OUTPUT one is the key frames 
+data for the "X translation" of the Entity (joint). </span></p>
+<p class="MsoNormal"><span style="font-family: Arial">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">So you pick the 
+corresponding OUTPUT value for any time and apply that to the "X translation 
+factor" of that entity in your code and the entity will be animated. To 
+calculate the in-between values for more smooth animation you use the LINEAR 
+interpolation.</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family:Arial;color:#FF6600"><a style="color: blue; text-decoration: underline; text-underline: single" href="http://www.wazim.com/Collada_Tutorial_2.htm#Sixth_Part">Click here 
+to go to: Implementation section in part 2, for this section of part 1</a></span></p>
+<p class="MsoNormal">&nbsp;</p>
+<p class="MsoNormal"><i><span style="font-family: Arial">What interpolation 
+means?</span></i></p>
+<p class="MsoNormal"><span style="font-family: Arial">Interpolation means 
+calculating any in-between value between (among) two (or more) values. </span>
+</p>
+<p class="MsoNormal"><span style="font-family: Arial">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">Let's say we have "X" and 
+"Y" values, to calculate the "Middle" value in between those two values we can 
+use an interpolation factor of "0.5" which we call "T". And to find the 3-Quater 
+value in-between "X" and "Y" we use "T = 0.75" and so on.</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">You can run a loop on "T" 
+from lets say 0.0 to 1.0 have any increment i.e 0.001, 0.01, 0.05 etc and you 
+can get "Loop" many in-between values.</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">Now Linear Interpolation 
+is a simple form of Interpolations. And the formula is as follows</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></p>
+<p class="MsoNormal"><b>
+<span style="font-family: CourierNewPS-BoldMT; color: #810081">float 
+Interpolate( float a_Value1, float a_Value2, float a_T)</span></b></p>
+<p class="MsoNormal"><b>
+<span style="font-family: CourierNewPS-BoldMT; color: #810081">{</span></b></p>
+<p class="MsoNormal" style="text-indent: .5in"><b>
+<span style="font-family: CourierNewPS-BoldMT; color: #810081">return ((a_Value2 
+* a_T) + ((1 - a_T) * a_Value1));</span></b></p>
+<p class="MsoNormal"><b>
+<span style="font-family: CourierNewPS-BoldMT; color: #810081">}</span></b><span style="font-family: Arial; color: #FF6600">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">If you see the code it 
+says that if "a_T" is "Zero" then give me a_Value1, and if it's "One" then give 
+me a_Value2. And if it's in-between "Zero and One" then it will give you value 
+in-between a_Value1 and a_Value2.</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">Now there are other forms 
+of Interpolations as well. Like Bezier, cubic etc. They have further complicated 
+formulas. And they also consider more then two values to interpolate in-between. 
+But we will only be using linear interpolations for the sake of simplicity.</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">Now as we discussed 
+before. This is not the case which we will ever have in our example COLLADA 
+documents. So let's see what we will have?</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">Keeping our assumptions in 
+mind, we will only have two types of &lt;animation&gt; nodes. We will either have 16 * 
+3 = 48 &lt;source&gt;s, 16 &lt;sampler&gt;s and 16 &lt;channel&gt; nodes or we will have 3 
+&lt;source&gt;s, 1 &lt;sampler&gt; and 1 &lt;channel&gt; node. In the first case the "target" 
+attribute will have "transform (X) (Y)" after the last "/" in its value and in 
+the second case the "target" attribute will have "transform" after the last "/" 
+in its value.</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">&nbsp;</span></p>
+<p class="MsoNormal" style="text-autospace: none"><b>
+<span style="font-family: CourierNewPS-BoldMT; color: #000081">Either 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;</span><span style="font-family: CourierNewPS-BoldMT; color: #810081">channel</span><span style="font-family: CourierNewPS-BoldMT; color: #000081"> 
+source="#</span></b><span style="font-family: CourierNewPSMT; color: blue">astroSkeleton-sampler</span><b><span style="font-family: CourierNewPS-BoldMT; color: #000081">" 
+target="</span></b><span style="font-family: CourierNewPSMT; color: blue">astroBoy_Skeleton/transform 
+(0) (0)</span><b><span style="font-family: CourierNewPS-BoldMT; color: #000081">"/&gt;</span></b></p>
+<p class="MsoNormal" style="text-autospace: none"><b>
+<span style="font-family: CourierNewPS-BoldMT; color: #000081">&nbsp;</span></b></p>
+<p class="MsoNormal" style="text-autospace: none"><b>
+<span style="font-family: CourierNewPS-BoldMT; color: #000081">Or 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;</span><span style="font-family: CourierNewPS-BoldMT; color: #810081">channel</span><span style="font-family: CourierNewPS-BoldMT; color: #000081"> 
+source="#</span></b><span style="font-family: CourierNewPSMT; color: blue">astroSkeleton-sampler</span><b><span style="font-family: CourierNewPS-BoldMT; color: #000081">" 
+target="</span></b><span style="font-family: CourierNewPSMT; color: blue">astroBoy_Skeleton/transform</span><b><span style="font-family: CourierNewPS-BoldMT; color: #000081">"/&gt;</span></b></p>
+<p class="MsoNormal"><span style="font-family: Arial">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">In the second form the 
+values of the matrix which we backed in, are given in one &lt;source&gt; out of those 
+3 &lt;source&gt;s, just like the one &lt;source&gt; we read in reading inverse bind matrices 
+from controller. While in the first form values of each component of the 4 x 4 
+matrix are given in different &lt;source&gt;s. And we have to combine them in one 
+matrix when we read the data.</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">Now if you remember we 
+read the Joint matrices for each joint from the &lt;visual_scene&gt; node. These 
+values (which will be matrices, since we backed matrices) which we read from 
+&lt;animation&gt; nodes for those joints, which are targeted through the "target" 
+attribute of the &lt;channel&gt; of that &lt;animation&gt; will replace the Joint matrices, 
+we read earlier from &lt;visual_scene&gt; for each key frame defined in the animation. 
+And to calculate the world transformation matrix for each joint we will have to 
+take this new Joint Matrix and multiply it with the parent Joint's world 
+transformation matrix.</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">And that’s all pretty much 
+it. If you have read the whole tutorial from start to end, I guess you should be 
+able to write your own exporter for COLLADA documents now. And you are ready to 
+start reading the next part if you haven't read in between the implementation 
+sections.</span></p>
+<br>
+<br>
+<br>
+<a name="Leave_Comment_CL1"></a>
+<br>
+<br>
+<br>
+<!--Start Comments Section-->
+<iframe id="CommentIFrame1" name="CommentIFrame1" frameborder="0" src="./Collada_Tutorial_1_files/CommentForm.htm" style="width:100%;" onload="if (window.parent &amp;&amp; window.parent.autoIframe) {window.parent.autoIframe(&#39;CommentIFrame1&#39;);}"></iframe>
+<!--Ends Comments Section-->
+
+<!--Start Counter-->
+<!--End Counter-->
+
+<p class="MsoNormal"><span style="font-family: Arial">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-family: Arial">&nbsp;</span></p>
+<p class="MsoNormal"><font color="#C0C0C0"><span style="font-family: Arial">List of Figures</span></font></p>
+<p class="MsoNormal"><font color="#C0C0C0"><span style="font-family: Arial">Figure 1: 
+COLLADA document.jpg</span></font></p>
+<p class="MsoNormal"><font color="#C0C0C0"><span style="font-family: Arial">Figure 2: 
+COLLADA 
+Export.jpg</span></font></p>
+<p class="MsoNormal"><font color="#C0C0C0"><span style="font-family: Arial">Figure 3: Source Node.jpg<br clear="all" style="page-break-before: always">
+Figure 4: Triangles Node.jpg<br clear="all" style="page-break-before: always">
+Figure 5: Bones.jpg</span></font></p>
+<p class="MsoNormal"><font color="#C0C0C0"><span style="font-family: Arial">Figure 6: Skeleton.jpg</span></font></p>
+<p class="MsoNormal"><font color="#C0C0C0"><span style="font-family: Arial">&nbsp;</span></font></p>
+<p class="MsoNormal"><font color="#C0C0C0"><span style="font-family: Arial">&nbsp;</span></font></p>
+<p class="MsoNormal"><font color="#C0C0C0"><span style="font-family: Arial">&nbsp;</span></font></p>
+<p class="MsoNormal"><font color="#C0C0C0"><span style="font-family: Arial">Tags: </span>
+</font></p>
+<p class="MsoNormal"><font color="#C0C0C0"><span style="font-family: Arial">Skinning in 
+COLLADA, 
+Software Skinning, Skeletal Animation System in COLLADA, Skeletal Animation in 
+COLLADA, COLLADA Animation Tutorial, COLLADA Skeletal Animation Tutorial, 
+COLLADA Skeleton Animation Tutorial, Animation Data in COLLADA, Beginning 
+COLLADA Programming, Starting COLLADA, COLLADA for Beginners, Step by Step 
+Programming COLLADA, Reading COLLADA documents Step by Step, Exporting COLLADA 
+documents, Importing Data from COLLADA, Importing Skeleton from COLLADA, Importing 
+Exporting COLLADA documents in C++, COLLADA DOM, Feelings Software, COLLADA 
+Conditioners, Working with COLLADA in C++, Simple Animation in COLLADA. COLLADA 
+Step by Step Tutorial, Learn COLLADA in days, Skeletal Animation in OpenGL, 
+Reading COLLADA documents in C++ Using OpenGL, Reading COLLADA documents Step by Step in 
+OpenGL, COLLADA documents in DirectX, Character Animations in COLLADA, Step by Step 
+Character Animations using COLLADA. Step by Step Character animation Tutorial 
+using C++</span></font></p>
+<p class="MsoNormal">&nbsp;</p>
+<p class="MsoNormal">&nbsp;</p>
+<p class="MsoNormal" align="right" style="text-align: right">&nbsp;</p>
+<p align="Center"> 
+</p>
+
+
+<script charset="utf-8"> (function(w, d, g, J) { var e = J.stringify || J.encode; d[g] = d[g] || {}; d[g]['showValidImages'] = d[g]['showValidImages'] || function() { w.postMessage(e({'msg': {'g': g, 'm':'s'}}), location.href); } })(window, document, '__huaban', JSON); </script><pinit id="__huaban_Button" style="display: none; visibility: hidden;"><a id="__huaban_thunderpinBtn" href="http://www.wazim.com/Collada_Tutorial_1.htm#" title="&#24555;&#36895;&#37319;&#38598;" class="thunderpin"><strong><em></em></strong></a><a id="__huaban_pinBtn" href="http://www.wazim.com/Collada_Tutorial_1.htm#" title="&#37319;&#38598;&#21040;&#33457;&#29923;" class="pin">&#37319;&#38598;&#21040;&#33457;&#29923;</a></pinit></body></html>
