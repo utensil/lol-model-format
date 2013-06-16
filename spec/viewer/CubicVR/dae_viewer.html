@@ -25,7 +25,7 @@
                 var colladaScene = CubicVR.loadCollada("../generated/Annie.dae","../generated/");
 
                 // need to know it's name in the default scene
-                var duckMesh = colladaScene.getSceneObject("LOLModel").obj;
+                var duckMesh = colladaScene.getSceneObject("LOLModelAnimated").obj;
 
                 // SceneObject container for the mesh
                 var duckObject = new CubicVR.SceneObject(duckMesh);

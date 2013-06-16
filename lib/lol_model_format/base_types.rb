@@ -19,6 +19,9 @@ module LolModelFormat
         float :y
         float :z
     end
+
+    class CGAssertionFail < RuntimeError
+    end
 end
 
 begin

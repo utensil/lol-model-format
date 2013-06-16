@@ -20,18 +20,22 @@ describe LolModelFormat::SklFile do
     
     it 'should has accessible fields' do
         #lambda {
+            puts "id: #{@skl.id}"
             puts "version: #{@skl.version}"
             puts "designer_id : #{@skl.designer_id}"
             puts "num_of_bones: #{@skl.num_of_bones.value}"
-            bone = @skl.bones[0]
-            puts "bone.name: #{bone.name}"
-            puts "bone.parent_id: #{bone.parent_id}"
-            puts "bone.scale: #{bone.scale}"
-            puts "bone.matrix: #{bone.matrix.inspect}"
-            puts "bone.position: #{bone.position.inspect}"
-            puts "bone.orientation: #{bone.orientation.inspect}"
+
+            @skl.bones.each_with_index do |bone, index|
+                puts "bone[#{index}].name: #{bone.name}"
+                puts "bone[#{index}].parent_id: #{bone.parent_id}"
+                puts "bone[#{index}].scale: #{bone.scale}"
+                puts "bone[#{index}].matrix: #{bone.matrix.inspect}"
+                puts "bone[#{index}].position: #{bone.position.inspect}"
+                puts "bone[#{index}].orientation: #{bone.orientation.inspect}" 
+            end
+
             
-            if @skl.version == 2
+            if @skl.version == 2 || @skl.version == 0
               puts "num_of_bone_ids: #{@skl.num_of_bone_ids.value}"
               puts "bone_ids: #{@skl.bone_ids.inspect}"
             end

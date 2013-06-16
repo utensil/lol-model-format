@@ -57,3 +57,7 @@
 /spec/viewer/generated/Annie_skl.md2
 
 /coverage
+
+/vendor/ruby-math-3d/Makefile
+/vendor/ruby-math-3d/RMath-i386-mingw32.def
+/vendor/ruby-math-3d/RMath.so

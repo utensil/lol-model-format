@@ -16110,15 +16110,18 @@ GLGE.Collada.prototype.getAnimationVector=function(channels){
 	//so instead calc transform for each frame then use quat and trans then linear between them
 	var maxFrame=0;
 	//get the initial state of the target
+  console.log("channels[0].target[0]=" + channels[0].target[0]);
 	var targetNode=this.xml.getElementById(channels[0].target[0]);
 	
 	//blender 2.5a bug work round
 	var target=channels[0].target[0].toString()
 	if(!targetNode){
+    console.log("target=" + target);
 		var target=target.substring(target.indexOf("_")+1);
 		targetNode=this.xml.getElementById(target);
 	}
 	if(!targetNode){
+    console.log("target=" + target);
 		var target=target.substring(target.indexOf("_")+1);
 		targetNode=this.xml.getElementById(target);
 	}

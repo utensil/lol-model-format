@@ -31,9 +31,6 @@ module LolModelFormat
                 vertex.weights << w
             end
             
-            #vertex.tex_coords.x = v.tex_coords.x
-            #vertex.tex_coords.y = v.tex_coords.y
-            
             vertex
         end
         
@@ -331,19 +328,20 @@ module LolModelFormat
             [current_bone, name_array]
         end
         
-        def remap_bone_index(i)
+        def remap_bone_index(bone_index_orig)
 
             bone_index = 0
             
-            if @skeleton_file.version == 2
-                if i < @skeleton_file.bone_ids.size     
-                    bone_index = @skeleton_file.bone_ids[i]
+            if @skeleton_file.version == 2 || @skeleton_file.version == 0
+                if bone_index_orig < @skeleton_file.bone_ids.size     
+                    bone_index = @skeleton_file.bone_ids[bone_index_orig]
                 else
-                    puts "ALERT: #{i} => 0"
-                    bone_index = 0
+                    bone_index = bone_index_orig
+                    #puts @skeleton_file.bone_ids
+                    puts "ALERT: remap_bone_index #{bone_index_orig} >= #{@skeleton_file.bone_ids.size}"
                 end	 
             else
-                bone_index = i
+                bone_index = bone_index_orig
             end
             
             bone_index

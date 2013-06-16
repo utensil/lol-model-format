@@ -85,7 +85,13 @@ module LolModelFormat
                 bind_poses_array = []
 
                 @model["skeleton-names"].each do |joint_name|
-                    bind_poses_array += @lol_model.skeleton_file.bones[@lol_model.bone_name_to_index_map[joint_name]].transform.getInverse.getTransposed.to_a
+                    bind_poses_array += @lol_model.skeleton_file.bones[
+                            # bone id remapping
+                            @lol_model.remap_bone_index(
+                                # bone name to bone original id
+                                @lol_model.bone_name_to_index_map[joint_name]
+                            )                            
+                        ].transform.getInverse.getTransposed.to_a
                 end
 
                 #bone_name_to_index_map
@@ -101,6 +107,8 @@ module LolModelFormat
                 #["anm_bones"] = []
 
                 @lol_model.static_skeleton
+
+                @enable_animation = true
 
 
 

@@ -3,15 +3,19 @@ require 'lol_model_format/base_types'
 module LolModelFormat
     
     class AnmFile < BinData::Record
+        ID_SIZE = 8
+
         endian :little
         
-        uint32 :magic_1
-        uint32 :magic_2
+        #uint32 :magic_1
+        #uint32 :magic_2
+
+        string :id, :length => ID_SIZE #, :trim_padding => true
         uint32 :version, :check_value => lambda { 
                     value == 0 || value == 1 || value == 2 || value == 3
                     #Version 4 and above is not supported yet
                 }
-        uint32 :magic_3
+        uint32 :magic
         uint32 :number_of_bones , :value => lambda { bones.size }
         uint32 :number_of_frames ,
                #they should be the same but we just pick the first one here
@@ -33,19 +37,22 @@ module LolModelFormat
                 quaternion :orientation_origin
                 vector3 :position_origin
                 
+                #OK
                 def orientation            	
                     @orientation ||= RQuat.new(orientation_origin.x.value, orientation_origin.y.value,
                         orientation_origin.z.value, orientation_origin.w.value)
                     @orientation
                 end
                 
+                #OK
                 def position
                     @position ||= RVec3.new(position_origin.x.value, position_origin.y.value, position_origin.z.value)
                     @position
                 end
 
+                #TODO validate
                 def transform
-                    @readable_transform ||= RMtx4.new.setIdentity.rotationQuaternion(orientation) * RMtx4.new.setIdentity.translation(position.x, position.y, position.z).getTransposed
+                    @readable_transform ||= RMtx4.new.setIdentity.rotationQuaternion(orientation) * RMtx4.new.setIdentity.translation(position.x, position.y, position.z) #.getTransposed
                     @readable_transform
                 end
             end

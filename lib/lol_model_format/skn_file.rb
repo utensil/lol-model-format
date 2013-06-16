@@ -5,7 +5,7 @@ module LolModelFormat
       endian :little
       
       uint32 :magic
-      uint16 :version
+      uint16 :version, :check_value => lambda { value == 1 || value == 2 }
       uint16 :num_of_objects
       uint32 :num_of_material_headers, :value => lambda { material_headers.size }
       
@@ -60,10 +60,12 @@ module LolModelFormat
       end
       
       array :vertices, :type => :skn_vertex, 
-            :read_until => lambda { index == num_of_vertices - 1 } 
+            :read_until => lambda { index == num_of_vertices - 1 }
+
+      END_TAG_SIZE = 3
       
       array :end_tab, :type => :uint32, 
-            :read_until => lambda { index == 3 - 1 }, 
+            :read_until => lambda { index == END_TAG_SIZE - 1 }, 
             :only_if => lambda { version == 2 }
     end
 end
