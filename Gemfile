@@ -1,4 +1,4 @@
-if ENV['TRAVIS']
+if ENV['TRAVIS'] || ENV['CI']
     source 'https://rubygems.org'
 else
     source 'http://ruby.taobao.org'
