@@ -256,7 +256,7 @@ module LolModelFormat
                 
                 b.index = i
                 b.name = bone.name
-                b.parent_id = bone.parent_id
+                b.parent_id = bone.parent_id.to_i
                 b.scale = bone.scale
 
                 b.orientation = bone.orientation
@@ -331,6 +331,8 @@ module LolModelFormat
         def remap_bone_index(bone_index_orig)
 
             bone_index = 0
+
+            bone_index_orig = bone_index_orig.to_i
             
             if @skeleton_file.version == 2 || @skeleton_file.version == 0
                 if bone_index_orig < @skeleton_file.bone_ids.size     
@@ -344,7 +346,7 @@ module LolModelFormat
                 bone_index = bone_index_orig
             end
             
-            bone_index
+            bone_index.to_i
         end
 
         def get_animated_vertice_frames(vertices, anm_file)
