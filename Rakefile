@@ -16,7 +16,7 @@ task :build_ruby_math_3d do |t|
       puts Dir.pwd
       FileUtils.rm(File.expand_path('./Makefile', Dir.pwd), :force => true)   # never raises exception
       system "#{Gem.ruby} #{File.expand_path('./extconf.rb', Dir.pwd)}"
-      puts IO.read(File.expand_path('./Makefile', Dir.pwd))
+      #puts IO.read(File.expand_path('./Makefile', Dir.pwd))
       system 'make'
     end
   end

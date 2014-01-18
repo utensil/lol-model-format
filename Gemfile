@@ -1,12 +1,6 @@
-if ENV['TRAVIS'] || ENV['CI']
-    source 'https://rubygems.org'
-else
-    source 'http://ruby.taobao.org'
-end
+source 'https://rubygems.org'
 
 gem 'bindata'
-
-gem 'nokogiri'
 gem 'haml'
 
 group :test do

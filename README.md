@@ -6,11 +6,11 @@ Reading, writing and parsing model formats used in the game League of Legends, a
 Development Status
 -------------------
 
-
 [![Build Status](https://travis-ci.org/utensil/lol-model-format.png?branch=master)](https://travis-ci.org/utensil/lol-model-format)
 [![Code Coverage](https://coveralls.io/repos/utensil/lol-model-format/badge.png)](https://coveralls.io/r/utensil/lol-model-format)
 [![Dependency Status](https://gemnasium.com/utensil/lol-model-format.png)](https://gemnasium.com/utensil/lol-model-format)
 [![Code Quality](https://codeclimate.com/github/utensil/lol-model-format.png)](https://codeclimate.com/github/utensil/lol-model-format)
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/utensil/lol-model-format/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
 
 Early stage. Use the code at your own risk.
 
@@ -47,8 +47,4 @@ Copyright (c) 2011-2012 Utensil Song (https://github.com/utensil)
 
 
 
-
-
-
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/utensil/lol-model-format/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
 

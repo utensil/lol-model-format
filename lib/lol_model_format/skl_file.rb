@@ -11,7 +11,7 @@ module LolModelFormat
         string :id, :length => ID_SIZE #, :trim_padding => true
 
         # newest version is 0, and it's not fully understood yet
-        uint32 :version, :check_value => lambda { value == 1 || value == 2 }
+        uint32 :version, :assert => lambda { value == 1 || value == 2 }
         uint32 :designer_id
         uint32 :num_of_bones, :value => lambda { bones.size }
             

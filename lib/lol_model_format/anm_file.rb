@@ -11,7 +11,7 @@ module LolModelFormat
         #uint32 :magic_2
 
         string :id, :length => ID_SIZE #, :trim_padding => true
-        uint32 :version, :check_value => lambda { 
+        uint32 :version, :assert => lambda { 
                     value == 0 || value == 1 || value == 2 || value == 3
                     #Version 4 and above is not supported yet
                 }

@@ -5,7 +5,7 @@ module LolModelFormat
       endian :little
       
       uint32 :magic
-      uint16 :version, :check_value => lambda { value == 1 || value == 2 }
+      uint16 :version, :assert => lambda { value == 1 || value == 2 }
       uint16 :num_of_objects
       uint32 :num_of_material_headers, :value => lambda { material_headers.size }
       
